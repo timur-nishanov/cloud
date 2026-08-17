@@ -33,6 +33,7 @@
   /* поля и шаги сетки экрана 1920×1080 */
   --pad: 64px;
   --step: 60px;
+  --hero-gap: 88px; /* единый вертикальный зазор на attract */
 }
 
 @font-face{
@@ -190,7 +191,7 @@ body.attract-blue #s-attract{background:var(--blue);} /* на синем пат�
  /* логотип по центру, как в прошлом году */
 
 #attract-inner{
-  position:absolute;left:0;right:0;top:150px;margin:0 auto;
+  position:absolute;left:0;right:0;top:calc(96px + var(--hero-gap));margin:0 auto;
   width:1200px;z-index:3;
 }
 /* ЗАГОЛОВОК-УЗЕЛ: слова-плиты собраны в один прямоугольный блок.
@@ -238,32 +239,35 @@ body.attract-blue #word-rig .wp.plain{background:var(--white);}
 }
 body.attract-blue #attract-inner .sub{color:var(--white);}
 
-/* провод от подписи к CTA — связка «заголовок → подпись → кнопка» */
-#cta-wire{
-  position:absolute;left:0;right:0;bottom:382px;margin:0 auto;
-  width:18px;height:104px;z-index:3;
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-}
-#cta-wire .w-line{width:4px;flex:1;background:var(--black);}
-body.attract-blue #cta-wire .w-line{background:var(--white);}
-body.attract-blue #cta-wire .term{background:var(--white);}
-body.attract-blue #cta-wire .term::after{background:var(--blue);}
 
 /* тач-CTA: крупная деталь строго по центру (без transform-конфликтов) */
-#cta-wrap{
-  position:absolute;left:0;right:0;bottom:236px;margin:0 auto;
-  width:fit-content;z-index:3;
-}
+/* CTA в потоке под подписью: зазор до неё равен зазору от логотипа
+   до заголовка (--hero-gap) — вертикаль читается как один ритм */
+#cta-wrap{margin:var(--hero-gap) auto 0;width:fit-content;}
 #tap-cta{
   display:flex;align-items:center;gap:24px;
   font-family:var(--f-display);font-weight:900;font-size:44px;
-  background:var(--black);color:var(--white);
-  padding:36px 80px;border-radius:14px 14px 56px 14px;
+  /* синяя, чтобы не спорить с чёрной плитой «идеальный»:
+     чёрный остаётся у заголовка, синий — у действия */
+  background:var(--blue);color:var(--white);
+  border:3px solid var(--black);
+  padding:34px 78px;border-radius:14px 14px 56px 14px;
 }
-/* кнопка «дышит», приглашая коснуться; появление — на обёртке */
-#tap-cta{animation:ctaPulse 1.9s var(--e) infinite;}
-@keyframes ctaPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
+/* на синей теме синяя кнопка пропала бы — там она чёрная */
+body.attract-blue #tap-cta{background:var(--black);border-color:var(--black);}
+/* кнопка «дышит» — масштабом и цветом (синий ↔ чёрный, оба из палитры);
+   появление живёт на обёртке, чтобы transform не конфликтовал */
+#tap-cta{animation:ctaBreath 2.4s var(--e) infinite;}
+@keyframes ctaBreath{
+  0%,100%{transform:scale(1);background:var(--blue);}
+  50%{transform:scale(1.03);background:var(--black);}
+}
+/* на синей теме цвет не пульсирует — синяя кнопка слилась бы с фоном */
+body.attract-blue #tap-cta{animation:ctaScale 2.4s var(--e) infinite;}
+@keyframes ctaScale{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
 #tap-cta .term{background:var(--white);width:34px;height:34px;}
+#tap-cta .term::after{background:var(--blue);}
+body.attract-blue #tap-cta .term::after{background:var(--black);}
 #tap-cta .term::after{background:var(--black);animation:blink 1.6s var(--e) infinite;}
 @keyframes blink{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(.35);}}
 
@@ -298,13 +302,8 @@ body.attract-blue #cta-wire .term::after{background:var(--blue);}
   font-family:var(--f-display);font-weight:900;
   font-size:60px;line-height:1.0;text-align:center;
 }
-/* выделенное слово — на плашке-детали, как в заголовке attract */
-.inner h2 .hl{
-  display:inline-block;background:var(--blue);color:var(--white);
-  border:3px solid var(--black);border-radius:8px 8px 28px 8px;
-  padding:2px 22px 8px;margin:0 2px;
-  position:relative;top:-2px;
-}
+/* выделенное слово в заголовке — только цветом (брендбук) */
+.inner h2 .hl{color:var(--blue);}
 .inner .hint{font-size:22px;line-height:1.35;text-align:center;margin-top:16px;}
 
 /* карточка-деталь: срез угла, винты, кромка с отверстиями */
@@ -406,18 +405,23 @@ body.attract-blue #cta-wire .term::after{background:var(--blue);}
 }
 #task-grid.cols3 .t-type{font-size:14px;margin-bottom:12px;}
 /* заголовок ограничен строками — описания стоят на одной линии */
+/* высоту заголовку не фиксируем: описание идёт сразу под ним,
+   иначе у коротких заголовков появлялся провал */
 #task-grid h3{
-  font-size:21px;line-height:1.15;margin-bottom:10px;flex:none;
+  font-size:21px;line-height:1.15;margin-bottom:12px;flex:none;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
 }
-#task-grid.cols5 h3{height:73px;}
-#task-grid.cols3 h3{font-size:26px;height:90px;margin-bottom:12px;}
+#task-grid.cols3 h3{font-size:26px;margin-bottom:12px;}
 #task-grid p{
   font-size:15px;line-height:1.4;flex:none;max-width:58%;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
 #task-grid.cols3 p{font-size:17px;max-width:60%;}
-#task-actions{display:flex;justify-content:center;margin-top:32px;}
+/* кнопка на одной оси с «Назад» и прижата к правому краю */
+#task-actions{
+  position:absolute;right:var(--pad);bottom:44px;z-index:22;
+  display:flex;justify-content:flex-end;
+}
 #task-actions .btn{min-height:76px;font-size:21px;}
 
 /* ============================================================
