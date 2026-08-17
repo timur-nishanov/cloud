@@ -482,6 +482,7 @@ function unplace(idx){
   slot.classList.remove('filled','bad','has-icon');
   const chip = slot.querySelector('.chip'); if(chip) chip.remove();
   const tile = $(`.tile[data-sid="${sid}"]`); if(tile) tile.classList.remove('used');
+  if(state.selectedSvc) selectSvc(state.selectedSvc); /* освободившийся слот подсветить */
   updateCheckBtn();
 }
 function clearSlots(){
@@ -500,6 +501,9 @@ $('#clear-btn').addEventListener('click', ()=>{ if(!state.locked){ clearSlots();
 function selectSvc(sid){
   state.selectedSvc = sid;
   $$('#palette .tile').forEach(t=>t.classList.toggle('sel', t.dataset.sid===sid));
+  /* пока деталь «в руке» — свободные посадочные места подсвечены */
+  $$('#chain .slot').forEach(s=>
+    s.classList.toggle('open', !!sid && !s.classList.contains('filled')));
   showSvcInfo(sid);
 }
 function showSvcInfo(sid){

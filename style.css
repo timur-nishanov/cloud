@@ -470,6 +470,8 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
   font-family:var(--f-mono);font-size:14px;letter-spacing:.05em;text-transform:uppercase;
 }
 .slot.filled{border-style:solid;}
+/* деталь выбрана в палитре — свободные посадочные места приглашают */
+.slot.open{background:var(--grey-l);}
 .slot.hover-ok{background:var(--grey-l);}
 /* ошибка: чёрная мигающая обводка + розовый статус (красного в палитре нет) */
 .slot.bad{animation:badBlink 1.4s var(--e) 2;}
