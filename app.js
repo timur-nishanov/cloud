@@ -159,7 +159,8 @@ const DATA = {
 
 };
 const S = DATA.SERVICES;
-const FPS_STEP = 1000 / 12; /* фирменный «лоу ФПС»: дискретные шаги ~12 к/с */
+/* Моушн плавный (указание заказчика): steps()/«лоу-фпс» из 7.1 сняты. */
+const SIGNAL_MS = 260; /* мс на один пролёт между узлами цепочки */
 
 /* ============================================================
    УТИЛИТЫ / СЦЕНА
@@ -188,15 +189,15 @@ function stageRect(el){
   return { x:(r.left-s.left)/SCALE, y:(r.top-s.top)/SCALE, w:r.width/SCALE, h:r.height/SCALE };
 }
 
-/* пословное появление катами */
+/* пословное появление: слово плавно выезжает из-под маски */
 function words(el, text, done){
-  el.innerHTML = text.split(' ').map(w=>`<span class="w">${w}</span>`).join('');
+  el.innerHTML = text.split(' ').map(w=>`<span class="w"><i>${w}</i></span>`).join('');
   el.classList.add('words');
   const ws = el.querySelectorAll('.w');
   ws.forEach((w,i)=>setTimeout(()=>{
     w.classList.add('on');
     if(done && i===ws.length-1) done();
-  }, 120 + i*150));
+  }, 90 + i*120));
 }
 
 /* ============================================================
@@ -232,58 +233,69 @@ function go(id){
 }
 
 /* ============================================================
-   ATTRACT: фиксированная композиция фирменных деталей
-   (assets/details/ — базовые детали и коннекторы из брендбука;
-   статично, движется только лента тегов и CTA)
+   ATTRACT: собранный узел конструктора (идея бандла)
+   Детали из брендбука (assets/details/) выложены «лестницей»
+   и соединены проводами с терминалами — как в constructor-example.
+   Композиция фиксированная, ничего не дёргается.
    ============================================================ */
-/* тема attract: светлая по умолчанию, ?attract=blue — синий «маяк»
-   для стойки. На светлой детали идут в родном синем исполнении,
-   на синей — перекрашенные (белый/бежевый корпус; брендбук разрешает
-   перекрас линейных деталей). */
+/* тема: светлая по умолчанию, ?attract=blue — синий «маяк» для стойки */
 const ATTRACT_BLUE = /[?&]attract=blue/.test(location.search);
-const ATTRACT_DECO = [
-  {src:'capsule-3',  blue:'capsule-3--b',   x:150,  y:158,  w:150},
-  {src:'arc',        blue:'arc--w',         x:1290, y:96,   w:150},
-  {src:'disc-rays',  blue:'disc-rays',      x:1612, y:150,  w:168},
-  {src:'flange',     blue:'flange',         x:104,  y:406,  w:140},
-  {src:'cross',      blue:'cross--w',       x:1746, y:352,  w:116},
-  {src:'plate-dots', blue:'plate-dots--w',  x:224,  y:588,  w:130},
-  {src:'capsule',    blue:'capsule--w',     x:1682, y:512,  w:160},
-  {src:'plate-holes',blue:'plate-holes--b', x:96,   y:730,  w:148},
-  {src:'trapeze',    blue:'trapeze--w',     x:1622, y:716,  w:170},
-  {src:'quarter',    blue:'quarter--b',     x:308,  y:846,  w:126},
+
+/* узел-механизм: три заливные детали L «лестницей» с зазорами,
+   соединённые проводами под 45° с терминалами-креплениями
+   (язык из constructor-example). Координаты внутри #rig 840×760. */
+const RIG_PARTS = [
+  {src:'plate-dots-L--g', blue:'plate-dots-L--b', x:0,   y:470, w:270},
+  {src:'flange-L',        blue:'flange-L--b',     x:310, y:250, w:270},
+  {src:'plate-cut-L--k',  blue:'plate-cut-L--g',  x:580, y:30,  w:250},
 ];
-const ATTRACT_PRIMS = [
-  /* мелочь: бежевый/чб + шашка; цвет зависит от темы */
-  {t:'dot',    x:520,  y:132, s:22, c:'var(--beige)'},
-  {t:'ring',   x:1188, y:920, s:32},
-  {t:'checker',x:668,  y:948, s:40},
-  {t:'dot',    x:1520, y:892, s:18, c:'var(--black)'},
-  {t:'dot',    x:404,  y:250, s:14, c:ATTRACT_BLUE?'var(--white)':'var(--grey)'},
+const RIG_WIRES = [
+  {d:'M240 510 L330 420', a:[240,510], b:[330,420]},
+  /* верхний конец лежит на тёмной детали — терминал инвертируем */
+  {d:'M535 310 L625 220', a:[535,310], b:[625,220], invB:true},
 ];
+/* мелочь для ритма: две компактные группы, не россыпь по экрану */
+const ATTRACT_BITS = [
+  {t:'checker', x:120, y:200, s:36}, /* шашка-маркер над заголовком */
+];
+
 function buildAttract(){
   if(ATTRACT_BLUE){
     document.body.classList.add('attract-blue');
     $('#s-attract .logo').src = 'assets/logo/logo_full-mono_white.svg';
   }
-  const box = $('#attract-deco'); box.innerHTML='';
-  ATTRACT_DECO.forEach(d=>{
+  /* узел: детали + провода */
+  const rig = $('#rig');
+  rig.innerHTML = '';
+  RIG_PARTS.forEach(p=>{
     const img = document.createElement('img');
-    img.src = 'assets/details/'+(ATTRACT_BLUE ? d.blue : d.src)+'.svg';
-    img.style.left = d.x+'px'; img.style.top = d.y+'px'; img.style.width = d.w+'px';
-    box.appendChild(img);
+    img.src = 'assets/details/'+(ATTRACT_BLUE ? p.blue : p.src)+'.svg';
+    img.style.left=p.x+'px'; img.style.top=p.y+'px'; img.style.width=p.w+'px';
+    rig.appendChild(img);
   });
-  ATTRACT_PRIMS.forEach(p=>{
+  /* провода поверх деталей — как в конструкторе */
+  rig.insertAdjacentHTML('beforeend',
+    `<svg viewBox="0 0 840 760">${RIG_WIRES.map(w=>`<path d="${w.d}"/>`).join('')}</svg>`);
+  RIG_WIRES.forEach(w=>{
+    [[w.a,false],[w.b,!!w.invB]].forEach(([[x,y],inv])=>{
+      const t = document.createElement('span');
+      t.className = 'term'+(inv?' inv':'');
+      t.style.left=(x-13)+'px'; t.style.top=(y-13)+'px';
+      rig.appendChild(t);
+    });
+  });
+  /* декор-мелочь */
+  const deco = $('#attract-deco'); deco.innerHTML='';
+  ATTRACT_BITS.forEach(b=>{
     const el = document.createElement('div');
-    el.className = 'prim '+(p.t==='checker'?'checker':p.t);
-    el.style.left=p.x+'px'; el.style.top=p.y+'px';
-    el.style.width=el.style.height=p.s+'px';
-    if(p.c) el.style.background=p.c;
-    if(p.t==='checker') el.innerHTML='<i></i><i></i><i></i><i></i>';
-    box.appendChild(el);
+    el.className = b.t==='checker' ? 'checker' : 'bit '+b.t;
+    el.style.left=b.x+'px'; el.style.top=b.y+'px';
+    el.style.width=el.style.height=b.s+'px';
+    if(b.c) el.style.background=b.c;
+    if(b.t==='checker') el.innerHTML='<i></i><i></i><i></i><i></i>';
+    deco.appendChild(el);
   });
-  /* лента тегов-сервисов (контент — из слопового прототипа);
-     ряд дублируется для бесшовного цикла */
+  /* лента тегов-сервисов (список — из слопового прототипа) */
   const chips = Object.keys(S).map(id=>
     `<span class="tag-chip"><img src="assets/icons/${S[id].icon}.svg" alt="">${S[id].name}</span>`).join('');
   $('#tag-strip .row').innerHTML = chips + chips;
@@ -332,7 +344,7 @@ function renderTasks(){
       <p>${t.desc}</p>
     </div>`).join('');
   grid.querySelectorAll('.detail').forEach(card=>{
-    card.addEventListener('click', ()=>openTask(+card.dataset.i, card));
+    card.addEventListener('click', ()=>openTask(+card.dataset.i));
   });
   $('#task-random').style.display = build ? '' : 'none';
   $('#tasks-hint').textContent = build
@@ -341,48 +353,16 @@ function renderTasks(){
 }
 $('#task-random').addEventListener('click', ()=>{
   const n = DATA.BUILD_TASKS.length;
-  const i = Math.random()*n|0;
-  const card = $(`#task-grid .detail[data-i="${i}"]`);
-  openTask(i, card);
+  openTask(Math.random()*n|0);
 });
 
-/* match cut: клон карточки перелетает в шапку нового экрана
-   (движение только по H/V — манхэттен-путь, дискретные шаги) */
-function openTask(i, cardEl){
+/* переход к задаче: без морфинга и перелётов — экраны сменяются
+   плавным выездом контента (см. .cut) */
+function openTask(i){
   const build = state.mode==='build';
   state.task = build ? DATA.BUILD_TASKS[i] : DATA.READY_TASKS[i];
-  const from = cardEl ? stageRect(cardEl) : null;
-
   if(build) renderBuild(); else renderReady();
   go(build ? 's-build' : 's-ready');
-
-  const strip = $(build ? '#s-build .task-strip' : '#s-ready .task-strip');
-  if(!from){ return; }
-  const to = stageRect(strip);
-  const mc = $('#matchcut');
-  mc.textContent = state.task.title;
-  mc.style.display='flex';
-  strip.style.visibility='hidden';
-  let x = from.x, y = from.y;
-  const tx = to.x + to.w/2 - mc.offsetWidth/2, ty = to.y;
-  mc.style.left=x+'px'; mc.style.top=y+'px';
-  /* фаза 1: по вертикали, фаза 2: по горизонтали; шаги ~12fps */
-  const steps1 = 4, steps2 = 3;
-  let n = 0;
-  const iv = setInterval(()=>{
-    n++;
-    if(n<=steps1){ y += (ty-from.y)/steps1; }
-    else if(n<=steps1+steps2){ x += (tx-from.x)/steps2; }
-    mc.style.left=x+'px'; mc.style.top=y+'px';
-    if(n>=steps1+steps2){
-      clearInterval(iv);
-      mc.style.display='none';
-      strip.style.visibility='';
-      /* кат появления шапки */
-      strip.style.animation='none'; void strip.offsetWidth; strip.style.animation='';
-      strip.classList.add('cut');
-    }
-  }, FPS_STEP);
 }
 
 /* ============================================================
@@ -404,9 +384,8 @@ function drawTimer(){
   const m = String(Math.floor(state.timeLeft/60)).padStart(2,'0');
   const s = String(state.timeLeft%60).padStart(2,'0');
   t.querySelector('.t-num').textContent = `${m}:${s}`;
-  const cells = t.querySelectorAll('.t-cells i');
-  const on = Math.ceil(state.timeLeft / DATA.TIMER_SECONDS * cells.length);
-  cells.forEach((c,i)=>c.classList.toggle('off', i>=on));
+  t.querySelector('.t-rail span').style.width =
+    (state.timeLeft / DATA.TIMER_SECONDS * 100) + '%';
   t.classList.toggle('low', state.timeLeft<=10);
 }
 
@@ -432,8 +411,7 @@ function renderBuild(){
       <span class="role">${t.roles[i]||''}</span>`;
     slot.addEventListener('click', ()=>{ if(!state.locked) unplace(i); });
     chain.appendChild(slot);
-    const link = document.createElement('div'); link.className='link';
-    chain.appendChild(link);
+    chain.appendChild(makeLink());
   });
   const lamp = document.createElement('div'); lamp.className='lamp'; lamp.id='lamp';
   chain.appendChild(lamp);
@@ -456,7 +434,15 @@ function renderBuild(){
 function chipHTML(id){
   return `<div class="chip"><span class="pin"></span>
     ${ICONS[id]?`<span class="chip-ico">${iconImg(id)}</span>`:''}
-    <span>${S[id].name}</span></div>`;
+    <span>${S[id].name}</span>
+    <span class="edge"><i></i><i></i><i></i><i></i></span></div>`;
+}
+/* провод-связь: линия + терминалы-крепления на обоих концах */
+function makeLink(){
+  const l = document.createElement('div');
+  l.className = 'link';
+  l.innerHTML = '<span class="term sm"></span><span class="wire"></span><span class="term sm"></span>';
+  return l;
 }
 
 function place(sid, idx){
@@ -558,36 +544,45 @@ function centerXY(el){
   const r = stageRect(el), c = stageRect($('#chain'));
   return { x:r.x - c.x + r.w/2, y:r.y - c.y + r.h/2 };
 }
-function stopSignal(){ if(state.signalId){ clearInterval(state.signalId); state.signalId=null; } }
+function stopSignal(){ if(state.signalId){ cancelAnimationFrame(state.signalId); state.signalId=null; } }
 function runSignal(wrongIdx){
   const pulse = $('#pulse'), lamp = $('#lamp');
   const slots = $$('#chain .slot');
   const stopAt = wrongIdx.length ? Math.min(...wrongIdx) : -1;
-  const targetEl = stopAt===-1 ? lamp : slots[stopAt];
-  const start = centerXY(slots[0]);
-  const end = centerXY(targetEl);
-  let x = start.x;
-  const y = start.y;
+  /* импульс идёт по узлам: слот → слот → … → лампа,
+     останавливается на первой лишней детали */
+  const nodes = [];
+  for(let i=0;i<slots.length;i++){
+    nodes.push(centerXY(slots[i]));
+    if(i===stopAt) break;
+  }
+  if(stopAt===-1) nodes.push(centerXY(lamp));
   pulse.style.display='block';
-  pulse.style.left=(x-11)+'px'; pulse.style.top=(y-11)+'px';
-  const dist = Math.max(1, end.x - start.x);
-  const stepPx = Math.max(20, dist/24);
-  state.signalId = setInterval(()=>{
-    x += stepPx;
-    if(x>=end.x){
-      x=end.x;
-      pulse.style.left=(x-11)+'px';
-      stopSignal();
-      finishSignal(wrongIdx, stopAt);
-      return;
-    }
-    pulse.style.left=(x-11)+'px';
-  }, FPS_STEP);
+  const put = p => {
+    pulse.style.left=(p.x-8)+'px';
+    pulse.style.top=(p.y-8)+'px';
+  };
+  put(nodes[0]);
+  /* плавное движение: requestAnimationFrame, ease-out на каждом пролёте */
+  let leg = 0, t0 = 0;
+  const ease = t => 1-Math.pow(1-t,3);
+  function frame(ts){
+    if(!t0) t0 = ts;
+    const k = Math.min(1, (ts-t0)/SIGNAL_MS);
+    const a = nodes[leg], b = nodes[leg+1];
+    put({ x:a.x+(b.x-a.x)*ease(k), y:a.y+(b.y-a.y)*ease(k) });
+    if(k<1){ state.signalId = requestAnimationFrame(frame); return; }
+    leg++; t0 = 0;
+    if(leg < nodes.length-1){ state.signalId = requestAnimationFrame(frame); return; }
+    state.signalId = null;
+    finishSignal(wrongIdx, stopAt);
+  }
+  if(nodes.length>1) state.signalId = requestAnimationFrame(frame);
+  else finishSignal(wrongIdx, stopAt);
 }
 function finishSignal(wrongIdx, stopAt){
   const pulse = $('#pulse'), lamp = $('#lamp');
   if(wrongIdx.length){
-    /* сигнал застрял на первой лишней детали */
     wrongIdx.forEach(i=>$$('#chain .slot')[i].classList.add('bad'));
     showVerdict({
       title:'Почти!',
@@ -598,11 +593,12 @@ function finishSignal(wrongIdx, stopAt){
       ],
     });
   }else{
+    /* схема заработала: импульс гаснет, лампа включается */
     setTimeout(()=>{
       pulse.style.display='none';
-      lamp.classList.add('on'); /* лампа #BFFF00 */
-      setTimeout(()=>showResultBuildOk(), 700);
-    }, FPS_STEP);
+      lamp.classList.add('on');
+      setTimeout(showResultBuildOk, 900);
+    }, 120);
   }
 }
 function fixBuild(){
@@ -655,7 +651,7 @@ function renderReady(){
     el.className='bundle'; el.dataset.i=i;
     el.innerHTML = `
       <span class="b-letter">${String.fromCharCode(65+i)}</span>
-      <div class="b-chain">${b.services.map(id=>`<span>${S[id].name}</span>`).join('<span class="arrow"></span>')}</div>
+      <div class="b-chain">${b.services.map(id=>`<span>${S[id].name}</span>`).join('<span class="jn"></span>')}</div>
       <p>${b.desc}</p>`;
     el.addEventListener('click', ()=>{
       state.selectedBundle=i;
@@ -742,11 +738,11 @@ function showResult({title, sub, chain, lampOn, coin, cta, actions}){
       <span class="corner c3"></span><span class="corner c4"></span>`+chipHTML(sid);
     rc.appendChild(holder);
     if(i<chain.length-1){
-      const link=document.createElement('div'); link.className='link'; rc.appendChild(link);
+      rc.appendChild(makeLink());
     }
   });
   if(lampOn!==undefined){
-    const link=document.createElement('div'); link.className='link'; rc.appendChild(link);
+    rc.appendChild(makeLink());
     const lamp=document.createElement('div'); lamp.className='lamp'+(lampOn?' on':''); rc.appendChild(lamp);
   }
 

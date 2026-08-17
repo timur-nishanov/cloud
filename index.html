@@ -12,15 +12,16 @@
   <!-- ЭКРАН 1: ATTRACT (синий, «ИТ-ландшафт») -->
   <section class="screen active" id="s-attract">
     <div id="attract-deco"></div>
+    <div id="rig"></div>
     <div class="topbar">
       <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
     </div>
     <div id="attract-inner">
       <div class="eyebrow cut">Scale 2026 · Интерактив</div>
       <h1 class="cut d1">Собери свой<br>идеальный бандл</h1>
-      <p class="sub cut d2">Реальные задачи бизнеса решаются связками сервисов.
-        Проверь, соберёшь ли ты рабочую схему.</p>
-      <div id="tap-cta" class="cut d3">Коснитесь экрана</div>
+      <p class="sub cut d2">Каждый сервис — деталь. Рабочая связка — собранный механизм.
+        Проверь, соберётся ли схема.</p>
+      <div id="tap-cta" class="cut d3"><span class="term"></span>Коснитесь экрана</div>
     </div>
     <div id="tag-strip"><div class="row"></div></div>
   </section>
@@ -33,14 +34,14 @@
     <h2 class="cut">Как будем собирать <span class="hl">бандл</span>?</h2>
     <div id="mode-cards" class="cut d1">
       <div class="detail primary" data-mode="build">
-        <span class="hole h1"></span><span class="hole h2"></span><span class="hole h3"></span>
+        <span class="screw s1"></span><span class="screw s2"></span><span class="screw s3"></span>
         <h3>Собрать самому</h3>
         <p>Перетаскивай сервисы в слоты и составь связку с нуля. Для тех, кто хочет проверить себя.</p>
         <span class="tag">Drag &amp; Drop</span>
       </div>
       <div class="detail" data-mode="ready">
         <div class="coin-badge"><span class="coin"></span>монета за конкурс</div>
-        <span class="hole h1"></span><span class="hole h2"></span><span class="hole h3"></span>
+        <span class="screw s1"></span><span class="screw s2"></span><span class="screw s3"></span>
         <h3>Выбрать готовый бандл</h3>
         <p>Мы предложим несколько собранных бандлов — выбери тот, что лучше решает задачу.</p>
         <span class="tag">Быстрый режим</span>
@@ -114,7 +115,7 @@
 
   <!-- таймер (переезжает в шапку активного игрового экрана) -->
   <div id="timer"><span class="t-num">01:00</span>
-    <span class="t-cells"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <span class="t-rail"><span></span></span>
   </div>
 
   <!-- вердикт-панель (ошибка сборки: «Исправить») -->
@@ -124,8 +125,6 @@
     <div class="vb-actions"></div>
   </div>
 
-  <!-- клон для match cut -->
-  <div id="matchcut"></div>
   <!-- призрак перетаскивания -->
   <div id="drag-ghost"></div>
 
