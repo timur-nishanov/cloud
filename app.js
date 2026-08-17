@@ -233,72 +233,116 @@ function go(id){
 }
 
 /* ============================================================
-   ATTRACT: собранный узел конструктора (идея бандла)
-   Детали из брендбука (assets/details/) выложены «лестницей»
-   и соединены проводами с терминалами — как в constructor-example.
-   Композиция фиксированная, ничего не дёргается.
+   ATTRACT: заголовок собран из деталей конструктора
+   Каждое слово лежит на своей плите, плиты соединены проводами
+   с терминалами — заголовок сам демонстрирует идею сборки.
    ============================================================ */
-/* тема: светлая по умолчанию, ?attract=blue — синий «маяк» для стойки */
 const ATTRACT_BLUE = /[?&]attract=blue/.test(location.search);
 
-/* узел-механизм: три заливные детали L «лестницей» с зазорами,
-   соединённые проводами под 45° с терминалами-креплениями
-   (язык из constructor-example). Координаты внутри #rig 840×760. */
-const RIG_PARTS = [
-  {src:'plate-dots-L--g', blue:'plate-dots-L--b', x:0,   y:470, w:270},
-  {src:'flange-L',        blue:'flange-L--b',     x:310, y:250, w:270},
-  {src:'plate-cut-L--k',  blue:'plate-cut-L--g',  x:580, y:30,  w:250},
+/* слова-детали: x,y — внутри #word-rig (1180×430) */
+const HERO_WORDS = [
+  {t:'Собери',    cls:'blue',  x:70,  y:0,   fs:96},
+  {t:'свой',      cls:'plain', x:520, y:26,  fs:82},
+  {t:'идеальный', cls:'black', x:150, y:158, fs:96},
+  {t:'бандл',     cls:'beige', x:700, y:274, fs:110},
 ];
-const RIG_WIRES = [
-  {d:'M240 510 L330 420', a:[240,510], b:[330,420]},
-  /* верхний конец лежит на тёмной детали — терминал инвертируем */
-  {d:'M535 310 L625 220', a:[535,310], b:[625,220], invB:true},
+/* провода между плитами (терминалы на концах) */
+const HERO_WIRES = [
+  {d:'M470 62 H505',        a:[470,62],  b:[505,62]},
+  {d:'M560 130 V158',       a:[560,130], b:[560,158]},
+  {d:'M600 262 L672 302',   a:[600,262], b:[672,302]},
 ];
-/* мелочь для ритма: две компактные группы, не россыпь по экрану */
-const ATTRACT_BITS = [
-  {t:'checker', x:120, y:200, s:36}, /* шашка-маркер над заголовком */
-];
+/* детали-«крылья»: координаты внутри .rig (330×620) */
+const RIG_L = {
+  parts:[
+    {src:'disc-L--g',      blue:'disc-L--b',      x:20,  y:40,  w:200},
+    {src:'plate-cut-L--k', blue:'plate-cut-L--g', x:110, y:300, w:190},
+  ],
+  wires:[{d:'M150 220 L200 270', a:[150,220], b:[200,270], invB:true}],
+};
+const RIG_R = {
+  parts:[
+    {src:'plate-dots-L--b', blue:'plate-dots-L--k', x:120, y:30,  w:195},
+    {src:'flange-L',        blue:'flange-L--b',     x:20,  y:290, w:215},
+  ],
+  wires:[{d:'M180 240 L130 290', a:[180,240], b:[130,290]}],
+};
+
+function buildRig(sel, cfg){
+  const el = $(sel); el.innerHTML='';
+  cfg.parts.forEach(p=>{
+    const img = document.createElement('img');
+    img.src = 'assets/details/'+(ATTRACT_BLUE ? p.blue : p.src)+'.svg';
+    img.style.left=p.x+'px'; img.style.top=p.y+'px'; img.style.width=p.w+'px';
+    el.appendChild(img);
+  });
+  el.insertAdjacentHTML('beforeend',
+    `<svg viewBox="0 0 330 620">${cfg.wires.map(w=>`<path d="${w.d}"/>`).join('')}</svg>`);
+  cfg.wires.forEach(w=>{
+    [[w.a,false],[w.b,!!w.invB]].forEach(([[x,y],inv])=>{
+      const t=document.createElement('span');
+      t.className='term'+(inv?' inv':'');
+      t.style.left=(x-13)+'px'; t.style.top=(y-13)+'px';
+      el.appendChild(t);
+    });
+  });
+}
 
 function buildAttract(){
   if(ATTRACT_BLUE){
     document.body.classList.add('attract-blue');
     $('#s-attract .logo').src = 'assets/logo/logo_full-mono_white.svg';
   }
-  /* узел: детали + провода */
-  const rig = $('#rig');
-  rig.innerHTML = '';
-  RIG_PARTS.forEach(p=>{
-    const img = document.createElement('img');
-    img.src = 'assets/details/'+(ATTRACT_BLUE ? p.blue : p.src)+'.svg';
-    img.style.left=p.x+'px'; img.style.top=p.y+'px'; img.style.width=p.w+'px';
-    rig.appendChild(img);
+  /* заголовок-конструктор */
+  const wr = $('#word-rig');
+  wr.innerHTML = `<svg viewBox="0 0 1180 430">${HERO_WIRES.map(w=>`<path d="${w.d}"/>`).join('')}</svg>`;
+  HERO_WORDS.forEach(w=>{
+    const el = document.createElement('div');
+    el.className = 'wp '+w.cls;
+    el.style.left=w.x+'px'; el.style.top=w.y+'px'; el.style.fontSize=w.fs+'px';
+    el.innerHTML = `<span>${w.t}</span>`;
+    wr.appendChild(el);
   });
-  /* провода поверх деталей — как в конструкторе */
-  rig.insertAdjacentHTML('beforeend',
-    `<svg viewBox="0 0 840 760">${RIG_WIRES.map(w=>`<path d="${w.d}"/>`).join('')}</svg>`);
-  RIG_WIRES.forEach(w=>{
-    [[w.a,false],[w.b,!!w.invB]].forEach(([[x,y],inv])=>{
-      const t = document.createElement('span');
-      t.className = 'term'+(inv?' inv':'');
-      t.style.left=(x-13)+'px'; t.style.top=(y-13)+'px';
-      rig.appendChild(t);
+  HERO_WIRES.forEach(w=>{
+    [w.a,w.b].forEach(([x,y])=>{
+      const t=document.createElement('span');
+      t.className='term sm';
+      t.style.left=(x-9)+'px'; t.style.top=(y-9)+'px';
+      wr.appendChild(t);
     });
   });
-  /* декор-мелочь */
-  const deco = $('#attract-deco'); deco.innerHTML='';
-  ATTRACT_BITS.forEach(b=>{
-    const el = document.createElement('div');
-    el.className = b.t==='checker' ? 'checker' : 'bit '+b.t;
-    el.style.left=b.x+'px'; el.style.top=b.y+'px';
-    el.style.width=el.style.height=b.s+'px';
-    if(b.c) el.style.background=b.c;
-    if(b.t==='checker') el.innerHTML='<i></i><i></i><i></i><i></i>';
-    deco.appendChild(el);
-  });
-  /* лента тегов-сервисов (список — из слопового прототипа) */
+  /* крылья по бокам */
+  buildRig('#rig-l', RIG_L);
+  buildRig('#rig-r', RIG_R);
+  /* графика в карточках режима */
+  buildModeArt();
+  /* лента тегов-деталей (список сервисов — из слопового прототипа) */
   const chips = Object.keys(S).map(id=>
     `<span class="tag-chip"><img src="assets/icons/${S[id].icon}.svg" alt="">${S[id].name}</span>`).join('');
   $('#tag-strip .row').innerHTML = chips + chips;
+}
+
+/* графика на карточках режима: слева — отдельные детали (собрать самому),
+   справа — собранный узел (готовый бандл) */
+function buildModeArt(){
+  const parts = $('#mode-cards .m-art[data-art="parts"]');
+  if(parts){
+    /* «собрать самому»: детали ещё не соединены — лежат россыпью */
+    parts.innerHTML = `
+      <img src="assets/details/plate-dots-L--w.svg" style="left:0;top:104px;width:132px">
+      <img src="assets/details/disc-L--w.svg" style="left:158px;top:20px;width:120px">
+      <img src="assets/details/plate-cut-L--w.svg" style="left:130px;top:158px;width:122px">`;
+  }
+  const rig = $('#mode-cards .m-art[data-art="rig"]');
+  if(rig){
+    /* «готовый бандл»: детали уже соединены проводом — механизм собран */
+    rig.innerHTML = `
+      <img src="assets/details/plate-cut-L--g.svg" style="left:0;top:140px;width:140px">
+      <img src="assets/details/flange-L.svg" style="left:140px;top:10px;width:150px">
+      <svg viewBox="0 0 290 280"><path d="M118 168 L158 128"/></svg>
+      <span class="term" style="left:105px;top:155px"></span>
+      <span class="term" style="left:145px;top:115px"></span>`;
+  }
 }
 
 $('#s-attract').addEventListener('pointerup', ()=>go('s-mode'));
@@ -406,8 +450,9 @@ function renderBuild(){
     const slot = document.createElement('div');
     slot.className='slot'; slot.dataset.idx=i;
     slot.innerHTML = `
-      <span class="corner c1"></span><span class="corner c2"></span>
-      <span class="corner c3"></span><span class="corner c4"></span>
+      <span class="screw c1"></span><span class="screw c2"></span>
+      <span class="screw c3"></span><span class="screw c4"></span>
+      <span class="holes"><i></i><i></i><i></i><i></i></span>
       <span class="role">${t.roles[i]||''}</span>`;
     slot.addEventListener('click', ()=>{ if(!state.locked) unplace(i); });
     chain.appendChild(slot);
@@ -586,10 +631,10 @@ function finishSignal(wrongIdx, stopAt){
     wrongIdx.forEach(i=>$$('#chain .slot')[i].classList.add('bad'));
     showVerdict({
       title:'Почти!',
-      sub:'Сигнал застрял: лишние детали подсвечены. Замени их — и проверь ещё раз.',
+      sub:'Сигнал застрял на лишней детали. Замени её — или посмотри рабочую связку.',
       actions:[
         {label:'Исправить', cls:'', fn:fixBuild},
-        {label:'В начало', cls:'secondary', fn:()=>go('s-attract')},
+        {label:'Показать связку', cls:'secondary', fn:revealAnswer},
       ],
     });
   }else{
@@ -600,6 +645,18 @@ function finishSignal(wrongIdx, stopAt){
       setTimeout(showResultBuildOk, 900);
     }, 120);
   }
+}
+/* «Показать связку»: эталон появляется в вердикте, сборка остаётся на экране */
+function revealAnswer(){
+  showVerdict({
+    title:'Вот рабочая связка',
+    sub:'Именно так эту задачу решают на платформе данных.',
+    ref:state.task.correct,
+    actions:[
+      {label:'Ещё задачу', cls:'', fn:()=>{ renderTasks(); go('s-tasks'); }},
+      {label:'В начало', cls:'secondary', fn:()=>go('s-attract')},
+    ],
+  });
 }
 function fixBuild(){
   hideVerdict();
@@ -637,6 +694,13 @@ function showResultBuildOk(){
 /* ============================================================
    ЭКРАН 4B: ГОТОВЫЕ БАНДЛЫ
    ============================================================ */
+/* связка как мини-схема: деталь → провод → деталь → … → лампа */
+function bundleSchema(ids){
+  const parts = ids.map(id=>
+    `<span class="b-part"><span class="pin"></span>${iconImg(id)}${S[id].name}</span>`);
+  return parts.join('<span class="b-jn"><i></i><i></i></span>')
+    + '<span class="b-jn"><i></i><i></i></span><span class="b-lamp"></span>';
+}
 function renderReady(){
   const t = state.task;
   state.selectedBundle = -1;
@@ -651,7 +715,7 @@ function renderReady(){
     el.className='bundle'; el.dataset.i=i;
     el.innerHTML = `
       <span class="b-letter">${String.fromCharCode(65+i)}</span>
-      <div class="b-chain">${b.services.map(id=>`<span>${S[id].name}</span>`).join('<span class="jn"></span>')}</div>
+      <div class="b-chain">${bundleSchema(b.services)}</div>
       <p>${b.desc}</p>`;
     el.addEventListener('click', ()=>{
       state.selectedBundle=i;
@@ -707,11 +771,15 @@ function timeoutReady(){
 /* ============================================================
    ВЕРДИКТ-ПАНЕЛЬ (поверх сборки) И ЭКРАН РЕЗУЛЬТАТА
    ============================================================ */
-function showVerdict({title, sub, actions}){
+function showVerdict({title, sub, actions, ref}){
   const v = $('#verdict-bar');
   v.classList.add('show');
   words(v.querySelector('.vb-title'), title);
   v.querySelector('.vb-sub').textContent = sub;
+  /* эталонная связка схемой — как в прототипе заказчика */
+  const refBox = v.querySelector('.vb-ref');
+  refBox.classList.toggle('show', !!ref);
+  if(ref) refBox.querySelector('.row').innerHTML = bundleSchema(ref);
   const box = v.querySelector('.vb-actions'); box.innerHTML='';
   actions.forEach(a=>{
     const b = document.createElement('button');
@@ -734,8 +802,8 @@ function showResult({title, sub, chain, lampOn, coin, cta, actions}){
     const holder = document.createElement('div');
     holder.className='slot filled'+(ICONS[sid]?' has-icon':'');
     holder.innerHTML = `
-      <span class="corner c1"></span><span class="corner c2"></span>
-      <span class="corner c3"></span><span class="corner c4"></span>`+chipHTML(sid);
+      <span class="screw c1"></span><span class="screw c2"></span>
+      <span class="screw c3"></span><span class="screw c4"></span>`+chipHTML(sid);
     rc.appendChild(holder);
     if(i<chain.length-1){
       rc.appendChild(makeLink());
