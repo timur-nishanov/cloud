@@ -239,14 +239,13 @@ function go(id){
    ============================================================ */
 const ATTRACT_BLUE = /[?&]attract=blue/.test(location.search);
 
-/* слова-плиты заголовка: две колонки (170 / 630) и ровный шаг строк —
-   композиция читается как аккуратно собранный блок, без «пляски».
-   Капсулы-соединители убраны до согласования (TODO: вернуть стык?) */
-const HERO_WORDS = [
-  {t:'Собери',    cls:'blue',  x:170, y:0,   fs:96},
-  {t:'свой',      cls:'plain', x:630, y:8,   fs:84},
-  {t:'идеальный', cls:'black', x:170, y:138, fs:96},
-  {t:'бандл',     cls:'beige', x:630, y:276, fs:104},
+/* слова-плиты заголовка: два ряда flex-плит, кромка к кромке.
+   Свободная ячейка ряда закрыта деталью-капсулой — заголовок читается
+   как один собранный узел, а не как «пляска» слов.
+   (TODO: вернуть капсулы-стыки между плитами?) */
+const HERO_ROWS = [
+  [ {t:'Собери', cls:'blue', fs:104}, {t:'свой', cls:'plain', fs:104}, {cap:true} ],
+  [ {t:'идеальный', cls:'black', fs:104, grow:true}, {t:'бандл', cls:'beige', fs:104} ],
 ];
 
 function buildAttract(){
@@ -257,12 +256,23 @@ function buildAttract(){
   /* заголовок-конструктор */
   const wr = $('#word-rig');
   wr.innerHTML = '';
-  HERO_WORDS.forEach(w=>{
-    const el = document.createElement('div');
-    el.className = 'wp '+w.cls;
-    el.style.left=w.x+'px'; el.style.top=w.y+'px'; el.style.fontSize=w.fs+'px';
-    el.innerHTML = `<span>${w.t}</span>`;
-    wr.appendChild(el);
+  HERO_ROWS.forEach(row=>{
+    const r = document.createElement('div');
+    r.className = 'wrow';
+    row.forEach(w=>{
+      const el = document.createElement('div');
+      if(w.cap){
+        el.className = 'wcap';
+        el.innerHTML = `<span class="screw s1"></span><span class="screw s3"></span>
+          <img src="assets/details/capsule-3.svg" alt="">`;
+      }else{
+        el.className = 'wp '+w.cls+(w.grow?' grow':'');
+        el.style.fontSize = w.fs+'px';
+        el.innerHTML = `<span>${w.t}</span>`;
+      }
+      r.appendChild(el);
+    });
+    wr.appendChild(r);
   });
   buildModeArt();
   const chips = Object.keys(S).map(id=>
@@ -273,25 +283,30 @@ function buildAttract(){
 /* графика на карточках режима: слева — отдельные детали (собрать самому),
    справа — собранный узел (готовый бандл) */
 function buildModeArt(){
+  /* Композиции крупные, стоят на общей нижней кромке и выглядывают
+     за кромку карточки — карточка обрезает их по срезу угла.
+     Габарит 330×326, детали по одной сетке. */
   const parts = $('#mode-cards .m-art[data-art="parts"]');
   if(parts){
-    /* «собрать самому»: детали ещё не соединены — лежат россыпью */
+    /* «собрать самому»: детали ещё не состыкованы — лежат с зазорами */
     parts.innerHTML = `
-      <img src="assets/details/plate-dots-L--w.svg" style="left:0;top:104px;width:132px">
-      <img src="assets/details/disc-L--w.svg" style="left:158px;top:20px;width:120px">
-      <img src="assets/details/plate-cut-L--w.svg" style="left:130px;top:158px;width:122px">`;
+      <img src="assets/details/plate-cut-L--w.svg" style="left:172px;top:8px;width:130px">
+      <img src="assets/details/disc-L--w.svg" style="left:0;top:30px;width:142px">
+      <img src="assets/details/plate-holes-L--w.svg" style="left:8px;top:196px;width:300px">`;
   }
   const rig = $('#mode-cards .m-art[data-art="rig"]');
   if(rig){
-    /* «готовый бандл»: детали уже соединены проводом — механизм собран */
+    /* «готовый бандл»: детали состыкованы кромка в кромку,
+       терминалы ровно на стыках — механизм собран */
     rig.innerHTML = `
-      <img src="assets/details/plate-cut-L--g.svg" style="left:10px;top:110px;width:120px">
-      <img src="assets/details/flange-L.svg" style="left:140px;top:20px;width:110px">
-      <svg viewBox="0 0 250 240"><path d="M128 140 L160 108"/></svg>
-      <span class="term" style="left:115px;top:127px"></span>
-      <span class="term" style="left:147px;top:95px"></span>`;
+      <img src="assets/details/disc-L.svg" style="left:18px;top:52px;width:142px">
+      <img src="assets/details/plate-cut-L.svg" style="left:172px;top:64px;width:130px">
+      <img src="assets/details/plate-holes-L.svg" style="left:8px;top:196px;width:300px">
+      <span class="term" style="left:76px;top:180px"></span>
+      <span class="term" style="left:224px;top:180px"></span>`;
   }
 }
+
 
 $('#s-attract').addEventListener('pointerup', ()=>go('s-mode'));
 
@@ -542,6 +557,7 @@ function stopSignal(){ if(state.signalId){ cancelAnimationFrame(state.signalId);
 function runSignal(wrongIdx){
   const pulse = $('#pulse'), lamp = $('#lamp');
   const slots = $$('#chain .slot');
+  const links = $$('#chain .link');
   const stopAt = wrongIdx.length ? Math.min(...wrongIdx) : -1;
   /* импульс идёт по узлам: слот → слот → … → лампа,
      останавливается на первой лишней детали */
@@ -551,23 +567,46 @@ function runSignal(wrongIdx){
     if(i===stopAt) break;
   }
   if(stopAt===-1) nodes.push(centerXY(lamp));
+
+  /* след импульса: провод дорисовывается синхронно с движением,
+     а обводка детали загорается в момент прибытия — так видно,
+     что схема оживает по пути, а не отдельно от точки */
+  const legMs = SIGNAL_MS;
+  document.documentElement.style.setProperty('--signal', legMs+'ms');
+  const litNode = i => {
+    if(i >= slots.length) return;                 /* лампа — отдельно */
+    slots[i].classList.add(i===stopAt ? 'lit-bad' : 'lit');
+  };
+  const drawLink = i => {
+    if(!links[i]) return;
+    /* провод в лишнюю деталь дорисовывается розовым */
+    links[i].classList.toggle('bad', (i+1)===stopAt);
+    links[i].classList.add('drawing');
+  };
+
   pulse.style.display='block';
   const put = p => {
     pulse.style.left=(p.x-8)+'px';
     pulse.style.top=(p.y-8)+'px';
   };
   put(nodes[0]);
-  /* плавное движение: requestAnimationFrame, ease-out на каждом пролёте */
+  litNode(0);          /* первая деталь загорается сразу под импульсом */
+  drawLink(0);         /* и сразу поехал след по первому проводу */
+
   let leg = 0, t0 = 0;
   const ease = t => 1-Math.pow(1-t,3);
   function frame(ts){
     if(!t0) t0 = ts;
-    const k = Math.min(1, (ts-t0)/SIGNAL_MS);
+    const k = Math.min(1, (ts-t0)/legMs);
     const a = nodes[leg], b = nodes[leg+1];
     put({ x:a.x+(b.x-a.x)*ease(k), y:a.y+(b.y-a.y)*ease(k) });
     if(k<1){ state.signalId = requestAnimationFrame(frame); return; }
     leg++; t0 = 0;
-    if(leg < nodes.length-1){ state.signalId = requestAnimationFrame(frame); return; }
+    litNode(leg);      /* дошли до узла — его обводка загорелась */
+    if(leg < nodes.length-1){
+      drawLink(leg);   /* и пошёл след по следующему проводу */
+      state.signalId = requestAnimationFrame(frame); return;
+    }
     state.signalId = null;
     finishSignal(wrongIdx, stopAt);
   }
@@ -610,7 +649,11 @@ function revealAnswer(){
 }
 function fixBuild(){
   hideVerdict();
-  $('#chain').classList.remove('live');
+  const chain = $('#chain');
+  chain.classList.remove('live');
+  /* стереть след импульса, чтобы проверка началась с чистой схемы */
+  $$('#chain .link').forEach(l=>l.classList.remove('drawing','bad'));
+  $$('#chain .slot').forEach(sl=>sl.classList.remove('lit','lit-bad'));
   state.locked=false;
   $$('#chain .slot.bad').forEach(s=>s.classList.remove('bad'));
   $('#pulse').style.display='none';
@@ -725,6 +768,7 @@ function timeoutReady(){
 function showVerdict({title, sub, actions, ref}){
   const v = $('#verdict-bar');
   v.classList.add('show');
+  document.body.classList.add('verdict-on'); /* панель перекрывала кнопки сборки */
   words(v.querySelector('.vb-title'), title);
   v.querySelector('.vb-sub').textContent = sub;
   /* эталонная связка схемой — как в прототипе заказчика */
@@ -739,7 +783,10 @@ function showVerdict({title, sub, actions, ref}){
     box.appendChild(b);
   });
 }
-function hideVerdict(){ $('#verdict-bar').classList.remove('show'); }
+function hideVerdict(){
+  $('#verdict-bar').classList.remove('show');
+  document.body.classList.remove('verdict-on');
+}
 
 function showResult({title, sub, chain, lampOn, coin, cta, actions}){
   go('s-result');

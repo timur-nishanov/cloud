@@ -1,6 +1,0 @@
-<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M400 400H300C134.315 400 0 265.685 0 100V0H400V400Z" fill="#2A9FFF"/>
-<rect width="20" height="20" rx="10" transform="matrix(4.37114e-08 1 1 -4.37114e-08 30 30)" fill="white"/>
-<rect width="20" height="20" rx="10" transform="matrix(4.37114e-08 1 1 -4.37114e-08 350 350)" fill="white"/>
-<rect width="80" height="80" rx="40" transform="matrix(1 0 0 -1 280 120)" fill="white"/>
-</svg>

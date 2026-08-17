@@ -1,7 +1,0 @@
-<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M0 40C0 17.9086 17.9086 0 40 0H360C382.091 0 400 17.9086 400 40V360C400 382.091 382.091 400 360 400H40C17.9086 400 0 382.091 0 360V40Z" fill="#2A9FFF"/>
-<rect x="40" y="40" width="80" height="80" rx="40" fill="white"/>
-<rect x="160" y="160" width="80" height="80" rx="40" fill="white"/>
-<rect x="280" y="280" width="80" height="80" rx="40" fill="white"/>
-<rect x="340" y="40" width="20" height="20" rx="10" fill="white"/>
-</svg>
