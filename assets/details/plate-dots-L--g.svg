@@ -1,0 +1,13 @@
+<svg width="560" height="560" viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0H500C533.137 0 560 26.8629 560 60V500C560 533.137 533.137 560 500 560H60C26.8629 560 0 533.137 0 500V0Z" fill="#B0BDD9"/>
+<rect width="80" height="80" rx="40" transform="matrix(1 0 0 -1 40 120)" fill="#FFFFFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 260 300)" fill="#FFFFFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 260 200)" fill="#FFFFFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 260 100)" fill="#FFFFFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 260 500)" fill="#FFFFFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 260 400)" fill="#FFFFFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(-4.37114e-08 1 1 4.37114e-08 360 260)" fill="#FFFFFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(-4.37114e-08 1 1 4.37114e-08 460 260)" fill="#FFFFFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(-4.37114e-08 1 1 4.37114e-08 60 260)" fill="#FFFFFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(-4.37114e-08 1 1 4.37114e-08 160 260)" fill="#FFFFFF"/>
+</svg>
