@@ -405,7 +405,6 @@ function renderBuild(){
   state.slots = new Array(t.correct.length).fill(null);
   state.locked = false;
   const strip = $('#s-build .task-strip');
-  strip.querySelector('.ts-type').textContent = t.type;
   strip.querySelector('.ts-name').textContent = t.title;
   strip.querySelector('.ts-desc').textContent = t.desc;
 
@@ -699,7 +698,6 @@ function renderReady(){
   const t = state.task;
   state.selectedBundle = -1;
   const strip = $('#s-ready .task-strip');
-  strip.querySelector('.ts-type').textContent = t.type;
   strip.querySelector('.ts-name').textContent = t.title;
   strip.querySelector('.ts-desc').textContent = t.desc;
 
