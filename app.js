@@ -239,18 +239,14 @@ function go(id){
    ============================================================ */
 const ATTRACT_BLUE = /[?&]attract=blue/.test(location.search);
 
-/* слова-плиты: выровнены по сетке, стыкуются с перекрытием 12px */
+/* слова-плиты заголовка: две колонки (170 / 630) и ровный шаг строк —
+   композиция читается как аккуратно собранный блок, без «пляски».
+   Капсулы-соединители убраны до согласования (TODO: вернуть стык?) */
 const HERO_WORDS = [
-  {t:'Собери',    cls:'blue',  x:96,  y:0,   fs:96},
-  {t:'свой',      cls:'plain', x:556, y:12,  fs:84},
-  {t:'идеальный', cls:'black', x:176, y:150, fs:96},
-  {t:'бандл',     cls:'beige', x:820, y:288, fs:104},
-];
-/* капсулы-крепления точно на стыках плит (ставится центром) */
-const HERO_JOINTS = [
-  {x:556, y:74},              /* Собери × свой */
-  {x:436, y:150},             /* Собери × идеальный */
-  {x:872, y:288, vert:true},  /* идеальный × бандл */
+  {t:'Собери',    cls:'blue',  x:170, y:0,   fs:96},
+  {t:'свой',      cls:'plain', x:630, y:8,   fs:84},
+  {t:'идеальный', cls:'black', x:170, y:138, fs:96},
+  {t:'бандл',     cls:'beige', x:630, y:276, fs:104},
 ];
 
 function buildAttract(){
@@ -266,12 +262,6 @@ function buildAttract(){
     el.className = 'wp '+w.cls;
     el.style.left=w.x+'px'; el.style.top=w.y+'px'; el.style.fontSize=w.fs+'px';
     el.innerHTML = `<span>${w.t}</span>`;
-    wr.appendChild(el);
-  });
-  HERO_JOINTS.forEach(j=>{
-    const el = document.createElement('div');
-    el.className = 'joint'+(j.vert?' vert':'');
-    el.style.left=(j.x-39)+'px'; el.style.top=(j.y-17)+'px';
     wr.appendChild(el);
   });
   buildModeArt();
@@ -404,7 +394,7 @@ function renderBuild(){
   strip.querySelector('.ts-name').textContent = t.title;
   strip.querySelector('.ts-desc').textContent = t.desc;
 
-  const chain = $('#chain'); chain.innerHTML='';
+  const chain = $('#chain'); chain.innerHTML=''; chain.classList.remove('live');
   t.correct.forEach((_,i)=>{
     const slot = document.createElement('div');
     slot.className='slot'; slot.dataset.idx=i;
@@ -600,6 +590,7 @@ function finishSignal(wrongIdx, stopAt){
     /* схема заработала: импульс гаснет, лампа включается */
     setTimeout(()=>{
       pulse.style.display='none';
+      $('#chain').classList.add('live'); /* цепочка «залилась» сигналом */
       lamp.classList.add('on');
       setTimeout(showResultBuildOk, 900);
     }, 120);
@@ -619,6 +610,7 @@ function revealAnswer(){
 }
 function fixBuild(){
   hideVerdict();
+  $('#chain').classList.remove('live');
   state.locked=false;
   $$('#chain .slot.bad').forEach(s=>s.classList.remove('bad'));
   $('#pulse').style.display='none';
@@ -757,6 +749,7 @@ function showResult({title, sub, chain, lampOn, coin, cta, actions}){
 
   /* эталонная связка: чипы + линии (+ лампа) */
   const rc = $('#result-chain'); rc.innerHTML='';
+  rc.classList.toggle('live', !!lampOn); /* эталон показываем зажжённым */
   chain.forEach((sid,i)=>{
     const holder = document.createElement('div');
     holder.className='slot filled'+(ICONS[sid]?' has-icon':'');
