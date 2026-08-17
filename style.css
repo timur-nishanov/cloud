@@ -281,7 +281,6 @@ body.attract-blue #attract-inner .sub{color:var(--white);}
 }
 #mode-cards .detail h3{font-size:46px;margin-bottom:18px;max-width:400px;}
 #mode-cards .detail p{font-size:21px;line-height:1.4;max-width:400px;}
-#mode-cards .detail .tag{font-size:15px;padding:9px 18px;margin-top:auto;align-self:flex-start;}
 /* маркировка-номер режима капсом, как на детали */
 #mode-cards .m-num{
   font-family:var(--f-mono);font-size:15px;letter-spacing:.06em;
