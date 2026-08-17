@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Собери свой идеальный бандл — Yandex Cloud / Scale 2026</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+
+  <!-- ЭКРАН 1: ATTRACT (синий, «ИТ-ландшафт») -->
+  <section class="screen active" id="s-attract">
+    <div id="scatter"></div>
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/logo/logo_full-mono_white.svg" alt="Yandex Cloud">
+        <span class="b-sep"></span>
+        <span class="b-name">Платформа данных</span>
+      </div>
+      <span class="proto-tag">Прототип · контент-заглушки</span>
+    </div>
+    <div id="attract-inner">
+      <div class="eyebrow cut">Scale 2026 · Интерактив</div>
+      <h1 class="cut d1">Собери свой<br>идеальный бандл</h1>
+      <p class="sub cut d2">Реальные задачи бизнеса решаются связками сервисов.
+        Проверь, соберёшь ли ты рабочую схему.</p>
+      <div id="tap-cta" class="cut d3">Коснитесь экрана</div>
+      <!-- TODO: цифры-заглушки, заменить на реальные факты платформы -->
+      <div id="fact"><span class="f-num">13</span><span class="f-lbl">сервисов в одной платформе данных</span></div>
+    </div>
+  </section>
+
+  <!-- ЭКРАН 2: ВЫБОР РЕЖИМА -->
+  <section class="screen inner" id="s-mode">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+        <span class="b-sep"></span>
+        <span class="b-name">Платформа данных</span>
+      </div>
+      <span class="proto-tag">Прототип · контент-заглушки</span>
+    </div>
+    <h2 class="cut">Как будем собирать <span class="hl">бандл</span>?</h2>
+    <p class="hint cut d1">Выбери формат — оба ведут к рабочей связке</p>
+    <div id="mode-cards" class="cut d2">
+      <div class="detail primary" data-mode="build">
+        <span class="hole h1"></span><span class="hole h2"></span><span class="hole h3"></span>
+        <h3>Собрать самому</h3>
+        <p>Перетаскивай сервисы в слоты и составь связку с нуля. Для тех, кто хочет проверить себя.</p>
+        <span class="tag">Drag &amp; Drop</span>
+      </div>
+      <div class="detail" data-mode="ready">
+        <div class="coin-badge"><span class="coin"></span>монета за конкурс</div>
+        <span class="hole h1"></span><span class="hole h2"></span><span class="hole h3"></span>
+        <h3>Выбрать готовый бандл</h3>
+        <p>Мы предложим несколько собранных бандлов — выбери тот, что лучше решает задачу.</p>
+        <span class="tag">Быстрый режим</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЭКРАН 3: ВЫБОР ЗАДАЧИ (общий для обеих веток) -->
+  <section class="screen inner" id="s-tasks">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+        <span class="b-sep"></span>
+        <span class="b-name">Платформа данных</span>
+      </div>
+      <span class="proto-tag">Прототип · контент-заглушки</span>
+    </div>
+    <h2 class="cut">Выбери <span class="hl">бизнес-задачу</span></h2>
+    <p class="hint cut d1" id="tasks-hint"></p>
+    <div id="task-grid" class="cut d1"></div>
+    <div id="task-actions" class="cut d2">
+      <button class="btn secondary" id="task-random">Случайная задача</button>
+    </div>
+    <button class="btn secondary btn-back" data-go="s-mode">← Назад</button>
+  </section>
+
+  <!-- ЭКРАН 4A: СБОРКА -->
+  <section class="screen inner" id="s-build">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+        <span class="b-sep"></span>
+        <span class="b-name">Платформа данных</span>
+      </div>
+      <div class="top-right">
+        <div id="timer"><span class="t-num">01:00</span>
+          <span class="t-cells"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </div>
+        <span class="proto-tag">Прототип</span>
+      </div>
+    </div>
+    <div class="task-strip cut">
+      <div class="ts-type"></div>
+      <div class="ts-name"></div>
+      <p class="ts-desc"></p>
+    </div>
+    <div id="chain" class="cut d1"></div>
+    <div id="palette" class="cut d2"></div>
+    <div id="build-actions" class="cut d3">
+      <button class="btn secondary" id="clear-btn">Очистить</button>
+      <button class="btn" id="check-btn" disabled>Проверить</button>
+    </div>
+    <button class="btn secondary btn-back" data-go="s-tasks">← Назад</button>
+  </section>
+
+  <!-- ЭКРАН 4B: ГОТОВЫЕ БАНДЛЫ -->
+  <section class="screen inner" id="s-ready">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+        <span class="b-sep"></span>
+        <span class="b-name">Платформа данных</span>
+      </div>
+      <div class="top-right">
+        <span class="proto-tag">Прототип</span>
+      </div>
+    </div>
+    <div class="task-strip cut">
+      <div class="ts-type"></div>
+      <div class="ts-name"></div>
+      <p class="ts-desc"></p>
+    </div>
+    <div id="bundle-list" class="cut d1"></div>
+    <div id="ready-actions" class="cut d2">
+      <button class="btn" id="confirm-btn" disabled>Подтвердить выбор</button>
+    </div>
+    <button class="btn secondary btn-back" data-go="s-tasks">← Назад</button>
+  </section>
+
+  <!-- ЭКРАН 5: РЕЗУЛЬТАТ -->
+  <section class="screen inner" id="s-result">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+        <span class="b-sep"></span>
+        <span class="b-name">Платформа данных</span>
+      </div>
+      <span class="proto-tag">Прототип · контент-заглушки</span>
+    </div>
+    <div id="result-title" class="cut"></div>
+    <p id="result-sub" class="cut d1"></p>
+    <div id="result-chain" class="cut d2"></div>
+    <div id="result-coin"></div>
+    <div id="result-actions" class="cut d3"></div>
+  </section>
+
+  <!-- вердикт-панель (ошибка сборки: «Исправить») -->
+  <div id="verdict-bar">
+    <div class="vb-title"></div>
+    <p class="vb-sub"></p>
+    <div class="vb-actions"></div>
+  </div>
+
+  <!-- клон для match cut -->
+  <div id="matchcut"></div>
+  <!-- призрак перетаскивания -->
+  <div id="drag-ghost"></div>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
