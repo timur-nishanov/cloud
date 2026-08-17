@@ -1,0 +1,7 @@
+<svg width="487" height="481" viewBox="0 0 487 481" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M274.431 324.447C266.621 316.636 266.621 303.973 274.431 296.163L316.858 253.736L472.421 409.3C480.232 417.11 480.232 429.773 472.421 437.584L429.995 480.01L274.431 324.447Z" fill="#A5F898"/>
+<circle cx="200" cy="200" r="200" fill="black"/>
+<rect width="20" height="20" rx="10" transform="matrix(0 -1 -1 4.37114e-08 100 320)" fill="white"/>
+<path d="M180 80H220V320H180V80Z" fill="white"/>
+<path d="M320 180L320 220L80 220L80 180L320 180Z" fill="white"/>
+</svg>

@@ -239,54 +239,19 @@ function go(id){
    ============================================================ */
 const ATTRACT_BLUE = /[?&]attract=blue/.test(location.search);
 
-/* слова-детали: x,y — внутри #word-rig (1180×430) */
+/* слова-плиты: выровнены по сетке, стыкуются с перекрытием 12px */
 const HERO_WORDS = [
-  {t:'Собери',    cls:'blue',  x:70,  y:0,   fs:96},
-  {t:'свой',      cls:'plain', x:520, y:26,  fs:82},
-  {t:'идеальный', cls:'black', x:150, y:158, fs:96},
-  {t:'бандл',     cls:'beige', x:700, y:274, fs:110},
+  {t:'Собери',    cls:'blue',  x:96,  y:0,   fs:96},
+  {t:'свой',      cls:'plain', x:556, y:12,  fs:84},
+  {t:'идеальный', cls:'black', x:176, y:150, fs:96},
+  {t:'бандл',     cls:'beige', x:820, y:288, fs:104},
 ];
-/* провода между плитами (терминалы на концах) */
-const HERO_WIRES = [
-  {d:'M470 62 H505',        a:[470,62],  b:[505,62]},
-  {d:'M560 130 V158',       a:[560,130], b:[560,158]},
-  {d:'M600 262 L672 302',   a:[600,262], b:[672,302]},
+/* капсулы-крепления точно на стыках плит (ставится центром) */
+const HERO_JOINTS = [
+  {x:556, y:74},              /* Собери × свой */
+  {x:436, y:150},             /* Собери × идеальный */
+  {x:872, y:288, vert:true},  /* идеальный × бандл */
 ];
-/* детали-«крылья»: координаты внутри .rig (330×620) */
-const RIG_L = {
-  parts:[
-    {src:'disc-L--g',      blue:'disc-L--b',      x:20,  y:40,  w:200},
-    {src:'plate-cut-L--k', blue:'plate-cut-L--g', x:110, y:300, w:190},
-  ],
-  wires:[{d:'M150 220 L200 270', a:[150,220], b:[200,270], invB:true}],
-};
-const RIG_R = {
-  parts:[
-    {src:'plate-dots-L--b', blue:'plate-dots-L--k', x:120, y:30,  w:195},
-    {src:'flange-L',        blue:'flange-L--b',     x:20,  y:290, w:215},
-  ],
-  wires:[{d:'M180 240 L130 290', a:[180,240], b:[130,290]}],
-};
-
-function buildRig(sel, cfg){
-  const el = $(sel); el.innerHTML='';
-  cfg.parts.forEach(p=>{
-    const img = document.createElement('img');
-    img.src = 'assets/details/'+(ATTRACT_BLUE ? p.blue : p.src)+'.svg';
-    img.style.left=p.x+'px'; img.style.top=p.y+'px'; img.style.width=p.w+'px';
-    el.appendChild(img);
-  });
-  el.insertAdjacentHTML('beforeend',
-    `<svg viewBox="0 0 330 620">${cfg.wires.map(w=>`<path d="${w.d}"/>`).join('')}</svg>`);
-  cfg.wires.forEach(w=>{
-    [[w.a,false],[w.b,!!w.invB]].forEach(([[x,y],inv])=>{
-      const t=document.createElement('span');
-      t.className='term'+(inv?' inv':'');
-      t.style.left=(x-13)+'px'; t.style.top=(y-13)+'px';
-      el.appendChild(t);
-    });
-  });
-}
 
 function buildAttract(){
   if(ATTRACT_BLUE){
@@ -295,7 +260,7 @@ function buildAttract(){
   }
   /* заголовок-конструктор */
   const wr = $('#word-rig');
-  wr.innerHTML = `<svg viewBox="0 0 1180 430">${HERO_WIRES.map(w=>`<path d="${w.d}"/>`).join('')}</svg>`;
+  wr.innerHTML = '';
   HERO_WORDS.forEach(w=>{
     const el = document.createElement('div');
     el.className = 'wp '+w.cls;
@@ -303,20 +268,13 @@ function buildAttract(){
     el.innerHTML = `<span>${w.t}</span>`;
     wr.appendChild(el);
   });
-  HERO_WIRES.forEach(w=>{
-    [w.a,w.b].forEach(([x,y])=>{
-      const t=document.createElement('span');
-      t.className='term sm';
-      t.style.left=(x-9)+'px'; t.style.top=(y-9)+'px';
-      wr.appendChild(t);
-    });
+  HERO_JOINTS.forEach(j=>{
+    const el = document.createElement('div');
+    el.className = 'joint'+(j.vert?' vert':'');
+    el.style.left=(j.x-39)+'px'; el.style.top=(j.y-17)+'px';
+    wr.appendChild(el);
   });
-  /* крылья по бокам */
-  buildRig('#rig-l', RIG_L);
-  buildRig('#rig-r', RIG_R);
-  /* графика в карточках режима */
   buildModeArt();
-  /* лента тегов-деталей (список сервисов — из слопового прототипа) */
   const chips = Object.keys(S).map(id=>
     `<span class="tag-chip"><img src="assets/icons/${S[id].icon}.svg" alt="">${S[id].name}</span>`).join('');
   $('#tag-strip .row').innerHTML = chips + chips;
@@ -337,11 +295,11 @@ function buildModeArt(){
   if(rig){
     /* «готовый бандл»: детали уже соединены проводом — механизм собран */
     rig.innerHTML = `
-      <img src="assets/details/plate-cut-L--g.svg" style="left:0;top:140px;width:140px">
-      <img src="assets/details/flange-L.svg" style="left:140px;top:10px;width:150px">
-      <svg viewBox="0 0 290 280"><path d="M118 168 L158 128"/></svg>
-      <span class="term" style="left:105px;top:155px"></span>
-      <span class="term" style="left:145px;top:115px"></span>`;
+      <img src="assets/details/plate-cut-L--g.svg" style="left:10px;top:110px;width:120px">
+      <img src="assets/details/flange-L.svg" style="left:140px;top:20px;width:110px">
+      <svg viewBox="0 0 250 240"><path d="M128 140 L160 108"/></svg>
+      <span class="term" style="left:115px;top:127px"></span>
+      <span class="term" style="left:147px;top:95px"></span>`;
   }
 }
 
@@ -382,7 +340,8 @@ function renderTasks(){
   grid.className = build ? 'cols5 cut d1' : 'cols3 cut d1';
   grid.innerHTML = tasks.map((t,i)=>`
     <div class="detail" data-i="${i}">
-      <span class="hole h1"></span><span class="hole h2"></span>
+      <span class="screw s1"></span><span class="screw s2"></span>
+      <div class="t-ico"><img src="assets/details/task-${t.id}.svg" alt=""></div>
       <div class="t-type">${t.type}</div>
       <h3>${t.title}</h3>
       <p>${t.desc}</p>

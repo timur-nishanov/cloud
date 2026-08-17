@@ -1,0 +1,14 @@
+<svg width="480" height="480" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M80.0078 80.0007V340.001C80.0078 373.138 106.871 400.001 140.008 400.001H400.008V140.001C400.008 106.864 373.145 80.0007 340.008 80.0007H80.0078Z" fill="#A5F898"/>
+<rect width="40" height="40" rx="20" transform="matrix(0 -1 -1 4.37114e-08 360.008 160.001)" fill="white"/>
+<path d="M160.008 160.001V280.001C160.008 302.092 177.916 320.001 200.008 320.001H320.008V200.001C320.008 177.909 302.099 160.001 280.008 160.001H160.008Z" fill="black"/>
+<rect width="20" height="20" rx="10" transform="matrix(0 -1 -1 4.37114e-08 140.008 360.001)" fill="white"/>
+<rect width="40" height="80.0006" transform="matrix(1 0 0 -1 140.008 80.0007)" fill="black"/>
+<rect width="40" height="80.0006" transform="matrix(1 0 0 -1 300.008 80.0007)" fill="black"/>
+<rect width="40" height="80.0006" transform="matrix(1 0 0 -1 140.008 480.001)" fill="black"/>
+<rect width="40" height="80.0006" transform="matrix(1 0 0 -1 300.008 480.001)" fill="black"/>
+<rect width="40" height="80.0006" transform="matrix(-4.37114e-08 1 1 4.37114e-08 400.004 140.003)" fill="black"/>
+<rect width="40" height="80.0006" transform="matrix(-4.37114e-08 1 1 4.37114e-08 400.004 300.003)" fill="black"/>
+<rect width="40" height="80.0006" transform="matrix(-4.37114e-08 1 1 4.37114e-08 0.00390625 140.003)" fill="black"/>
+<rect width="40" height="80.0006" transform="matrix(-4.37114e-08 1 1 4.37114e-08 0.00390625 300.003)" fill="black"/>
+</svg>
