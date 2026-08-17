@@ -250,14 +250,19 @@ body.attract-blue #cta-wire .term{background:var(--white);}
 body.attract-blue #cta-wire .term::after{background:var(--blue);}
 
 /* тач-CTA: крупная деталь строго по центру (без transform-конфликтов) */
-#tap-cta{
+#cta-wrap{
   position:absolute;left:0;right:0;bottom:236px;margin:0 auto;
   width:fit-content;z-index:3;
+}
+#tap-cta{
   display:flex;align-items:center;gap:24px;
   font-family:var(--f-display);font-weight:900;font-size:44px;
   background:var(--black);color:var(--white);
   padding:36px 80px;border-radius:14px 14px 56px 14px;
 }
+/* кнопка «дышит», приглашая коснуться; появление — на обёртке */
+#tap-cta{animation:ctaPulse 1.9s var(--e) infinite;}
+@keyframes ctaPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
 #tap-cta .term{background:var(--white);width:34px;height:34px;}
 #tap-cta .term::after{background:var(--black);animation:blink 1.6s var(--e) infinite;}
 @keyframes blink{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(.35);}}
@@ -377,36 +382,41 @@ body.attract-blue #cta-wire .term::after{background:var(--blue);}
 #task-grid.cols5{grid-template-columns:repeat(5,1fr);max-width:1740px;}
 #task-grid.cols3{grid-template-columns:repeat(3,1fr);max-width:1404px;}
 #task-grid .detail{
-  border-radius:12px 12px 40px 12px;padding:24px 24px 24px;
-  display:flex;flex-direction:column;
+  border-radius:12px 12px 40px 12px;padding:24px;
+  display:flex;flex-direction:column;overflow:hidden; /* контент не выходит за кромку */
 }
-#task-grid.cols5 .detail{min-height:284px;max-height:318px;}
-#task-grid.cols3 .detail{min-height:318px;max-height:358px;padding:26px 30px;}
+/* карточки ряда одной высоты: контент рассчитан так, чтобы влезал всегда */
+#task-grid.cols5 .detail{height:304px;}
+#task-grid.cols3 .detail{height:360px;padding:28px 30px;}
 #task-grid .detail .screw{width:10px;height:10px;border-width:2px;top:12px;}
 #task-grid .detail .screw.s1{left:12px;}
 #task-grid .detail .screw.s2{right:12px;}
-#task-grid .t-ico{height:68px;margin:4px 0 14px;display:flex;align-items:flex-end;}
-#task-grid .t-ico img{max-height:68px;max-width:98px;width:auto;height:auto;display:block;}
-#task-grid.cols3 .t-ico{height:88px;margin:6px 0 18px;}
-#task-grid.cols3 .t-ico img{max-height:88px;max-width:124px;}
+/* тематическая деталь: крупная, стоит в нижнем углу и выглядывает
+   за кромку карточки — карточка обрезает её по срезу (overflow:hidden) */
+#task-grid .t-ico{
+  position:absolute;right:-10px;bottom:-24px;
+  display:flex;align-items:flex-end;justify-content:flex-end;pointer-events:none;
+}
+#task-grid .t-ico img{height:132px;width:auto;display:block;}
+#task-grid.cols3 .t-ico{right:-12px;bottom:-30px;}
+#task-grid.cols3 .t-ico img{height:168px;}
 #task-grid .t-type{
   font-family:var(--f-mono);font-size:13px;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--blue);margin-bottom:10px;
+  color:var(--blue);margin-bottom:10px;flex:none;
 }
 #task-grid.cols3 .t-type{font-size:14px;margin-bottom:12px;}
-/* фиксированные высоты заголовка держат описания на одной линии
-   во всех карточках ряда */
-#task-grid h3{font-size:23px;line-height:1.1;margin-bottom:10px;}
-#task-grid.cols5 h3{min-height:76px;}
-#task-grid.cols3 h3{font-size:28px;min-height:64px;margin-bottom:12px;}
+/* заголовок ограничен строками — описания стоят на одной линии */
+#task-grid h3{
+  font-size:21px;line-height:1.15;margin-bottom:10px;flex:none;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+#task-grid.cols5 h3{height:73px;}
+#task-grid.cols3 h3{font-size:26px;height:90px;margin-bottom:12px;}
 #task-grid p{
-  font-size:15px;line-height:1.4;margin-top:auto;
+  font-size:15px;line-height:1.4;flex:none;max-width:58%;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
-#task-grid.cols3 p{font-size:17px;-webkit-line-clamp:3;}
-/* ряды сетки не выше бюджета экрана: 2 ряда + gap + шапка + кнопка ≤ 1036 */
-#task-grid.cols5{grid-auto-rows:minmax(284px,318px);}
-#task-grid.cols3{grid-auto-rows:minmax(318px,358px);}
+#task-grid.cols3 p{font-size:17px;max-width:60%;}
 #task-actions{display:flex;justify-content:center;margin-top:32px;}
 #task-actions .btn{min-height:76px;font-size:21px;}
 
@@ -637,10 +647,6 @@ body.verdict-on #palette{visibility:hidden;}
 /* эталонная связка в вердикте (как в прототипе заказчика) */
 #verdict-bar .vb-ref{display:none;margin-top:26px;}
 #verdict-bar .vb-ref.show{display:block;}
-#verdict-bar .vb-ref .lbl{
-  font-family:var(--f-mono);font-size:14px;letter-spacing:.05em;text-transform:uppercase;
-  margin-bottom:16px;
-}
 #verdict-bar .vb-ref .row{display:flex;align-items:center;justify-content:center;}
 
 /* пословное появление: слово выезжает из-под маски, без fade */
@@ -674,5 +680,5 @@ body.verdict-on #palette{visibility:hidden;}
 #result-actions{display:flex;gap:24px;justify-content:center;margin-top:var(--step);}
 
 @media (prefers-reduced-motion:reduce){
-  #tag-strip .row,#tap-cta .term::after{animation:none;}
+  #tag-strip .row,#tap-cta,#tap-cta .term::after{animation:none;}
 }
