@@ -1,0 +1,7 @@
+<svg width="1520" height="720" viewBox="0 0 1520 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 260V720H1520V260C1520 204.772 1475.23 160 1420 160H1360V0.000488281L160 0V160H100C44.7715 160 0 204.772 0 260Z" fill="#2B9AFF"/>
+<rect width="80" height="80" rx="40" transform="matrix(1 0 0 -1 1240 120)" fill="white"/>
+<rect width="80" height="80" rx="40" transform="matrix(1 0 0 -1 40 680)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 200 80)" fill="white"/>
+<rect width="40" height="280" rx="20" transform="matrix(1 0 0 -1 1440 680)" fill="white"/>
+</svg>

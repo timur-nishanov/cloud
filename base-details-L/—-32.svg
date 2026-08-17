@@ -1,0 +1,6 @@
+<svg width="1120" height="560" viewBox="0 0 1120 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1120 60V500C1120 533.137 1093.14 560 1060 560H60C26.8629 560 0 533.137 0 500V186.667L186.667 0H1060C1093.14 0 1120 26.8629 1120 60Z" fill="#2A9FFF"/>
+<circle cx="80" cy="480" r="40" fill="white"/>
+<circle cx="20" cy="20" r="20" transform="matrix(-1 0 0 1 1080 480)" fill="white"/>
+<circle cx="20" cy="20" r="20" transform="matrix(-1 0 0 1 1080 40)" fill="white"/>
+</svg>

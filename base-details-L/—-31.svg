@@ -1,0 +1,11 @@
+<svg width="720" height="720" viewBox="0 0 720 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M660 0C693.137 1.62061e-06 720 26.8629 720 60V340.077C720 373.214 693.137 400.077 660 400.077H460.077C426.94 400.077 400.077 426.94 400.077 460.077V660C400.077 693.137 373.214 720 340.077 720H60C26.8629 720 0 693.137 0 660V387.692C214.115 387.691 387.689 214.117 387.689 0.000976562V0H660Z" fill="#2A9FFF"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.999247 -0.0388015 -0.0388015 -0.999247 104.633 444.781)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.999247 -0.0388015 -0.0388015 -0.999247 193.594 416.307)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.962606 -0.270904 -0.270904 -0.962606 274.898 370.566)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.879034 -0.47676 -0.47676 -0.879034 344.633 306.738)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.743515 -0.66872 -0.66872 -0.743515 397.32 229.762)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.568544 -0.822653 -0.822653 -0.568544 431.188 141.773)" fill="white"/>
+<rect x="280" y="600" width="80" height="80" rx="40" fill="white"/>
+<rect x="600" y="280" width="80" height="80" rx="40" fill="white"/>
+</svg>

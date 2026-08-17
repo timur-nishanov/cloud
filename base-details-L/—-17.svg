@@ -1,0 +1,6 @@
+<svg width="920" height="720" viewBox="0 0 920 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0H818.029C863.778 0 892.696 49.1467 870.479 89.1386L537.145 689.139C526.563 708.187 506.486 720 484.696 720H0V0Z" fill="#2A9FFF"/>
+<rect x="40" y="600" width="80" height="80" rx="40" fill="white"/>
+<rect x="40" y="40" width="80" height="280" rx="40" fill="white"/>
+<rect x="500" y="640" width="40" height="40" rx="20" transform="rotate(90 500 640)" fill="white"/>
+</svg>

@@ -1,0 +1,5 @@
+<svg width="880" height="720" viewBox="0 0 880 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M880 60C880 26.8629 853.137 0 820 0H60C26.8629 0 0 26.8629 0 60V720H360L880 360V60Z" fill="#2A9FFF"/>
+<rect width="80" height="80" rx="40" transform="matrix(-1 0 0 1 840 40)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-1 -1.06149e-07 -1.06149e-07 1 60.0001 40)" fill="white"/>
+</svg>

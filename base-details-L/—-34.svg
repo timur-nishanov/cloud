@@ -1,0 +1,20 @@
+<svg width="560" height="560" viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="560" height="560" rx="60" fill="#2A9FFF"/>
+<rect width="120" height="120" rx="60" transform="matrix(1 0 0 -1 220 340)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 202.219 216.36)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 159.793 173.935)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 117.367 131.508)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 74.9375 89.0811)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 400.207 414.351)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 357.781 371.924)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 442.633 456.777)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 485.062 499.203)" fill="white"/>
+<rect x="357.781" y="216.36" width="20" height="20" rx="10" transform="rotate(-135 357.781 216.36)" fill="white"/>
+<rect x="400.211" y="173.934" width="20" height="20" rx="10" transform="rotate(-135 400.211 173.934)" fill="white"/>
+<rect x="442.633" y="131.508" width="20" height="20" rx="10" transform="rotate(-135 442.633 131.508)" fill="white"/>
+<rect x="485.062" y="89.0811" width="20" height="20" rx="10" transform="rotate(-135 485.062 89.0811)" fill="white"/>
+<rect x="159.789" y="414.351" width="20" height="20" rx="10" transform="rotate(-135 159.789 414.351)" fill="white"/>
+<rect x="202.219" y="371.924" width="20" height="20" rx="10" transform="rotate(-135 202.219 371.924)" fill="white"/>
+<rect x="117.367" y="456.776" width="20" height="20" rx="10" transform="rotate(-135 117.367 456.776)" fill="white"/>
+<rect x="74.9375" y="499.203" width="20" height="20" rx="10" transform="rotate(-135 74.9375 499.203)" fill="white"/>
+</svg>
