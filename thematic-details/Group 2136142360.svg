@@ -1,0 +1,9 @@
+<svg width="400" height="480" viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M80 480L80 320H320V480L80 480Z" fill="black"/>
+<path d="M0 400L0 320H80L80 400H0Z" fill="black"/>
+<path d="M320 400V320H400V400H320Z" fill="black"/>
+<path d="M160 280V200H240V280H160Z" fill="#A5F898"/>
+<path d="M40 100L40 80L120 80L120 160H100C66.8629 160 40 133.137 40 100Z" fill="#A5F898"/>
+<path d="M160 200L160 80C160 35.8172 195.817 0 240 0L400 0V120C400 164.183 364.183 200 320 200L160 200Z" fill="#A5F898"/>
+<rect width="20" height="20" rx="10" transform="matrix(0 -1 -1 4.37114e-08 360 60)" fill="white"/>
+</svg>

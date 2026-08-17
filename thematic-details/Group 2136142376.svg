@@ -1,0 +1,22 @@
+<svg width="560" height="560" viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M40 200L360 200" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M40 200L200 40" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M360 200L520 40" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M40 520L200 360" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M360 520L520 360" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M40 520L360 520" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M200 40L520 40" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M200 360L520 360" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M360 520L360 200" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M40 520L40 200" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M520 360L520 40" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M200 360L200 40" stroke="black" stroke-width="4" stroke-dasharray="40 40"/>
+<path d="M40 160C62.0914 160 80 177.909 80 200C80 222.091 62.0914 240 40 240C17.9086 240 0 222.091 0 200C0 177.909 17.9086 160 40 160Z" fill="#A5F898"/>
+<path d="M40 480C62.0914 480 80 497.909 80 520C80 542.091 62.0914 560 40 560C17.9086 560 0 542.091 0 520C0 497.909 17.9086 480 40 480Z" fill="#A5F898"/>
+<path d="M360 160C382.091 160 400 177.909 400 200C400 222.091 382.091 240 360 240C337.909 240 320 222.091 320 200C320 177.909 337.909 160 360 160Z" fill="#A5F898"/>
+<path d="M360 480C382.091 480 400 497.909 400 520C400 542.091 382.091 560 360 560C337.909 560 320 542.091 320 520C320 497.909 337.909 480 360 480Z" fill="#FFB3ED"/>
+<path d="M200 0C222.091 0 240 17.9086 240 40C240 62.0914 222.091 80 200 80C177.909 80 160 62.0914 160 40C160 17.9086 177.909 0 200 0Z" fill="#A5F898"/>
+<path d="M200 320C222.091 320 240 337.909 240 360C240 382.091 222.091 400 200 400C177.909 400 160 382.091 160 360C160 337.909 177.909 320 200 320Z" fill="#A5F898"/>
+<path d="M520 0C542.091 0 560 17.9086 560 40C560 62.0914 542.091 80 520 80C497.909 80 480 62.0914 480 40C480 17.9086 497.909 0 520 0Z" fill="#A5F898"/>
+<path d="M520 320C542.091 320 560 337.909 560 360C560 382.091 542.091 400 520 400C497.909 400 480 382.091 480 360C480 337.909 497.909 320 520 320Z" fill="#A5F898"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg width="1360" height="480" viewBox="0 0 1360 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1280 280V0H1200V280H1280Z" fill="black"/>
+<path d="M1280 280V40H1200V280H1280Z" fill="#FFB3ED"/>
+<path d="M1360 480L1360 200C1360 133.726 1306.27 80 1240 80C1173.73 80 1120 133.726 1120 200L1120 480L1360 480Z" fill="#FFB3ED"/>
+<rect x="1180" y="280" width="160" height="20" rx="10" transform="rotate(90 1180 280)" fill="white"/>
+<path d="M240 160V80L80 80V160L240 160Z" fill="#A5F898"/>
+<path d="M200 80V40L120 40V80L200 80Z" fill="black"/>
+<path d="M240 40V0L80 0V40L240 40Z" fill="black"/>
+<path d="M320 420L320 160L1.93345e-05 160L5.32163e-05 420C5.75345e-05 453.137 26.863 480 60.0001 480L260 480C293.137 480 320 453.137 320 420Z" fill="#A5F898"/>
+<path d="M240 400L240 300C240 266.863 213.137 240 180 240L80 240L80 400L240 400Z" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(0 -1 -1 4.37114e-08 280 220)" fill="white"/>
+<path d="M800 160V80L640 80V160L800 160Z" fill="#B0BDD9"/>
+<path d="M760 80V40L680 40V80L760 80Z" fill="black"/>
+<path d="M800 40V0L640 0V40L800 40Z" fill="black"/>
+<path d="M880 420L880 160L560 160L560 420C560 453.137 586.863 480 620 480L820 480C853.137 480 880 453.137 880 420Z" fill="#B0BDD9"/>
+<path d="M740 400L740 240L700 240L700 400L740 400Z" fill="black"/>
+<path d="M640 340.002L800 340.002L800 300.002L640 300.002L640 340.002Z" fill="black"/>
+<rect width="20" height="20" rx="10" transform="matrix(0 -1 -1 4.37114e-08 840 440)" fill="white"/>
+</svg>

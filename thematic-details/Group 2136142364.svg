@@ -1,0 +1,17 @@
+<svg width="800" height="480" viewBox="0 0 800 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="360" cy="240" r="240" fill="#2A9FFF"/>
+<circle cx="360" cy="240" r="160" fill="white"/>
+<circle cx="360" cy="240" r="80" fill="#2A9FFF"/>
+<path d="M680 80V0L600 0V80L680 80Z" fill="black"/>
+<path d="M680 240V80L600 80V240L680 240Z" fill="black"/>
+<path d="M680 480V240H600V480H680Z" fill="black"/>
+<path d="M800 320V160L480 160V320L800 320Z" fill="black"/>
+<path d="M800 80V0L720 0V80L800 80Z" fill="black"/>
+<path d="M800 240V80L720 80V240L800 240Z" fill="black"/>
+<path d="M80 480L80 240H0L0 480H80Z" fill="black"/>
+<path d="M80 80V60C80 26.8629 53.1371 0 20 0H0L0 80L80 80Z" fill="#E7EBF4"/>
+<path d="M80 240L80 80L0 80L0 240L80 240Z" fill="#E7EBF4"/>
+<path d="M560 80V0H540C506.863 0 480 26.8629 480 60V80L560 80Z" fill="black"/>
+<path d="M560 240V80L480 80V240L560 240Z" fill="black"/>
+<rect width="20" height="20" rx="10" transform="matrix(0 -1 -1 4.37114e-08 760 280)" fill="white"/>
+</svg>
