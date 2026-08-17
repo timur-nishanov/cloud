@@ -11,14 +11,9 @@
 
   <!-- ЭКРАН 1: ATTRACT (синий, «ИТ-ландшафт») -->
   <section class="screen active" id="s-attract">
-    <div id="scatter"></div>
+    <div id="attract-deco"></div>
     <div class="topbar">
-      <div class="brand">
-        <img src="assets/logo/logo_full-mono_white.svg" alt="Yandex Cloud">
-        <span class="b-sep"></span>
-        <span class="b-name">Платформа данных</span>
-      </div>
-      <span class="proto-tag">Прототип · контент-заглушки</span>
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
     </div>
     <div id="attract-inner">
       <div class="eyebrow cut">Scale 2026 · Интерактив</div>
@@ -26,24 +21,17 @@
       <p class="sub cut d2">Реальные задачи бизнеса решаются связками сервисов.
         Проверь, соберёшь ли ты рабочую схему.</p>
       <div id="tap-cta" class="cut d3">Коснитесь экрана</div>
-      <!-- TODO: цифры-заглушки, заменить на реальные факты платформы -->
-      <div id="fact"><span class="f-num">13</span><span class="f-lbl">сервисов в одной платформе данных</span></div>
     </div>
+    <div id="tag-strip"><div class="row"></div></div>
   </section>
 
   <!-- ЭКРАН 2: ВЫБОР РЕЖИМА -->
   <section class="screen inner" id="s-mode">
     <div class="topbar">
-      <div class="brand">
-        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
-        <span class="b-sep"></span>
-        <span class="b-name">Платформа данных</span>
-      </div>
-      <span class="proto-tag">Прототип · контент-заглушки</span>
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
     </div>
     <h2 class="cut">Как будем собирать <span class="hl">бандл</span>?</h2>
-    <p class="hint cut d1">Выбери формат — оба ведут к рабочей связке</p>
-    <div id="mode-cards" class="cut d2">
+    <div id="mode-cards" class="cut d1">
       <div class="detail primary" data-mode="build">
         <span class="hole h1"></span><span class="hole h2"></span><span class="hole h3"></span>
         <h3>Собрать самому</h3>
@@ -63,12 +51,7 @@
   <!-- ЭКРАН 3: ВЫБОР ЗАДАЧИ (общий для обеих веток) -->
   <section class="screen inner" id="s-tasks">
     <div class="topbar">
-      <div class="brand">
-        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
-        <span class="b-sep"></span>
-        <span class="b-name">Платформа данных</span>
-      </div>
-      <span class="proto-tag">Прототип · контент-заглушки</span>
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
     </div>
     <h2 class="cut">Выбери <span class="hl">бизнес-задачу</span></h2>
     <p class="hint cut d1" id="tasks-hint"></p>
@@ -82,17 +65,8 @@
   <!-- ЭКРАН 4A: СБОРКА -->
   <section class="screen inner" id="s-build">
     <div class="topbar">
-      <div class="brand">
-        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
-        <span class="b-sep"></span>
-        <span class="b-name">Платформа данных</span>
-      </div>
-      <div class="top-right">
-        <div id="timer"><span class="t-num">01:00</span>
-          <span class="t-cells"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-        </div>
-        <span class="proto-tag">Прототип</span>
-      </div>
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+      <div class="top-right"></div>
     </div>
     <div class="task-strip cut">
       <div class="ts-type"></div>
@@ -111,14 +85,8 @@
   <!-- ЭКРАН 4B: ГОТОВЫЕ БАНДЛЫ -->
   <section class="screen inner" id="s-ready">
     <div class="topbar">
-      <div class="brand">
-        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
-        <span class="b-sep"></span>
-        <span class="b-name">Платформа данных</span>
-      </div>
-      <div class="top-right">
-        <span class="proto-tag">Прототип</span>
-      </div>
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+      <div class="top-right"></div>
     </div>
     <div class="task-strip cut">
       <div class="ts-type"></div>
@@ -135,12 +103,7 @@
   <!-- ЭКРАН 5: РЕЗУЛЬТАТ -->
   <section class="screen inner" id="s-result">
     <div class="topbar">
-      <div class="brand">
-        <img src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
-        <span class="b-sep"></span>
-        <span class="b-name">Платформа данных</span>
-      </div>
-      <span class="proto-tag">Прототип · контент-заглушки</span>
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
     </div>
     <div id="result-title" class="cut"></div>
     <p id="result-sub" class="cut d1"></p>
@@ -148,6 +111,11 @@
     <div id="result-coin"></div>
     <div id="result-actions" class="cut d3"></div>
   </section>
+
+  <!-- таймер (переезжает в шапку активного игрового экрана) -->
+  <div id="timer"><span class="t-num">01:00</span>
+    <span class="t-cells"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+  </div>
 
   <!-- вердикт-панель (ошибка сборки: «Исправить») -->
   <div id="verdict-bar">
