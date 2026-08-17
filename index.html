@@ -16,9 +16,9 @@
     </div>
     <div id="attract-inner">
       <div id="word-rig" class="cut"></div>
-      <p class="sub cut d1">Каждый сервис — деталь. Рабочая связка — собранный механизм.</p>
+      <p class="sub cut d1">Проверь, знаешь ли ты, из каких сервисов платформы данных собираются реальные решения</p>
       <div id="cta-wrap" class="cut d2">
-        <div id="tap-cta"><span class="term"></span>Коснитесь экрана</div>
+        <div id="tap-cta"><span class="term"></span>Коснитесь экрана, чтобы начать</div>
       </div>
     </div>
     <div id="tag-strip"><div class="row"></div></div>
@@ -31,18 +31,19 @@
       <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
     </div>
     <h2 class="cut">Как будем собирать <span class="hl">бандл</span>?</h2>
+    <p class="hint cut d1">Выбери формат. «Выбери готовое» короче и приносит монету для общего конкурса.</p>
     <div id="mode-cards" class="cut d1">
       <div class="detail primary" data-mode="build">
         <span class="screw s1"></span><span class="screw s2"></span>
         <h3>Собрать<br>самому</h3>
-        <p>Ставь детали в слоты и собери связку с нуля.</p>
+        <p>Перетаскивай сервисы и составь связку с нуля.</p>
         <div class="m-art" data-art="parts"></div>
       </div>
       <div class="detail" data-mode="ready">
         <div class="coin-badge"><span class="coin"></span>монета за конкурс</div>
         <span class="screw s1"></span><span class="screw s2"></span>
-        <h3>Выбрать<br>готовый бандл</h3>
-        <p>Три собранных механизма — выбери тот, что решает задачу.</p>
+        <h3>Выбрать<br>из готового</h3>
+        <p>Мы предложим несколько собранных бандлов — выбери тот, что лучше решает задачу.</p>
         <div class="m-art" data-art="rig"></div>
       </div>
     </div>
@@ -58,7 +59,7 @@
     <p class="hint cut d1" id="tasks-hint"></p>
     <div id="task-grid" class="cut d1"></div>
     <div id="task-actions" class="cut d2">
-      <button class="btn secondary" id="task-random">Случайная задача</button>
+      <button class="btn secondary" id="task-random">Выбрать случайным образом</button>
     </div>
     <button class="btn secondary btn-back" data-go="s-mode">Назад</button>
   </section>
@@ -76,9 +77,11 @@
     </div>
     <div id="chain" class="cut d1"></div>
     <div id="palette" class="cut d2"></div>
+    <!-- панель описания сервиса (ТЗ, экран 4): по умолчанию — приглашение -->
+    <div id="svc-info" class="cut d2 empty"></div>
     <div id="build-actions" class="cut d3">
       <button class="btn secondary" id="clear-btn">Очистить</button>
-      <button class="btn" id="check-btn" disabled>Проверить</button>
+      <button class="btn" id="check-btn" disabled>Проверить связку</button>
     </div>
     <button class="btn secondary btn-back" data-go="s-tasks">Назад</button>
   </section>

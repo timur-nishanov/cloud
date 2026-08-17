@@ -17,20 +17,25 @@ const DATA = {
   ORDER_MATTERS: false,
   TIMER_SECONDS: 60,
 
+  /* short — короткое описание для панели описания сервиса (ТЗ, экран 4).
+     Формулировки — из прототипа заказчика, не редактировать.
+     TODO: в ТЗ 20 сервисов (+ Trino, Data Transfer, Sharded PostgreSQL,
+     WebSQL, DataLens Platform и др.), финальный список у Яндекса —
+     добавить, когда придут иконки и описания. */
   SERVICES: {
-    pg:    {name:'PostgreSQL',  icon:'postgresql'},
-    my:    {name:'MySQL',       icon:'mysql'},
-    ch:    {name:'ClickHouse',  icon:'clickhouse'},
-    sd:    {name:'StoreDoc',    icon:'storedoc'},
-    vk:    {name:'Valkey',      icon:'valkey'},
-    kafka: {name:'Kafka',       icon:'kafka'},
-    gp:    {name:'Greenplum',   icon:'greenplum'},
-    os:    {name:'OpenSearch',  icon:'opensearch'},
-    af:    {name:'Airflow',     icon:'airflow'},
-    sp:    {name:'Spark',       icon:'spark'},
-    yt:    {name:'YTsaurus',    icon:'ytsaurus'},
-    ydb:   {name:'YDB',         icon:'ydb'},
-    dl:    {name:'DataLens',    icon:'datalens'},
+    pg:    {name:'PostgreSQL',  icon:'postgresql', short:'реляционная БД (OLTP)'},
+    my:    {name:'MySQL',       icon:'mysql',      short:'реляционная БД (OLTP)'},
+    ch:    {name:'ClickHouse',  icon:'clickhouse', short:'колоночная аналитическая БД'},
+    sd:    {name:'StoreDoc',    icon:'storedoc',   short:'документная БД'},
+    vk:    {name:'Valkey',      icon:'valkey',     short:'in-memory кэш'},
+    kafka: {name:'Kafka',       icon:'kafka',      short:'шина потоковых событий'},
+    gp:    {name:'Greenplum',   icon:'greenplum',  short:'MPP-хранилище (DWH)'},
+    os:    {name:'OpenSearch',  icon:'opensearch', short:'полнотекстовый поиск и логи'},
+    af:    {name:'Airflow',     icon:'airflow',    short:'оркестрация пайплайнов'},
+    sp:    {name:'Spark',       icon:'spark',      short:'распределённые вычисления'},
+    yt:    {name:'YTsaurus',    icon:'ytsaurus',   short:'хранилище больших данных'},
+    ydb:   {name:'YDB',         icon:'ydb',        short:'распределённая транзакц. БД'},
+    dl:    {name:'DataLens',    icon:'datalens',   short:'BI и дашборды'},
   },
 
   /* Ветка А: собрать самому. roles — подписи слотов капсом (TODO: заглушки). */
@@ -212,6 +217,7 @@ const state = {
   timerId:null,
   timeLeft:0,
   signalId:null,
+  selectedSvc:null,   /* сервис, выбранный тапом (его описание открыто) */
 };
 
 function go(id){
@@ -357,7 +363,7 @@ function renderTasks(){
   $('#task-random').style.display = build ? '' : 'none';
   $('#tasks-hint').textContent = build
     ? 'Каждую задачу нужно решить, собрав связку сервисов платформы данных.'
-    : 'Мы подготовили несколько готовых бандлов на каждую задачу — выбери лучший.';
+    : 'Мы подготовили несколько готовых бандлов на каждую задачу — тебе нужно выбрать лучший.';
 }
 $('#task-random').addEventListener('click', ()=>{
   const n = DATA.BUILD_TASKS.length;
@@ -417,7 +423,7 @@ function renderBuild(){
       <span class="screw c3"></span><span class="screw c4"></span>
       <span class="holes"><i></i><i></i><i></i><i></i></span>
       <span class="role">${t.roles[i]||''}</span>`;
-    slot.addEventListener('click', ()=>{ if(!state.locked) unplace(i); });
+    slot.addEventListener('click', ()=>slotTap(i));
     chain.appendChild(slot);
     chain.appendChild(makeLink());
   });
@@ -435,15 +441,19 @@ function renderBuild(){
     attachTile(tile);
     pal.appendChild(tile);
   });
+  showSvcInfo(null);
   updateCheckBtn();
   startTimer(timeoutBuild);
 }
 
-function chipHTML(id){
-  return `<div class="chip"><span class="pin"></span>
+/* деталь в слоте. off — съёмник (крестовой винт): показываем только там,
+   где сборку можно менять; в эталонных цепочках вместо него кромка отверстий */
+function chipHTML(id, off){
+  return `<div class="chip${off?' rm':''}"><span class="pin"></span>
     ${ICONS[id]?`<span class="chip-ico">${iconImg(id)}</span>`:''}
     <span>${S[id].name}</span>
-    <span class="edge"><i></i><i></i><i></i><i></i></span></div>`;
+    ${off ? '<span class="off"></span>'
+          : '<span class="edge"><i></i><i></i><i></i><i></i></span>'}</div>`;
 }
 /* провод-связь: линия + терминалы-крепления на обоих концах */
 function makeLink(){
@@ -460,8 +470,9 @@ function place(sid, idx){
   const slot = $$('#chain .slot')[idx];
   slot.classList.add('filled');
   if(ICONS[sid]) slot.classList.add('has-icon');
-  slot.insertAdjacentHTML('beforeend', chipHTML(sid));
+  slot.insertAdjacentHTML('beforeend', chipHTML(sid, true));
   const tile = $(`.tile[data-sid="${sid}"]`); if(tile) tile.classList.add('used');
+  if(state.selectedSvc===sid) selectSvc(null); /* деталь поставлена — выбор снят */
   updateCheckBtn();
 }
 function unplace(idx){
@@ -480,9 +491,38 @@ function firstEmpty(){ return state.slots.findIndex(v=>!v); }
 function updateCheckBtn(){
   $('#check-btn').disabled = state.slots.some(v=>!v) || state.locked;
 }
-$('#clear-btn').addEventListener('click', ()=>{ if(!state.locked) clearSlots(); });
+$('#clear-btn').addEventListener('click', ()=>{ if(!state.locked){ clearSlots(); selectSvc(null); } });
 
-/* тап по плитке = в первый свободный слот; драг = в конкретный слот */
+/* ---------- панель описания сервиса (ТЗ, экран 4) ----------
+   Тап по плитке: открывает описание и «берёт деталь в руку».
+   Тап по пустому слоту: ставит выбранную деталь.
+   Тап по заполненному слоту: возвращает деталь в палитру. */
+function selectSvc(sid){
+  state.selectedSvc = sid;
+  $$('#palette .tile').forEach(t=>t.classList.toggle('sel', t.dataset.sid===sid));
+  showSvcInfo(sid);
+}
+function showSvcInfo(sid){
+  const el = $('#svc-info');
+  if(!sid){
+    el.className = 'cut d2 empty';
+    el.innerHTML = '<span class="si-txt">Коснись сервиса, чтобы узнать, что он делает</span>';
+    return;
+  }
+  el.className = 'cut d2 filled';
+  el.innerHTML = `<span class="si-ico">${iconImg(sid)}</span>
+    <span class="si-txt"><b>${S[sid].name}</b> — ${S[sid].short}
+    <span class="si-hint">Перетащи в слот или коснись слота, чтобы поставить</span></span>`;
+}
+function slotTap(i){
+  if(state.locked) return;
+  if(state.slots[i]){ unplace(i); return; }              /* заполненный — снять */
+  if(state.selectedSvc) place(state.selectedSvc, i);     /* пустой — поставить выбранное */
+}
+
+/* тап по плитке = описание + выбор детали (ТЗ); драг = сразу в слот.
+   Повторный тап по уже выбранной плитке ставит её в первый свободный слот —
+   так тап полностью дублирует drag&drop (требование CLAUDE.md). */
 function attachTile(tile){
   let px=0, py=0, dragging=false, pid=null;
   const ghost = $('#drag-ghost');
@@ -518,9 +558,11 @@ function attachTile(tile){
       tile.classList.remove('dragging');
       const slot = slotAt(e);
       if(slot && !slot.classList.contains('filled')) place(sid, +slot.dataset.idx);
-    }else{
+    }else if(state.selectedSvc===sid){
       const idx = firstEmpty();
-      if(idx>-1) place(sid, idx); /* тап = в первый свободный */
+      if(idx>-1) place(sid, idx);  /* второй тап = в первый свободный */
+    }else{
+      selectSvc(sid);               /* первый тап = описание + выбор */
     }
     pid=null; dragging=false;
   });
@@ -618,7 +660,7 @@ function finishSignal(wrongIdx, stopAt){
     wrongIdx.forEach(i=>$$('#chain .slot')[i].classList.add('bad'));
     showVerdict({
       title:'Почти!',
-      sub:'Сигнал застрял на лишней детали. Замени её — или посмотри рабочую связку.',
+      sub:'Часть сервисов не на месте — сигнал застрял на лишней детали. Замени её или посмотри оптимальную связку.',
       actions:[
         {label:'Исправить', cls:'', fn:fixBuild},
         {label:'Показать связку', cls:'secondary', fn:revealAnswer},
@@ -637,15 +679,18 @@ function finishSignal(wrongIdx, stopAt){
 /* «Показать связку»: эталон появляется в вердикте, сборка остаётся на экране */
 function revealAnswer(){
   showVerdict({
-    title:'Вот рабочая связка',
+    title:'Оптимальная связка',
     sub:'Именно так эту задачу решают на платформе данных.',
     ref:state.task.correct,
+    /* кнопки ветки А по ТЗ: в начало или сыграть за монету */
     actions:[
-      {label:'Ещё задачу', cls:'', fn:()=>{ renderTasks(); go('s-tasks'); }},
-      {label:'В начало', cls:'secondary', fn:()=>go('s-attract')},
+      {label:'Выбрать из готового', cls:'', fn:goReady},
+      {label:'Вернуться в начало', cls:'secondary', fn:()=>go('s-attract')},
     ],
   });
 }
+/* переход в ветку Б (за монету) — из результата ветки А */
+function goReady(){ state.mode='ready'; renderTasks(); go('s-tasks'); }
 function fixBuild(){
   hideVerdict();
   const chain = $('#chain');
@@ -663,11 +708,11 @@ function timeoutBuild(){
   state.locked=true; updateCheckBtn();
   showResult({
     title:'Время вышло!',
-    sub:'Ничего страшного — вот связка, которая решает эту задачу.',
+    sub:'Ничего страшного — вот правильная связка для этой задачи:',
     chain:state.task.correct, lampOn:true, coin:false,
     actions:[
-      {label:'Ещё задачу', cls:'secondary', fn:()=>{ renderTasks(); go('s-tasks'); }},
-      {label:'В начало', cls:'', fn:()=>go('s-attract')},
+      {label:'Выбрать из готового', cls:'', fn:goReady},
+      {label:'Вернуться в начало', cls:'secondary', fn:()=>go('s-attract')},
     ],
   });
 }
@@ -676,10 +721,10 @@ function showResultBuildOk(){
     title:'В точку!',
     sub:'Ты собрал рабочую связку — именно так эту задачу решают на платформе данных.',
     chain:state.task.correct, lampOn:true, coin:false,
-    cta:'Хочешь монету для конкурса? Пройди режим «Выбрать готовый бандл» — за него дают наклейку для розыгрыша.',
+    cta:'Хочешь монету для конкурса? Пройди режим «Выбрать из готового» — за него дают наклейку для розыгрыша.',
     actions:[
-      {label:'Выбрать готовый бандл', cls:'', fn:()=>{ state.mode='ready'; renderTasks(); go('s-tasks'); }},
-      {label:'В начало', cls:'secondary', fn:()=>go('s-attract')},
+      {label:'Выбрать из готового', cls:'', fn:goReady},
+      {label:'Вернуться в начало', cls:'secondary', fn:()=>go('s-attract')},
     ],
   });
 }
@@ -724,29 +769,27 @@ $('#confirm-btn').addEventListener('click', ()=>{
   stopTimer();
   const b = state.task.bundles[state.selectedBundle];
   const best = state.task.bundles.find(x=>x.tier==='best');
+  /* вердикты ветки Б по ТЗ; в ветке Б всегда одна кнопка «Завершить» */
   if(b.tier==='best'){
     showResult({
-      title:'В точку!',
+      title:'Отличный выбор!',
       sub:'Это самый подходящий бандл для задачи.',
       chain:best.services, lampOn:true, coin:true,
       actions:[{label:'Завершить', cls:'', fn:()=>go('s-attract')}],
     });
   }else if(b.tier==='partial'){
     showResult({
-      title:'Сойдёт',
+      title:'Почти угадал!',
       sub:'Твой выбор рабочий, но эту задачу лучше решил бы другой бандл:',
       chain:best.services, lampOn:false, coin:true,
       actions:[{label:'Завершить', cls:'', fn:()=>go('s-attract')}],
     });
   }else{
     showResult({
-      title:'Мимо',
+      title:'Мимо!',
       sub:'Этот бандл не решает задачу — за него монета не засчитывается. Вот бандл, который подходит:',
       chain:best.services, lampOn:false, coin:false,
-      actions:[
-        {label:'Ещё задачу', cls:'secondary', fn:()=>{ renderTasks(); go('s-tasks'); }},
-        {label:'Завершить', cls:'', fn:()=>go('s-attract')},
-      ],
+      actions:[{label:'Завершить', cls:'', fn:()=>go('s-attract')}],
     });
   }
 });
@@ -789,7 +832,7 @@ function hideVerdict(){
 function showResult({title, sub, chain, lampOn, coin, cta, actions}){
   go('s-result');
   words($('#result-title'), title);
-  $('#result-title').classList.toggle('miss', title==='Мимо');
+  $('#result-title').classList.toggle('miss', title==='Мимо!');
   $('#result-sub').textContent = sub;
 
   /* эталонная связка: чипы + линии (+ лампа) */
