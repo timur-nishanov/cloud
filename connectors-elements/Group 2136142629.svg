@@ -1,0 +1,6 @@
+<svg width="360" height="200" viewBox="0 0 360 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="40" height="40" rx="20" transform="matrix(-1 0 0 1 40 160)" fill="#2A9FFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(-1 0 0 1 360 0)" fill="#2A9FFF"/>
+<path d="M20 179.5V100H100V40C100 28.9543 108.954 20 120 20C131.046 20 140 28.9543 140 40V120C140 131.046 148.954 140 160 140C171.046 140 180 131.046 180 120V40C180 28.9543 188.954 20 200 20C211.046 20 220 28.9543 220 40V120C220 131.046 228.954 140 240 140C251.046 140 260 131.046 260 120V20H340" stroke="#2A9FFF" stroke-width="4"/>
+<rect x="330" y="10" width="20" height="20" rx="10" fill="white"/>
+</svg>
