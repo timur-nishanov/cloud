@@ -1,0 +1,16 @@
+<svg width="1040" height="520" viewBox="0 0 1040 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M840 360C773.726 360 720 413.726 720 480H360C315.817 480 280 444.183 280 400V160C280 115.817 315.817 80 360 80H600V220C600 231.046 608.954 240 620 240C631.046 240 640 231.046 640 220V80H840V360Z" fill="#FE8242"/>
+<path d="M0 40L240 0L480 40V280C480 412.548 372.548 520 240 520C107.452 520 0 412.548 0 280V40Z" fill="black"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 0 0 -1 60 100)" fill="#BFFF00"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 380 120)" fill="#FE8242"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 0 0 -1 390 110)" fill="#FFB3ED"/>
+<path d="M720 0H840L1040 200V280C1040 302.091 1022.09 320 1000 320H720V0Z" fill="#B0BDD9"/>
+<rect width="80" height="80" rx="40" transform="matrix(-1 0 0 1 840 200)" fill="#FE8242"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 780 100)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 940 260)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 780 260)" fill="black"/>
+<rect x="360" y="360" width="240" height="80" rx="40" fill="#2A9FFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 540 420)" fill="black"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 380 420)" fill="#FFB3ED"/>
+<path d="M400 100C488.366 100 560 167.157 560 250C560 332.843 488.366 400 400 400" stroke="#FFB3ED" stroke-width="4"/>
+</svg>

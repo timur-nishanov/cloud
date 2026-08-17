@@ -1,0 +1,42 @@
+<svg width="1280" height="400" viewBox="0 0 1280 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1280 0H1058L880 261V360C880 382.091 897.909 400 920 400H1240C1262.09 400 1280 382.091 1280 360L1280 0Z" fill="black"/>
+<rect width="20" height="20" rx="10" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 1240 61)" fill="white"/>
+<rect width="80" height="80" rx="40" transform="matrix(-1 0 0 1 1000 281)" fill="white"/>
+<path d="M400 360C400 382.091 382.091 400 360 400H40C17.9086 400 0 382.091 0 360V40C0 17.9086 17.9086 0 40 0H400V360Z" fill="#2A9FFF"/>
+<rect width="20" height="20" rx="10" transform="matrix(-1 0 0 1 210 340)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-1 0 0 1 210 40)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-1 0 0 1 210 190)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-1 0 0 1 210 265)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-1 0 0 1 210 115)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(4.37114e-08 1 1 -4.37114e-08 340 190)" fill="#BFFF00"/>
+<rect width="20" height="20" rx="10" transform="matrix(4.37114e-08 1 1 -4.37114e-08 40 190)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(4.37114e-08 1 1 -4.37114e-08 265 190)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(4.37114e-08 1 1 -4.37114e-08 115 190)" fill="white"/>
+<rect x="360" y="120" width="80" height="80" rx="40" transform="rotate(-180 360 120)" fill="white"/>
+<circle cx="640" cy="200" r="200" fill="#B0BDD9"/>
+<rect width="20" height="20" rx="10" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 510 209.998)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 650 209.999)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 580 209.998)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 789.992 210)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 720 209.999)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 630 69.999)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 630 139.998)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 630 349.998)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 630 279.999)" fill="white"/>
+<rect x="519.789" y="93.9336" width="20" height="100" rx="10" transform="rotate(-45 519.789 93.9336)" fill="white"/>
+<rect x="675.359" y="249.497" width="20" height="100" rx="10" transform="rotate(-45 675.359 249.497)" fill="white"/>
+<rect x="533.938" y="320.208" width="20" height="100" rx="10" transform="rotate(-135 533.938 320.208)" fill="white"/>
+<rect x="689.5" y="164.645" width="20" height="100" rx="10" transform="rotate(-135 689.5 164.645)" fill="white"/>
+<circle cx="320" cy="80" r="20" transform="rotate(180 320 80)" fill="black"/>
+<circle cx="960" cy="321" r="20" transform="rotate(180 960 321)" fill="#A5F898"/>
+<circle cx="640" cy="200" r="200" fill="#2A9FFF"/>
+<circle cx="640" cy="200" r="150" stroke="white" stroke-width="20"/>
+<circle cx="640" cy="200" r="70" stroke="white" stroke-width="20"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 630 110)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 630 310)" fill="white"/>
+<path d="M320 80L531 200" stroke="black" stroke-width="4"/>
+<rect width="20" height="20" rx="10" transform="matrix(4.37114e-08 1 1 -4.37114e-08 521 190)" fill="black"/>
+<path d="M960 320L749 200" stroke="#A5F898" stroke-width="4"/>
+<rect width="20" height="20" rx="10" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 759 210)" fill="#A5F898"/>
+<path d="M42.4 354V350.88H48.32V329.92H42.4V326.8H57.6V329.92H51.68V350.88H57.6V354H42.4ZM72.2447 354.4C66.6447 354.4 63.2447 351.96 62.2847 346.84L65.5247 346.28C66.2847 349.64 68.2847 351.44 72.3247 351.44C75.9647 351.44 78.4847 349.8 78.4847 346.92C78.4847 344.48 77.3247 343.2 74.4047 342.52L70.0447 341.52C65.8847 340.56 63.2047 338.68 63.2047 334.2C63.2047 329.48 66.9647 326.4 72.1647 326.4C77.6847 326.4 80.7247 329.2 81.5647 333.72L78.3647 334.24C77.7647 331.48 75.9247 329.36 72.0847 329.36C68.5247 329.36 66.5247 331.4 66.5247 334.04C66.5247 336.36 67.8047 337.68 71.0047 338.44L75.2847 339.44C79.7647 340.48 81.8047 342.72 81.8047 346.8C81.8047 351.84 77.6447 354.4 72.2447 354.4ZM96.9388 354.4C89.8588 354.4 86.2188 349.64 86.2188 340.4C86.2188 331.16 89.8588 326.4 96.9388 326.4C104.019 326.4 107.659 331.16 107.659 340.4C107.659 349.64 104.019 354.4 96.9388 354.4ZM96.9388 351.36C101.939 351.36 104.179 347.56 104.179 340.4C104.179 333.24 101.939 329.44 96.9388 329.44C91.9388 329.44 89.6988 333.24 89.6988 340.4C89.6988 347.56 91.9388 351.36 96.9388 351.36Z" fill="white"/>
+</svg>

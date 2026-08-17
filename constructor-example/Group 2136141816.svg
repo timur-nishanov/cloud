@@ -1,0 +1,31 @@
+<svg width="880" height="880" viewBox="0 0 880 880" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="400" height="400" rx="40" fill="#FE8242"/>
+<circle cx="200" cy="200" r="150" fill="#FE8242" stroke="white" stroke-width="40"/>
+<circle cx="200" cy="200" r="80" fill="#FE8242" stroke="white" stroke-width="40"/>
+<rect x="160" y="160" width="400" height="400" rx="40" fill="black"/>
+<circle cx="210" cy="210" r="10" fill="#BFFF00"/>
+<path d="M520 320V720" stroke="#2A9FFF" stroke-width="6"/>
+<rect x="323" y="323" width="394" height="394" rx="37" stroke="#2A9FFF" stroke-width="6"/>
+<rect x="160" y="480" width="240" height="80" rx="40" fill="#FCC67F"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 340 540)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 0 0 -1 350 531)" fill="#2A9FFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 180 540)" fill="black"/>
+<path d="M720 521L360 521" stroke="#2A9FFF" stroke-width="6"/>
+<rect x="480" y="480" width="400" height="400" rx="40" fill="#E7EBF4"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 540 820)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 620 820)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 700 820)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 780 820)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 540 740)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 620 740)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 700 740)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 780 740)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 540 660)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 620 660)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 700 660)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 780 660)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 540 580)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 620 580)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 700 580)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 780 580)" fill="white"/>
+</svg>

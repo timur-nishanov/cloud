@@ -1,0 +1,23 @@
+<svg width="1280" height="400" viewBox="0 0 1280 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M440 400H540C705.685 400 840 265.685 840 100V0H440V400Z" fill="black"/>
+<rect x="810" y="30" width="20" height="20" rx="10" transform="rotate(90 810 30)" fill="#A5F898"/>
+<rect x="490" y="350" width="20" height="20" rx="10" transform="rotate(90 490 350)" fill="#BFFF00"/>
+<rect x="560" y="120" width="80" height="80" rx="40" transform="rotate(-180 560 120)" fill="white"/>
+<circle cx="20" cy="20" r="20" transform="matrix(1 0 0 -1 500 100)" fill="#2A9FFF"/>
+<path d="M1280 40C1280 17.9086 1262.09 0 1240 0H920C897.909 0 880 17.9086 880 40V360C880 382.091 897.909 400 920 400H1280V40Z" fill="#2A9FFF"/>
+<rect width="20" height="140" rx="10" transform="matrix(-1 0 0 1 1250 30)" fill="white"/>
+<rect x="930" y="370" width="20" height="20" rx="10" transform="rotate(180 930 370)" fill="white"/>
+<rect x="990" y="370" width="20" height="20" rx="10" transform="rotate(180 990 370)" fill="white"/>
+<rect x="1050" y="370" width="20" height="20" rx="10" transform="rotate(180 1050 370)" fill="white"/>
+<rect x="930" y="310" width="20" height="20" rx="10" transform="rotate(180 930 310)" fill="white"/>
+<rect x="930" y="250" width="20" height="20" rx="10" transform="rotate(180 930 250)" fill="#A5F898"/>
+<circle cx="200" cy="200" r="200" transform="matrix(-1 0 0 1 400 0)" fill="black"/>
+<rect x="210" y="70" width="20" height="20" rx="10" transform="rotate(180 210 70)" fill="white"/>
+<rect x="210" y="350" width="20" height="20" rx="10" transform="rotate(180 210 350)" fill="white"/>
+<rect width="80" height="80" rx="40" transform="matrix(-1 0 0 1 361.242 230)" fill="white"/>
+<rect width="80" height="80" rx="40" transform="matrix(-0.866025 -0.5 -0.5 0.866025 133.398 115.359)" fill="white"/>
+<circle cx="80" cy="80" r="80" transform="matrix(-1 0 0 1 280 120)" fill="white"/>
+<circle cx="20" cy="20" r="20" transform="matrix(1 0 0 -1 300.242 290)" fill="#2A9FFF"/>
+<path d="M519 80.1172L319.5 270.5" stroke="#2A9FFF" stroke-width="4"/>
+<path d="M800 40L920 240" stroke="#A5F898" stroke-width="4"/>
+</svg>

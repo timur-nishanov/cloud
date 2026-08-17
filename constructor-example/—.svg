@@ -1,0 +1,36 @@
+<svg width="1280" height="400" viewBox="0 0 1280 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M440 400H580L840 140V40C840 17.9086 822.091 0 800 0H440V400Z" fill="#2A9FFF"/>
+<rect x="810" y="120" width="20" height="20" rx="10" transform="rotate(90 810 120)" fill="white"/>
+<rect x="580" y="350" width="20" height="20" rx="10" transform="rotate(90 580 350)" fill="#BFFF00"/>
+<rect x="560" y="120" width="80" height="80" rx="40" transform="rotate(-180 560 120)" fill="white"/>
+<rect width="400" height="400" rx="40" transform="matrix(1 0 0 -1 0 400)" fill="#2A9FFF"/>
+<rect x="60" y="60" width="40" height="40" rx="20" fill="white"/>
+<rect x="140" y="60" width="40" height="40" rx="20" fill="white"/>
+<rect x="220" y="60" width="40" height="40" rx="20" fill="white"/>
+<rect x="300" y="60" width="40" height="40" rx="20" fill="white"/>
+<rect x="60" y="140" width="40" height="40" rx="20" fill="white"/>
+<rect x="140" y="140" width="40" height="40" rx="20" fill="white"/>
+<rect x="220" y="140" width="40" height="40" rx="20" fill="white"/>
+<rect x="300" y="140" width="40" height="40" rx="20" fill="white"/>
+<rect x="60" y="220" width="40" height="40" rx="20" fill="white"/>
+<rect x="140" y="220" width="40" height="40" rx="20" fill="white"/>
+<rect x="220" y="220" width="40" height="40" rx="20" fill="white"/>
+<rect x="300" y="220" width="40" height="40" rx="20" fill="white"/>
+<rect x="60" y="300" width="40" height="40" rx="20" fill="white"/>
+<rect x="140" y="300" width="40" height="40" rx="20" fill="white"/>
+<rect x="220" y="300" width="40" height="40" rx="20" fill="white"/>
+<rect x="300" y="300" width="40" height="40" rx="20" fill="white"/>
+<circle cx="1080" cy="200" r="200" fill="black"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 0 0 -1 1070 70)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(1 0 0 -1 1070 350)" fill="white"/>
+<rect x="904.117" y="255.359" width="80" height="80" rx="40" transform="rotate(-30 904.117 255.359)" fill="white"/>
+<rect x="1146.6" y="115.359" width="80" height="80" rx="40" transform="rotate(-30 1146.6 115.359)" fill="white"/>
+<circle cx="1080" cy="200" r="80" fill="white"/>
+<path d="M320 80H520" stroke="black" stroke-width="4"/>
+<rect width="20" height="20" rx="10" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 330 90)" fill="black"/>
+<rect x="979" y="250" width="40" height="40" rx="20" transform="rotate(90 979 250)" fill="black"/>
+<path d="M800.5 130.5L958.5 270.5" stroke="#FFB3ED" stroke-width="4"/>
+<rect x="810" y="120" width="20" height="20" rx="10" transform="rotate(90 810 120)" fill="#FFB3ED"/>
+<rect x="969" y="260" width="20" height="20" rx="10" transform="rotate(90 969 260)" fill="#FFB3ED"/>
+<rect width="40" height="40" rx="20" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 540 100)" fill="black"/>
+</svg>

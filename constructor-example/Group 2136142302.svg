@@ -1,0 +1,47 @@
+<svg width="1310" height="400" viewBox="0 0 1310 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M910 360C910 382.091 927.909 400 950 400H1270C1292.09 400 1310 382.091 1310 360V40C1310 17.9086 1292.09 0 1270 0H910V360Z" fill="black"/>
+<rect x="1100" y="340" width="20" height="20" rx="10" fill="white"/>
+<rect x="1100" y="40" width="20" height="20" rx="10" fill="white"/>
+<rect x="1100" y="190" width="20" height="20" rx="10" fill="white"/>
+<rect x="1100" y="265" width="20" height="20" rx="10" fill="white"/>
+<rect x="1100" y="115" width="20" height="20" rx="10" fill="white"/>
+<rect x="970" y="190" width="20" height="20" rx="10" transform="rotate(90 970 190)" fill="white"/>
+<rect x="1270" y="190" width="20" height="20" rx="10" transform="rotate(90 1270 190)" fill="white"/>
+<rect x="1045" y="190" width="20" height="20" rx="10" transform="rotate(90 1045 190)" fill="white"/>
+<rect x="1195" y="190" width="20" height="20" rx="10" transform="rotate(90 1195 190)" fill="white"/>
+<rect width="80" height="80" rx="40" transform="matrix(1 0 0 -1 950 120)" fill="white"/>
+<circle cx="990" cy="80" r="20" transform="rotate(-180 990 80)" fill="#A5F898"/>
+<rect x="470" width="400" height="400" rx="40" fill="#2A9FFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 530 340)" fill="black"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 610 340)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 690 340)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 770 340)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 530 260)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 610 260)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 690 260)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 770 260)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 530 180)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 610 180)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 690 180)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 770 180)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 530 100)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 610 100)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 690 100)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 770 100)" fill="#A5F898"/>
+<circle cx="230" cy="200" r="200" transform="rotate(-90 230 200)" fill="#2A9FFF"/>
+<circle cx="230" cy="200" r="120" transform="rotate(-90 230 200)" fill="white"/>
+<rect x="200" y="380" width="40" height="60" rx="20" transform="rotate(-90 200 380)" fill="white"/>
+<rect x="200" y="60.0001" width="40" height="60" rx="20" transform="rotate(-90 200 60.0001)" fill="white"/>
+<rect y="220" width="40" height="60" rx="20" transform="rotate(-90 0 220)" fill="white"/>
+<rect x="400" y="220" width="40" height="60" rx="20" transform="rotate(-90 400 220)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-0.42729 -0.904114 -0.904114 0.42729 98.6562 273.133)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-0.42729 -0.904114 -0.904114 0.42729 387.969 136.406)" fill="#BFFF00"/>
+<rect width="20" height="20" rx="10" transform="matrix(-0.822102 -0.569341 -0.569341 0.822102 152.82 329.008)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-0.822102 -0.569341 -0.569341 0.822102 335.008 65.9375)" fill="white"/>
+<rect x="98.6562" y="126.867" width="20" height="20" rx="10" transform="rotate(115.296 98.6562 126.867)" fill="white"/>
+<rect x="387.969" y="263.594" width="20" height="20" rx="10" transform="rotate(115.296 387.969 263.594)" fill="black"/>
+<rect x="152.82" y="70.9922" width="20" height="20" rx="10" transform="rotate(145.296 152.82 70.9922)" fill="white"/>
+<rect x="335.008" y="334.063" width="20" height="20" rx="10" transform="rotate(145.296 335.008 334.063)" fill="white"/>
+<path d="M790 80H990" stroke="#A5F898" stroke-width="4"/>
+<path d="M375.496 267.999L550.2 319.997" stroke="black" stroke-width="4"/>
+</svg>

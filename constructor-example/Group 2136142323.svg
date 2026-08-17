@@ -1,0 +1,23 @@
+<svg width="1170" height="610" viewBox="0 0 1170 610" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1170 90V210L930 370H610V90C610 67.9086 627.909 50 650 50H1130C1152.09 50 1170 67.9086 1170 90Z" fill="#B0BDD9"/>
+<rect x="920" y="320" width="20" height="20" rx="10" fill="white"/>
+<rect x="650" y="390" width="20" height="20" rx="10" fill="white"/>
+<path d="M330 210L810 210C832.091 210 850 227.909 850 250L850 290L290 290L290 250C290 227.909 307.909 210 330 210Z" fill="#2A9FFF"/>
+<rect width="20" height="20" rx="10" transform="matrix(0 -1 -1 4.37114e-08 819.992 260)" fill="black"/>
+<path d="M330 610L810 609.999C832.091 609.999 850 592.091 850 569.999L850 330L290 330L290 570C290 592.091 307.909 610 330 610Z" fill="black"/>
+<path d="M50 150L50 50L150 50L450 350L450 450L350 450L50 150Z" fill="#FCC67F"/>
+<path d="M450 150L450 50L350 50L50 350L50.0001 450L150 450L450 150Z" fill="#FCC67F"/>
+<rect width="80" height="80" rx="40" transform="matrix(1 0 0 -1 210 290)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 90 90)" fill="white"/>
+<rect width="20" height="20" rx="10" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 90 430)" fill="#2A9FFF"/>
+<rect width="80" height="80" rx="40" transform="matrix(1 0 0 -1 340 160)" fill="white"/>
+<rect width="80" height="80" rx="40" transform="matrix(1 0 0 -1 340 420)" fill="black"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 360 400)" fill="#FFB3ED"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 360 140)" fill="black"/>
+<rect x="619.992" y="370" width="200" height="40" rx="20" fill="white"/>
+<rect x="359.992" y="580" width="40" height="40" rx="20" transform="rotate(-90 359.992 580)" fill="white"/>
+<rect x="369.992" y="570" width="20" height="20" rx="10" transform="rotate(-90 369.992 570)" fill="#2A9FFF"/>
+<path d="M384 121L770 121C792.091 121 810 138.909 810 161L810 259" stroke="black" stroke-width="4" stroke-dasharray="20 20"/>
+<path d="M370 560L120 560C97.9086 560 80 542.091 80 520L80 420" stroke="#2A9FFF" stroke-width="4"/>
+<path d="M655.4 571V530.2H679.16V535H660.56V571H655.4ZM686.689 571V530.2H700.789C709.429 530.2 713.989 534.64 713.989 542.86C713.989 551.08 709.429 555.52 700.789 555.52H691.849V571H686.689ZM700.549 550.9C706.249 550.9 709.009 548.26 709.009 542.86C709.009 537.46 706.249 534.82 700.549 534.82H691.849V550.9H700.549ZM714.32 571L726.86 530.2H733.46L746.12 571H740.78L737.54 559.84H722.78L719.54 571H714.32ZM724.04 555.28H736.16L730.1 534.4L724.04 555.28ZM753.31 571V530.2H758.47V548.08H775.75V530.2H780.91V571H775.75V552.76H758.47V571H753.31ZM800.509 571V535H788.389V530.2H817.789V535H805.669V571H800.509Z" fill="white"/>
+</svg>

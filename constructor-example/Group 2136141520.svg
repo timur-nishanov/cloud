@@ -1,0 +1,14 @@
+<svg width="960" height="680" viewBox="0 0 960 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M59.9999 679.999L900 680C933.137 680 960 653.137 960 620V60C960 26.8629 933.137 0 900 0H60C26.8629 0 0 26.863 0 60.0001V619.999C0 653.136 26.8629 679.999 59.9999 679.999Z" fill="#E7EBF4"/>
+<rect x="160" y="360" width="80" height="80" rx="40" transform="rotate(90 160 360)" fill="#2A9FFF"/>
+<rect x="140" y="380" width="40" height="40" rx="20" transform="rotate(90 140 380)" fill="black"/>
+<rect x="160" y="200" width="80" height="80" rx="40" transform="rotate(90 160 200)" fill="#2A9FFF"/>
+<path d="M120 400L120 240" stroke="black" stroke-width="4"/>
+<rect x="160" y="520" width="80" height="80" rx="40" transform="rotate(90 160 520)" fill="#2A9FFF"/>
+<rect x="140" y="540" width="40" height="40" rx="20" transform="rotate(90 140 540)" fill="black"/>
+<rect x="140" y="220" width="40" height="40" rx="20" transform="rotate(90 140 220)" fill="black"/>
+<path d="M120 560L120 400" stroke="black" stroke-width="4"/>
+<path d="M280 280L680 280C702.091 280 720 262.091 720 240C720 217.909 702.091 200 680 200H280C257.909 200 240 217.909 240 240C240 262.091 257.909 280 280 280Z" fill="white"/>
+<path d="M280 440L520 440C542.091 440 560 422.091 560 400C560 377.909 542.091 360 520 360H280C257.909 360 240 377.909 240 400C240 422.091 257.909 440 280 440Z" fill="white"/>
+<path d="M280 600L840 600C862.091 600 880 582.091 880 560C880 537.909 862.091 520 840 520H280C257.909 520 240 537.909 240 560C240 582.091 257.909 600 280 600Z" fill="white"/>
+</svg>

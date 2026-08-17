@@ -1,0 +1,23 @@
+<svg width="1280" height="400" viewBox="0 0 1280 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1240 2H920C899.013 2 882 19.0132 882 40V360C882 380.987 899.013 398 920 398H1278V40C1278 19.0132 1260.99 2 1240 2Z" stroke="black" stroke-width="4"/>
+<rect x="950" y="370" width="40" height="40" rx="20" transform="rotate(180 950 370)" fill="#A5F898"/>
+<rect x="948" y="68" width="36" height="36" rx="18" transform="rotate(180 948 68)" stroke="black" stroke-width="4"/>
+<circle cx="200" cy="200" r="198" transform="matrix(-1 0 0 1 840 0)" stroke="black" stroke-width="4"/>
+<rect x="650" y="70" width="20" height="20" rx="10" transform="rotate(180 650 70)" stroke="black" stroke-width="4"/>
+<rect x="650" y="350" width="20" height="20" rx="10" transform="rotate(180 650 350)" stroke="black" stroke-width="4"/>
+<rect x="-2.73205" y="0.732051" width="76" height="76" rx="38" transform="matrix(-0.866025 -0.5 -0.5 0.866025 811.151 254.091)" stroke="black" stroke-width="4"/>
+<rect x="-2" y="2" width="76" height="76" rx="38" transform="matrix(-1 8.74228e-08 8.74228e-08 1 554.758 90)" stroke="black" stroke-width="4"/>
+<circle cx="80" cy="80" r="78" transform="matrix(-1 0 0 1 720 120)" stroke="black" stroke-width="4"/>
+<rect x="1248" y="108" width="76" height="76" rx="38" transform="rotate(-180 1248 108)" stroke="black" stroke-width="4"/>
+<path d="M99.1719 2.00002L200 102.828L300.828 2.00002H398V99.1719L297.172 200L398 300.828V398H300.828L200 297.172L99.1719 398H2V300.828L102.828 200L2 99.1719V2.00002H99.1719Z" stroke="black" stroke-width="4"/>
+<rect x="2" y="-2" width="76" height="76" rx="38" transform="matrix(1 0 0 -1 160 236)" stroke="black" stroke-width="4"/>
+<rect width="20" height="20" rx="10" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 40 40)" stroke="black" stroke-width="4"/>
+<rect width="20" height="20" rx="10" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 40 380)" stroke="black" stroke-width="4"/>
+<rect x="2" y="-2" width="76" height="76" rx="38" transform="matrix(1 0 0 -1 290 106)" stroke="black" stroke-width="4"/>
+<rect x="2" y="-2" width="76" height="76" rx="38" transform="matrix(1 0 0 -1 290 366)" stroke="black" stroke-width="4"/>
+<circle cx="330" cy="330" r="20" transform="rotate(180 330 330)" fill="black"/>
+<circle cx="519" cy="130" r="20" transform="rotate(180 519 130)" fill="black"/>
+<circle cx="20" cy="20" r="20" transform="matrix(1 0 0 -1 741 290)" fill="#A5F898"/>
+<path d="M518.5 130.5L329 330.5" stroke="black" stroke-width="4"/>
+<path d="M930 351L761.5 270" stroke="#A5F898" stroke-width="4"/>
+</svg>
