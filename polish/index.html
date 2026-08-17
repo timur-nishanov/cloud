@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Собери свой идеальный бандл — Yandex Cloud / Scale 2026</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+
+  <!-- ЭКРАН 1: ATTRACT (синий, «ИТ-ландшафт») -->
+  <section class="screen active" id="s-attract">
+    <div class="topbar">
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+    </div>
+    <div id="attract-inner">
+      <div id="word-rig" class="cut"></div>
+      <p class="sub cut d1">Каждый сервис — деталь. Рабочая связка — собранный механизм.</p>
+    </div>
+    <div id="cta-wire" class="cut d2"><span class="term sm"></span><span class="w-line"></span><span class="term sm"></span></div>
+    <div id="tap-cta" class="cut d2"><span class="term"></span>Коснитесь экрана</div>
+    <div id="tag-strip"><div class="row"></div></div>
+  </section>
+
+  <!-- ЭКРАН 2: ВЫБОР РЕЖИМА -->
+  <section class="screen inner" id="s-mode">
+    <div class="grid-bg"></div>
+    <div class="topbar">
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+    </div>
+    <h2 class="cut">Как будем собирать <span class="hl">бандл</span>?</h2>
+    <div id="mode-cards" class="cut d1">
+      <div class="detail primary" data-mode="build">
+        <span class="screw s1"></span><span class="screw s2"></span>
+        <div class="m-num">Режим 01</div>
+        <h3>Собрать<br>самому</h3>
+        <p>Ставь детали в слоты и собери связку с нуля.</p>
+        <div class="m-art" data-art="parts"></div>
+      </div>
+      <div class="detail" data-mode="ready">
+        <div class="coin-badge"><span class="coin"></span>монета за конкурс</div>
+        <span class="screw s1"></span><span class="screw s2"></span>
+        <div class="m-num">Режим 02</div>
+        <h3>Выбрать<br>готовый бандл</h3>
+        <p>Три собранных механизма — выбери тот, что решает задачу.</p>
+        <div class="m-art" data-art="rig"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЭКРАН 3: ВЫБОР ЗАДАЧИ (общий для обеих веток) -->
+  <section class="screen inner" id="s-tasks">
+    <div class="grid-bg"></div>
+    <div class="topbar">
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+    </div>
+    <h2 class="cut">Выбери <span class="hl">бизнес-задачу</span></h2>
+    <p class="hint cut d1" id="tasks-hint"></p>
+    <div id="task-grid" class="cut d1"></div>
+    <div id="task-actions" class="cut d2">
+      <button class="btn secondary" id="task-random">Случайная задача</button>
+    </div>
+    <button class="btn secondary btn-back" data-go="s-mode">Назад</button>
+  </section>
+
+  <!-- ЭКРАН 4A: СБОРКА -->
+  <section class="screen inner" id="s-build">
+    <div class="grid-bg"></div>
+    <div class="topbar">
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+      <div class="top-right"></div>
+    </div>
+    <div class="task-strip cut">
+      <div class="ts-type"></div>
+      <div class="ts-name"></div>
+      <p class="ts-desc"></p>
+    </div>
+    <div id="chain" class="cut d1"></div>
+    <div id="palette" class="cut d2"></div>
+    <div id="build-actions" class="cut d3">
+      <button class="btn secondary" id="clear-btn">Очистить</button>
+      <button class="btn" id="check-btn" disabled>Проверить</button>
+    </div>
+    <button class="btn secondary btn-back" data-go="s-tasks">Назад</button>
+  </section>
+
+  <!-- ЭКРАН 4B: ГОТОВЫЕ БАНДЛЫ -->
+  <section class="screen inner" id="s-ready">
+    <div class="grid-bg"></div>
+    <div class="topbar">
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+      <div class="top-right"></div>
+    </div>
+    <div class="task-strip cut">
+      <div class="ts-type"></div>
+      <div class="ts-name"></div>
+      <p class="ts-desc"></p>
+    </div>
+    <div id="bundle-list" class="cut d1"></div>
+    <div id="ready-actions" class="cut d2">
+      <button class="btn" id="confirm-btn" disabled>Подтвердить выбор</button>
+    </div>
+    <button class="btn secondary btn-back" data-go="s-tasks">Назад</button>
+  </section>
+
+  <!-- ЭКРАН 5: РЕЗУЛЬТАТ -->
+  <section class="screen inner" id="s-result">
+    <div class="grid-bg"></div>
+    <div class="topbar">
+      <img class="logo" src="assets/logo/logo_full-colour_black.svg" alt="Yandex Cloud">
+    </div>
+    <div id="result-title" class="cut"></div>
+    <p id="result-sub" class="cut d1"></p>
+    <div id="result-chain" class="cut d2"></div>
+    <div id="result-coin"></div>
+    <div id="result-actions" class="cut d3"></div>
+  </section>
+
+  <!-- таймер (переезжает в шапку активного игрового экрана) -->
+  <div id="timer"><span class="t-num">01:00</span>
+    <span class="t-rail"><span></span></span>
+  </div>
+
+  <!-- вердикт-панель (ошибка сборки: «Исправить») -->
+  <div id="verdict-bar">
+    <div class="vb-title"></div>
+    <p class="vb-sub"></p>
+    <div class="vb-ref"><div class="lbl">Правильная связка</div><div class="row"></div></div>
+    <div class="vb-actions"></div>
+  </div>
+
+  <!-- призрак перетаскивания -->
+  <div id="drag-ghost"></div>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
