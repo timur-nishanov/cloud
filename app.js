@@ -157,13 +157,6 @@ const DATA = {
       ]},
   ],
 
-  /* Attract: факты-заглушки. TODO: реальные цифры платформы. */
-  FACTS: [
-    {num:'13',    lbl:'сервисов в одной платформе данных'},
-    {num:'99,9%', lbl:'SLA доступности managed-сервисов'},
-    {num:'0',     lbl:'забот об администрировании инфраструктуры'},
-    {num:'PB',    lbl:'масштаб — от прототипа до петабайтов данных'},
-  ],
 };
 const S = DATA.SERVICES;
 const FPS_STEP = 1000 / 12; /* фирменный «лоу ФПС»: дискретные шаги ~12 к/с */
@@ -239,50 +232,62 @@ function go(id){
 }
 
 /* ============================================================
-   ATTRACT: россыпь «ИТ-ландшафта» + факт-ротатор
+   ATTRACT: фиксированная композиция фирменных деталей
+   (assets/details/ — базовые детали и коннекторы из брендбука;
+   статично, движется только лента тегов и CTA)
    ============================================================ */
-function buildScatter(){
-  const box = $('#scatter'); box.innerHTML='';
-  /* пропорция: б/ч/белое — основа; расширенная палитра — редкая мелочь */
-  const main = ['var(--white)','var(--black)','var(--beige)'];
-  const rare = ['var(--pink)','var(--violet)','var(--green)','var(--grey)'];
-  const N = 64;
-  for(let i=0;i<N;i++){
-    const el = document.createElement('div');
-    el.className='shp';
-    const small = Math.random()<0.7;
-    const sz = small ? 14+Math.random()*26 : 40+Math.random()*46;
-    const useRare = Math.random()<0.14 && small; /* мелочь ~5% площади */
-    const c = useRare ? rare[Math.random()*rare.length|0] : main[Math.random()*main.length|0];
-    const t = Math.random();
-    if(t<0.34){ el.classList.add('dot'); el.style.width=el.style.height=sz+'px'; el.style.background=c; }
-    else if(t<0.52){ el.classList.add('capsule'); el.style.width=sz*2.4+'px'; el.style.height=sz+'px'; el.style.background=c; }
-    else if(t<0.68){ el.style.width=sz*2.8+'px'; el.style.height=Math.max(8,sz*.32)+'px'; el.style.background=c; }
-    else if(t<0.8){ el.classList.add('hole'); el.style.width=el.style.height=sz+'px'; }
-    else if(t<0.92){ el.classList.add('plate'); el.style.width=sz*1.9+'px'; el.style.height=sz*1.3+'px'; el.style.background=c; }
-    else { el.classList.add('checker'); el.style.width=el.style.height=sz*1.5+'px'; el.innerHTML='<i></i><i></i><i></i><i></i>'; }
-    el.style.left=(Math.random()*100)+'%';
-    el.style.top=(12+Math.random()*88)+'%'; /* верхняя полоса — чистая зона шапки */
-    /* сдвиги только по H/V/45°: dx,dy ∈ {-s,0,s} */
-    const s = 8+Math.random()*8|0;
-    const dx = [ -s,0,s ][Math.random()*3|0];
-    const dy = dx!==0 && Math.random()<0.5 ? (Math.random()<0.5?dx:-dx) : (dx===0? [ -s,s ][Math.random()*2|0] : 0);
-    el.style.setProperty('--dx',dx+'px');
-    el.style.setProperty('--dy',dy+'px');
-    el.style.setProperty('--spd',(0.9+Math.random()*1.4)+'s');
-    box.appendChild(el);
+/* тема attract: светлая по умолчанию, ?attract=blue — синий «маяк»
+   для стойки. На светлой детали идут в родном синем исполнении,
+   на синей — перекрашенные (белый/бежевый корпус; брендбук разрешает
+   перекрас линейных деталей). */
+const ATTRACT_BLUE = /[?&]attract=blue/.test(location.search);
+const ATTRACT_DECO = [
+  {src:'capsule-3',  blue:'capsule-3--b',   x:150,  y:158,  w:150},
+  {src:'arc',        blue:'arc--w',         x:1290, y:96,   w:150},
+  {src:'disc-rays',  blue:'disc-rays',      x:1612, y:150,  w:168},
+  {src:'flange',     blue:'flange',         x:104,  y:406,  w:140},
+  {src:'cross',      blue:'cross--w',       x:1746, y:352,  w:116},
+  {src:'plate-dots', blue:'plate-dots--w',  x:224,  y:588,  w:130},
+  {src:'capsule',    blue:'capsule--w',     x:1682, y:512,  w:160},
+  {src:'plate-holes',blue:'plate-holes--b', x:96,   y:730,  w:148},
+  {src:'trapeze',    blue:'trapeze--w',     x:1622, y:716,  w:170},
+  {src:'quarter',    blue:'quarter--b',     x:308,  y:846,  w:126},
+];
+const ATTRACT_PRIMS = [
+  /* мелочь: бежевый/чб + шашка; цвет зависит от темы */
+  {t:'dot',    x:520,  y:132, s:22, c:'var(--beige)'},
+  {t:'ring',   x:1188, y:920, s:32},
+  {t:'checker',x:668,  y:948, s:40},
+  {t:'dot',    x:1520, y:892, s:18, c:'var(--black)'},
+  {t:'dot',    x:404,  y:250, s:14, c:ATTRACT_BLUE?'var(--white)':'var(--grey)'},
+];
+function buildAttract(){
+  if(ATTRACT_BLUE){
+    document.body.classList.add('attract-blue');
+    $('#s-attract .logo').src = 'assets/logo/logo_full-mono_white.svg';
   }
+  const box = $('#attract-deco'); box.innerHTML='';
+  ATTRACT_DECO.forEach(d=>{
+    const img = document.createElement('img');
+    img.src = 'assets/details/'+(ATTRACT_BLUE ? d.blue : d.src)+'.svg';
+    img.style.left = d.x+'px'; img.style.top = d.y+'px'; img.style.width = d.w+'px';
+    box.appendChild(img);
+  });
+  ATTRACT_PRIMS.forEach(p=>{
+    const el = document.createElement('div');
+    el.className = 'prim '+(p.t==='checker'?'checker':p.t);
+    el.style.left=p.x+'px'; el.style.top=p.y+'px';
+    el.style.width=el.style.height=p.s+'px';
+    if(p.c) el.style.background=p.c;
+    if(p.t==='checker') el.innerHTML='<i></i><i></i><i></i><i></i>';
+    box.appendChild(el);
+  });
+  /* лента тегов-сервисов (контент — из слопового прототипа);
+     ряд дублируется для бесшовного цикла */
+  const chips = Object.keys(S).map(id=>
+    `<span class="tag-chip"><img src="assets/icons/${S[id].icon}.svg" alt="">${S[id].name}</span>`).join('');
+  $('#tag-strip .row').innerHTML = chips + chips;
 }
-let factIdx = 0;
-setInterval(()=>{
-  if(!$('#s-attract').classList.contains('active')) return;
-  factIdx = (factIdx+1) % DATA.FACTS.length;
-  const f = DATA.FACTS[factIdx], el = $('#fact');
-  el.classList.remove('swap'); void el.offsetWidth;
-  el.querySelector('.f-num').textContent = f.num;
-  el.querySelector('.f-lbl').textContent = f.lbl;
-  el.classList.add('swap');
-}, 4000);
 
 $('#s-attract').addEventListener('pointerup', ()=>go('s-mode'));
 
@@ -772,5 +777,5 @@ $$('.js-home').forEach(b=>b.addEventListener('click', ()=>go('s-attract')));
 /* киоск-режим: ?kiosk — скрыть курсор (на стойке; в демо мышкой не включать) */
 if(location.search.includes('kiosk')) document.body.classList.add('kiosk');
 
-buildScatter();
+buildAttract();
 go('s-attract');
