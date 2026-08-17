@@ -18,19 +18,19 @@ const DATA = {
   TIMER_SECONDS: 60,
 
   SERVICES: {
-    pg:    {name:'PostgreSQL',  icon:'postgresql'},
-    my:    {name:'MySQL',       icon:'mysql'},
-    ch:    {name:'ClickHouse',  icon:'clickhouse'},
-    sd:    {name:'StoreDoc',    icon:'storedoc'},
-    vk:    {name:'Valkey',      icon:'valkey'},
-    kafka: {name:'Kafka',       icon:'kafka'},
-    gp:    {name:'Greenplum',   icon:'greenplum'},
-    os:    {name:'OpenSearch',  icon:'opensearch'},
-    af:    {name:'Airflow',     icon:'airflow'},
-    sp:    {name:'Spark',       icon:'spark'},
-    yt:    {name:'YTsaurus',    icon:'ytsaurus'},
-    ydb:   {name:'YDB',         icon:'ydb'},
-    dl:    {name:'DataLens',    icon:'datalens'},
+    pg:    {name:'PostgreSQL',  icon:'postgresql', desc:'Управляемая реляционная база данных PostgreSQL.'},
+    my:    {name:'MySQL',       icon:'mysql', desc:'Управляемая реляционная база данных MySQL.'},
+    ch:    {name:'ClickHouse',  icon:'clickhouse', desc:'Колоночная база данных для быстрой аналитики.'},
+    sd:    {name:'StoreDoc',    icon:'storedoc', desc:'Документная база данных с гибкой схемой.'},
+    vk:    {name:'Valkey',      icon:'valkey', desc:'Высокопроизводительное хранилище данных в памяти.'},
+    kafka: {name:'Kafka',       icon:'kafka', desc:'Сервис для передачи и обработки потоков событий.'},
+    gp:    {name:'Greenplum',   icon:'greenplum', desc:'MPP-база данных для аналитических хранилищ.'},
+    os:    {name:'OpenSearch',  icon:'opensearch', desc:'Сервис полнотекстового поиска и аналитики.'},
+    af:    {name:'Airflow',     icon:'airflow', desc:'Сервис для оркестрации регулярных пайплайнов.'},
+    sp:    {name:'Spark',       icon:'spark', desc:'Сервис распределённой обработки больших данных.'},
+    yt:    {name:'YTsaurus',    icon:'ytsaurus', desc:'Платформа для хранения и обработки больших данных.'},
+    ydb:   {name:'YDB',         icon:'ydb', desc:'Распределённая транзакционная база данных.'},
+    dl:    {name:'DataLens',    icon:'datalens', desc:'Сервис для визуализации данных и создания дашбордов.'},
   },
 
   /* Ветка А: собрать самому. roles — подписи слотов капсом (TODO: заглушки). */
@@ -212,6 +212,7 @@ const state = {
   timerId:null,
   timeLeft:0,
   signalId:null,
+  selectedService:null,
 };
 
 function go(id){
@@ -404,6 +405,7 @@ function renderBuild(){
   const t = state.task;
   state.slots = new Array(t.correct.length).fill(null);
   state.locked = false;
+  state.selectedService = null;
   const strip = $('#s-build .task-strip');
   strip.querySelector('.ts-name').textContent = t.title;
   strip.querySelector('.ts-desc').textContent = t.desc;
@@ -417,7 +419,11 @@ function renderBuild(){
       <span class="screw c3"></span><span class="screw c4"></span>
       <span class="holes"><i></i><i></i><i></i><i></i></span>
       <span class="role">${t.roles[i]||''}</span>`;
-    slot.addEventListener('click', ()=>{ if(!state.locked) unplace(i); });
+    slot.addEventListener('click', ()=>{
+      if(state.locked) return;
+      if(state.slots[i]) unplace(i);
+      else if(state.selectedService) place(state.selectedService, i);
+    });
     chain.appendChild(slot);
     chain.appendChild(makeLink());
   });
@@ -436,13 +442,14 @@ function renderBuild(){
     pal.appendChild(tile);
   });
   updateCheckBtn();
+  updateServiceInfo();
   startTimer(timeoutBuild);
 }
 
 function chipHTML(id){
   return `<div class="chip"><span class="pin"></span>
     ${ICONS[id]?`<span class="chip-ico">${iconImg(id)}</span>`:''}
-    <span>${S[id].name}</span>
+    <span>${S[id].name}</span><button class="remove" type="button" aria-label="Убрать ${S[id].name}">×</button>
     <span class="edge"><i></i><i></i><i></i><i></i></span></div>`;
 }
 /* провод-связь: линия + терминалы-крепления на обоих концах */
@@ -462,6 +469,7 @@ function place(sid, idx){
   if(ICONS[sid]) slot.classList.add('has-icon');
   slot.insertAdjacentHTML('beforeend', chipHTML(sid));
   const tile = $(`.tile[data-sid="${sid}"]`); if(tile) tile.classList.add('used');
+  selectService(null);
   updateCheckBtn();
 }
 function unplace(idx){
@@ -476,13 +484,27 @@ function unplace(idx){
 function clearSlots(){
   state.slots.forEach((_,i)=>unplace(i));
 }
-function firstEmpty(){ return state.slots.findIndex(v=>!v); }
 function updateCheckBtn(){
   $('#check-btn').disabled = state.slots.some(v=>!v) || state.locked;
 }
+function updateServiceInfo(){
+  const info = $('#service-info');
+  if(!info) return;
+  const sid = state.selectedService;
+  info.innerHTML = sid
+    ? `<strong>${S[sid].name}</strong><span>${S[sid].desc} Коснись свободного слота, чтобы добавить сервис.</span>`
+    : '<span>Коснись сервиса, чтобы узнать, что он делает</span>';
+  $$('#palette .tile').forEach(t=>t.classList.toggle('selected', t.dataset.sid===sid));
+  $$('#chain .slot').forEach(s=>s.classList.toggle('selected-target', !!sid && !s.classList.contains('filled')));
+}
+function selectService(sid){
+  state.selectedService = sid;
+  updateServiceInfo();
+}
 $('#clear-btn').addEventListener('click', ()=>{ if(!state.locked) clearSlots(); });
 
-/* тап по плитке = в первый свободный слот; драг = в конкретный слот */
+/* Тап показывает описание и выбирает сервис; затем тап по свободному слоту
+   ставит деталь. Drag-and-drop по-прежнему ставит её сразу. */
 function attachTile(tile){
   let px=0, py=0, dragging=false, pid=null;
   const ghost = $('#drag-ghost');
@@ -518,10 +540,7 @@ function attachTile(tile){
       tile.classList.remove('dragging');
       const slot = slotAt(e);
       if(slot && !slot.classList.contains('filled')) place(sid, +slot.dataset.idx);
-    }else{
-      const idx = firstEmpty();
-      if(idx>-1) place(sid, idx); /* тап = в первый свободный */
-    }
+    }else selectService(state.selectedService===sid ? null : sid);
     pid=null; dragging=false;
   });
   tile.addEventListener('pointercancel', ()=>{

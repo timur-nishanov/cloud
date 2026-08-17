@@ -123,19 +123,19 @@ body.kiosk, body.kiosk *{cursor:none !important;}
 #timer.low .t-rail span{background:var(--violet);}
 
 /* ============================================================
-   КНОПКИ — детали конструктора: срез одного угла + винт
+   КНОПКИ — спокойные капсулы, как в актуальном интерфейсе Yandex Cloud
    ============================================================ */
 .btn{
   position:relative;
   font-family:var(--f-display);font-weight:900;font-size:25px;
   min-height:88px;padding:0 44px;
-  border:3px solid var(--black);border-radius:10px 10px 32px 10px;
+  border:2px solid var(--black);border-radius:999px;
   background:var(--black);color:var(--white);
   display:inline-flex;align-items:center;justify-content:center;gap:.5em;
   cursor:pointer;touch-action:manipulation;
   transition:transform .16s var(--e), background .16s var(--e);
 }
-.btn.secondary{background:var(--white);color:var(--black);}
+.btn.secondary{background:var(--white);color:var(--black);border-color:var(--grey);font-family:var(--f-text);font-weight:400;}
 /* disabled: «деталь ещё не вставлена» — пунктирная кромка вместо серого.
    Без полупрозрачности и без серого текста. TODO: согласовать с брендом */
 .btn:disabled{
@@ -148,7 +148,7 @@ body.kiosk, body.kiosk *{cursor:none !important;}
 .btn-back{
   position:absolute;left:var(--pad);bottom:44px;z-index:22;
   min-height:60px;font-size:17px;padding:0 26px;
-  border-width:2px;border-radius:6px 6px 20px 6px;
+  border-width:2px;border-radius:999px;
 }
 
 /* ============================================================
@@ -251,7 +251,7 @@ body.attract-blue #attract-inner .sub{color:var(--white);}
   /* синяя, чтобы не спорить с чёрной плитой «идеальный»:
      чёрный остаётся у заголовка, синий — у действия */
   background:var(--blue);color:var(--white);
-  padding:36px 80px;border-radius:14px 14px 56px 14px;
+  padding:36px 80px;border-radius:999px;
 }
 /* на синей теме синяя кнопка пропала бы — там она чёрная */
 body.attract-blue #tap-cta{background:var(--black);}
@@ -282,7 +282,7 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
 .tag-chip{
   position:relative;display:flex;align-items:center;gap:12px;flex:none;
   height:64px;
-  background:var(--white);border:2px solid var(--black);
+  background:var(--white);border:2px solid var(--grey);
   border-radius:6px 6px 22px 6px;
   padding:0 28px 0 18px;
   font-family:var(--f-mono);font-size:17px;letter-spacing:.03em;text-transform:uppercase;
@@ -290,7 +290,7 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
 }
 .tag-chip::after{
   content:'';position:absolute;top:8px;right:8px;width:6px;height:6px;
-  border-radius:50%;border:2px solid var(--black);
+  border-radius:50%;border:2px solid var(--grey);
 }
 .tag-chip img{width:30px;height:30px;display:block;}
 
@@ -309,14 +309,14 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
 /* карточка-деталь: срез угла, винты, кромка с отверстиями */
 .detail{
   position:relative;background:var(--white);
-  border:3px solid var(--black);border-radius:12px 12px 44px 12px;
+  border:2px solid var(--grey);border-radius:12px 12px 44px 12px;
   text-align:left;cursor:pointer;touch-action:manipulation;
   transition:transform .16s var(--e), background .16s var(--e);
 }
 .detail:active{transform:scale(.985);}
 .detail .screw{
   position:absolute;width:13px;height:13px;border-radius:50%;
-  border:3px solid var(--black);background:var(--white);
+  border:2px solid var(--grey);background:var(--white);
 }
 .detail .screw.s1{top:14px;left:14px;}
 .detail .screw.s2{top:14px;right:14px;}
@@ -326,7 +326,7 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
   display:inline-block;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.03em;
   border:2px solid var(--black);border-radius:999px;
 }
-.detail.primary{background:var(--blue);}
+.detail.primary{background:var(--blue);border-color:var(--blue);}
 .detail.primary .screw{border-color:var(--white);background:transparent;}
 .detail.primary h3,.detail.primary p{color:var(--white);}
 .detail.primary .tag{border-color:var(--white);color:var(--white);}
@@ -441,7 +441,7 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
    винты по углам и кромка крепёжных отверстий */
 .slot{
   position:relative;width:240px;height:160px;flex:none;
-  border:3px dashed var(--black);border-radius:8px 8px 32px 8px;background:var(--white);
+  border:3px dashed var(--grey);border-radius:8px 8px 32px 8px;background:var(--white);
   transition:background .16s var(--e);
 }
 .slot .holes{position:absolute;right:12px;top:50%;transform:translateY(-50%);
@@ -462,6 +462,7 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
   font-family:var(--f-mono);font-size:14px;letter-spacing:.05em;text-transform:uppercase;
 }
 .slot.filled{border-style:solid;}
+.slot.selected-target{background:var(--grey-l);border-color:var(--black);}
 .slot.hover-ok{background:var(--grey-l);}
 /* ошибка: чёрная мигающая обводка + розовый статус (красного в палитре нет) */
 .slot.bad{animation:badBlink 1.4s var(--e) 2;}
@@ -486,6 +487,11 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
 /* кромка отверстий справа — как на деталях конструктора */
 .chip .edge{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;}
 .chip .edge i{width:6px;height:6px;border-radius:50%;background:var(--white);}
+.chip .remove{
+  position:absolute;right:8px;top:8px;width:30px;height:30px;border:0;border-radius:50%;
+  background:var(--white);color:var(--black);font:22px/1 var(--f-text);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
 .chip img{width:44px;height:44px;display:block;}
 .chip .chip-ico{background:var(--white);border-radius:7px;padding:5px;display:none;}
 .has-icon .chip-ico{display:block;}
@@ -561,6 +567,15 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
 .tile.used img{visibility:hidden;}
 .tile.dragging{border-style:dashed;}
 .tile:active{transform:scale(.975);}
+.tile.selected{background:var(--beige);border-color:var(--black);}
+
+#service-info{
+  width:100%;max-width:1540px;min-height:54px;margin:14px auto 0;
+  border:2px solid var(--grey);border-radius:999px;padding:10px 28px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  font-size:18px;line-height:1.3;text-align:center;
+}
+#service-info strong{font-family:var(--f-display);font-weight:900;}
 
 #drag-ghost{
   position:absolute;z-index:60;display:none;pointer-events:none;
@@ -572,11 +587,12 @@ body.attract-blue #tap-cta .term::after{background:var(--black);}
 #drag-ghost img{width:40px;height:40px;}
 
 /* кнопки идут сразу за палитрой — без провала до низа экрана */
-#build-actions{display:flex;justify-content:center;gap:24px;margin-top:var(--step);}
+#build-actions{display:flex;justify-content:center;gap:24px;margin-top:24px;}
 /* при открытой вердикт-панели нижний ярус сборки убирается:
    палитра и кнопки попадали под панель */
 body.verdict-on #build-actions,
-body.verdict-on #palette{visibility:hidden;}
+body.verdict-on #palette,
+body.verdict-on #service-info{visibility:hidden;}
 
 /* ============================================================
    ЭКРАН 4B: ГОТОВЫЕ БАНДЛЫ
@@ -584,7 +600,7 @@ body.verdict-on #palette{visibility:hidden;}
 #s-ready{padding-top:104px;}
 #bundle-list{display:flex;flex-direction:column;gap:18px;width:1200px;margin:44px auto 0;}
 .bundle{
-  position:relative;border:3px solid var(--black);border-radius:10px 10px 38px 10px;
+  position:relative;border:2px solid var(--grey);border-radius:10px 10px 38px 10px;
   background:var(--white);padding:26px 36px 26px 116px;cursor:pointer;touch-action:manipulation;
   transition:transform .16s var(--e), background .16s var(--e);
 }
