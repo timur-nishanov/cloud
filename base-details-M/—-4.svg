@@ -1,0 +1,6 @@
+<svg width="440" height="400" viewBox="0 0 440 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M360 398C380.987 398 398 380.987 398 360V198H438V180C438 81.6933 358.307 2 260 2H2V398H360Z" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="50" y="350" width="20" height="20" rx="10" transform="rotate(90 50 350)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="50" y="30" width="20" height="20" rx="10" transform="rotate(90 50 30)" stroke="#B0BDD9" stroke-width="4"/>
+<path d="M80 370C74.4772 370 70 365.523 70 360C70 354.477 74.4772 350 80 350L350 350C355.523 350 360 354.477 360 360C360 365.523 355.523 370 350 370L80 370Z" stroke="#B0BDD9" stroke-width="4"/>
+</svg>

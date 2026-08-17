@@ -1,0 +1,6 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="2" y="2" width="396" height="396" rx="38" stroke="#B0BDD9" stroke-width="4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M200 140C233.137 140 260 166.863 260 200C260 233.137 233.137 260 200 260C166.863 260 140 233.137 140 200C140 166.863 166.863 140 200 140ZM200 160C177.909 160 160 177.909 160 200C160 222.091 177.909 240 200 240C222.091 240 240 222.091 240 200C240 177.909 222.091 160 200 160Z" stroke="#B0BDD9" stroke-width="4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M200 50C282.843 50 350 117.157 350 200C350 282.843 282.843 350 200 350C117.157 350 50 282.843 50 200C50 117.157 117.157 50 200 50ZM200 70C128.203 70 70 128.203 70 200C70 271.797 128.203 330 200 330C271.797 330 330 271.797 330 200C330 128.203 271.797 70 200 70Z" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 330 66)" stroke="#B0BDD9" stroke-width="4"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="2" y="2" width="396" height="396" rx="38" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 60 336)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 140 336)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 220 336)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 300 336)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 60 256)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 140 256)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 220 256)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 300 256)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 60 176)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 140 176)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 220 176)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 300 176)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 60 96)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 140 96)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 220 96)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 300 96)" stroke="#B0BDD9" stroke-width="4"/>
+</svg>

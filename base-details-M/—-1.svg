@@ -1,0 +1,7 @@
+<svg width="440" height="400" viewBox="0 0 440 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M80 2C59.0132 2.00001 42 19.0132 42 40V202H2V398H400C420.987 398 438 380.987 438 360V2H80Z" stroke="#B0BDD9" stroke-width="4"/>
+<path d="M40 370C40 375.523 35.5228 380 30 380C24.4772 380 20 375.523 20 370L20 230C20 224.477 24.4772 220 30 220C35.5228 220 40 224.477 40 230L40 370Z" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 370 66)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="36" height="36" rx="18" transform="matrix(1 0 0 -1 70 66)" stroke="#B0BDD9" stroke-width="4"/>
+<rect width="20" height="20" rx="10" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 410 370)" stroke="#B0BDD9" stroke-width="4"/>
+</svg>

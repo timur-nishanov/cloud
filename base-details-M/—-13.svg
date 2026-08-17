@@ -1,0 +1,16 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="200" cy="200" r="198" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="-2" y="-2" width="16" height="16" rx="8" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 66 205.998)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="-2" y="-2" width="16" height="16" rx="8" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 206 205.999)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="-2" y="-2" width="16" height="16" rx="8" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 136 205.998)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="-2" y="-2" width="16" height="16" rx="8" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 345.996 206)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="-2" y="-2" width="16" height="16" rx="8" transform="matrix(-2.18557e-08 -1 -1 2.18557e-08 275.996 205.999)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="16" height="16" rx="8" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 189.996 65.9994)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="16" height="16" rx="8" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 190 135.999)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="16" height="16" rx="8" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 190 345.999)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="2" y="-2" width="16" height="16" rx="8" transform="matrix(1 -2.18557e-08 -2.18557e-08 -1 189.996 275.999)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="82.6214" y="93.934" width="16" height="96" rx="8" transform="rotate(-45 82.6214 93.934)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="238.184" y="249.497" width="16" height="96" rx="8" transform="rotate(-45 238.184 249.497)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="93.9336" y="317.38" width="16" height="96" rx="8" transform="rotate(-135 93.9336 317.38)" stroke="#B0BDD9" stroke-width="4"/>
+<rect x="249.496" y="161.816" width="16" height="96" rx="8" transform="rotate(-135 249.496 161.816)" stroke="#B0BDD9" stroke-width="4"/>
+</svg>
