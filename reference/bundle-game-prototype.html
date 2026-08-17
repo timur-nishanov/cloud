@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Собери свой идеальный бандл — прототип</title>
+<style>
+/* ============================================================
+   ПАЛИТРА — TODO: заменить пипеткой из брендбука (слайд 3.2)
+   Лампочка #BFFF00 — точная, из гайда (сигнальная лампочка)
+   ============================================================ */
+:root{
+  --blue:  #1A8CFF;   /* TODO: точный синий YC */
+  --black: #0A0A0A;
+  --white: #FFFFFF;
+  --beige: #FFD8A8;   /* TODO: точный бежевый YC */
+  --lamp:  #BFFF00;   /* только лампочка, один раз на экран */
+  --err:   #E5484D;   /* статус ошибки — TODO согласовать с брендом */
+
+  --font-display: 'YS Display', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-text:    'YS Text', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-mono:    'CoFo Sans Semi-Mono', 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+/* Когда появятся файлы шрифтов — раскомментировать:
+@font-face{font-family:'YS Display';src:url('fonts/YSDisplay-Black.woff2') format('woff2');font-weight:900;font-display:swap;}
+@font-face{font-family:'YS Text';src:url('fonts/YSText-Regular.woff2') format('woff2');font-weight:400;font-display:swap;}
+@font-face{font-family:'CoFo Sans Semi-Mono';src:url('fonts/CoFoSansSemiMono-Regular.woff2') format('woff2');font-weight:400;font-display:swap;}
+*/
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:var(--font-text);
+  color:var(--black);
+  background:var(--white);
+  overflow:hidden;
+  user-select:none;
+  -webkit-user-select:none;
+}
+body.kiosk{cursor:none;}
+
+/* ---------- экраны ---------- */
+.screen{position:fixed;inset:0;display:none;flex-direction:column;}
+.screen.active{display:flex;}
+
+/* появление «резким катом с инерцией»: 2 шага, без fade */
+@keyframes cutIn{
+  0%{transform:translateY(26px);}
+  50%{transform:translateY(-6px);}
+  100%{transform:translateY(0);}
+}
+.screen.active .cut{animation:cutIn .18s steps(2,end) both;}
+.screen.active .cut:nth-child(2){animation-delay:.05s;}
+.screen.active .cut:nth-child(3){animation-delay:.1s;}
+
+/* ---------- шапка ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:clamp(16px,1.6vw,34px) clamp(24px,2.4vw,52px);
+  pointer-events:none;
+}
+header .brand{
+  font-family:var(--font-mono);
+  font-size:clamp(16px,1.1vw,26px);
+  letter-spacing:.06em;text-transform:uppercase;
+}
+header .proto-tag{
+  font-family:var(--font-mono);
+  font-size:clamp(13px,.9vw,20px);
+  padding:.4em .9em;border:3px solid var(--black);border-radius:999px;
+  background:var(--white);
+}
+.on-blue header .brand{color:var(--white);}
+.on-blue header .proto-tag{color:var(--white);border-color:var(--white);background:transparent;}
+
+/* ---------- кнопки ---------- */
+.btn{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(22px,1.6vw,36px);
+  min-height:120px;min-width:220px;
+  padding:0 clamp(36px,3vw,64px);
+  border:4px solid var(--black);border-radius:16px 16px 48px 16px;
+  background:var(--black);color:var(--white);
+  cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  touch-action:manipulation;
+}
+.btn.secondary{background:var(--white);color:var(--black);}
+.btn:disabled{opacity:.25;pointer-events:none;}
+.btn:active{transform:scale(.97);}
+
+.back{
+  position:fixed;left:clamp(24px,2.4vw,52px);bottom:clamp(24px,2.4vw,52px);z-index:6;
+  min-height:96px;min-width:180px;font-size:clamp(20px,1.3vw,30px);
+  border-radius:14px 14px 40px 14px;
+}
+
+/* ============================================================
+   ЭКРАН 1 — ATTRACT (синий фон: ярче против бликов, видно издалека)
+   ============================================================ */
+#s-attract{background:var(--blue);color:var(--white);align-items:center;justify-content:center;text-align:center;cursor:pointer;}
+#scatter{position:absolute;inset:0;overflow:hidden;}
+.shp{position:absolute;animation:jit var(--spd,1.4s) steps(2,end) infinite;}
+@keyframes jit{
+  0%,100%{transform:translate(0,0);}
+  50%{transform:translate(var(--dx,8px),var(--dy,8px));}
+}
+.shp.dot{border-radius:50%;}
+.shp.bar{}
+.shp.checker{
+  background:
+    linear-gradient(45deg,transparent 0,transparent 0),
+    conic-gradient(var(--black) 25%,var(--white) 0 50%,var(--black) 0 75%,var(--white) 0);
+}
+.shp.capsule{border-radius:999px;}
+#attract-inner{position:relative;z-index:2;max-width:82vw;}
+#attract-inner .eyebrow{
+  font-family:var(--font-mono);font-size:clamp(18px,1.3vw,30px);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.2em;
+}
+#attract-inner h1{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(58px,7vw,168px);line-height:.98;letter-spacing:-.01em;
+}
+#attract-inner p.sub{
+  font-size:clamp(22px,1.7vw,42px);max-width:60ch;margin:1.2em auto 0;
+}
+#tap-cta{
+  margin-top:3em;display:inline-flex;align-items:center;gap:.6em;
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(26px,2vw,48px);
+  background:var(--black);color:var(--white);
+  padding:.7em 1.4em;border-radius:16px 16px 48px 16px;
+  animation:pulse 1s steps(2,end) infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.04);}}
+
+/* ============================================================
+   ОБЩЕЕ ДЛЯ ВНУТРЕННИХ ЭКРАНОВ (белый фон против бликов)
+   ============================================================ */
+.inner{background:var(--white);align-items:center;justify-content:center;padding:clamp(90px,8vh,140px) 4vw;}
+.inner h2{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(40px,4.2vw,96px);line-height:1;text-align:center;
+  margin-bottom:.35em;
+}
+.inner .hint{
+  font-size:clamp(20px,1.5vw,36px);text-align:center;color:var(--black);
+  margin-bottom:clamp(30px,3.4vh,60px);
+}
+
+/* карточка-«деталь» */
+.detail{
+  position:relative;background:var(--white);
+  border:4px solid var(--black);
+  border-radius:16px 16px 72px 16px;
+  padding:clamp(28px,2.4vw,56px);
+  cursor:pointer;touch-action:manipulation;
+  text-align:left;
+}
+.detail:active{transform:scale(.98);}
+.detail .hole{
+  position:absolute;width:18px;height:18px;border-radius:50%;
+  border:4px solid var(--black);background:var(--white);
+}
+.detail .hole.h1{top:14px;left:14px;}
+.detail .hole.h2{top:14px;right:14px;}
+.detail .hole.h3{bottom:14px;left:14px;}
+.detail h3{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(28px,2.2vw,52px);line-height:1.05;margin-bottom:.4em;
+}
+.detail p{font-size:clamp(18px,1.3vw,30px);line-height:1.3;}
+.detail .tag{
+  display:inline-block;margin-top:1em;
+  font-family:var(--font-mono);font-size:clamp(14px,1vw,22px);
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.35em .8em;border:3px solid var(--black);border-radius:999px;
+}
+.detail.accent{background:var(--beige);}
+.detail.primary{background:var(--blue);border-color:var(--black);color:var(--white);}
+.detail.primary .hole{border-color:var(--white);background:transparent;}
+.detail.primary .tag{border-color:var(--white);}
+
+.card-row{display:flex;gap:clamp(24px,2.4vw,56px);justify-content:center;flex-wrap:wrap;}
+.card-row .detail{flex:0 1 clamp(340px,26vw,560px);min-height:clamp(220px,24vh,340px);}
+
+/* ============================================================
+   ЭКРАН СБОРКИ
+   ============================================================ */
+#s-build{justify-content:flex-start;padding-top:clamp(90px,9vh,150px);}
+#task-strip{
+  text-align:center;margin-bottom:clamp(10px,1.5vh,26px);
+}
+#task-strip .t-name{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(30px,2.6vw,60px);
+}
+#task-strip .t-desc{font-size:clamp(18px,1.3vw,30px);max-width:70ch;margin:.3em auto 0;}
+
+/* цепочка: слот — линия — слот — … — лампочка */
+#chain{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  gap:0;margin:clamp(24px,4vh,64px) auto;
+  min-height:clamp(170px,22vh,270px);
+}
+.slot{
+  position:relative;
+  width:clamp(190px,14vw,300px);height:clamp(140px,18vh,220px);
+  border:4px dashed var(--black);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--white);
+}
+.slot .role{
+  position:absolute;bottom:-2.2em;left:0;right:0;text-align:center;
+  font-family:var(--font-mono);font-size:clamp(13px,.95vw,22px);
+  letter-spacing:.1em;text-transform:uppercase;color:var(--black);
+}
+.slot .corner{position:absolute;width:12px;height:12px;border-radius:50%;border:3px solid var(--black);}
+.slot .corner.c1{top:8px;left:8px;} .slot .corner.c2{top:8px;right:8px;}
+.slot .corner.c3{bottom:8px;left:8px;} .slot .corner.c4{bottom:8px;right:8px;}
+.slot.filled{border-style:solid;}
+.slot.bad{border-color:var(--err);animation:blink .5s steps(2,end) 3;}
+@keyframes blink{50%{border-color:var(--black);}}
+.slot .chip{
+  width:88%;height:74%;
+  background:var(--blue);color:var(--white);
+  border-radius:10px 10px 32px 10px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:var(--font-mono);font-size:clamp(16px,1.15vw,28px);
+  letter-spacing:.05em;text-transform:uppercase;line-height:1.2;
+  padding:0 .5em;position:relative;
+  animation:snap .08s steps(2,end) both;
+  cursor:pointer;
+}
+.slot.bad .chip{background:var(--err);}
+@keyframes snap{0%{transform:scale(1.06);}100%{transform:scale(1);}}
+.chip .dot{position:absolute;top:8px;left:8px;width:10px;height:10px;border-radius:50%;background:var(--white);}
+
+.link{
+  position:relative;width:clamp(44px,4vw,100px);height:6px;background:var(--black);
+  flex:0 0 auto;
+}
+.link::before,.link::after{
+  content:'';position:absolute;top:50%;width:16px;height:16px;border-radius:50%;
+  background:var(--black);transform:translateY(-50%);
+}
+.link::before{left:-8px;} .link::after{right:-8px;}
+
+.lamp{
+  width:clamp(64px,5vw,100px);height:clamp(64px,5vw,100px);
+  border-radius:50%;border:5px solid var(--black);background:var(--white);
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  margin-left:0;
+}
+.lamp::after{content:'';width:26%;height:26%;border-radius:50%;background:var(--black);}
+.lamp.on{background:var(--lamp);}
+
+#pulse{
+  position:absolute;top:50%;width:22px;height:22px;background:var(--black);
+  transform:translate(-50%,-50%);display:none;z-index:3;
+}
+
+/* палитра сервисов */
+#palette{
+  display:flex;flex-wrap:wrap;gap:clamp(12px,1.1vw,24px);
+  justify-content:center;max-width:92vw;margin:clamp(30px,4vh,60px) auto 0;
+}
+.tile{
+  min-height:120px;min-width:clamp(200px,15vw,320px);
+  border:3px solid var(--black);border-radius:12px 12px 32px 12px;
+  background:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:clamp(16px,1.15vw,28px);
+  letter-spacing:.05em;text-transform:uppercase;
+  padding:0 1em;cursor:grab;touch-action:none;position:relative;
+}
+.tile .dot{position:absolute;top:8px;left:8px;width:10px;height:10px;border-radius:50%;border:3px solid var(--black);}
+.tile.used{opacity:.22;pointer-events:none;}
+.tile.dragging{opacity:.35;}
+#drag-ghost{
+  position:fixed;z-index:50;pointer-events:none;display:none;
+  border:3px solid var(--black);border-radius:12px 12px 32px 12px;
+  background:var(--beige);
+  font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em;
+  padding:1em 1.4em;font-size:clamp(16px,1.15vw,28px);
+}
+
+#build-actions{display:flex;justify-content:center;margin-top:clamp(24px,3.4vh,56px);}
+
+/* ---------- вердикт ---------- */
+#verdict{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  background:var(--white);border-top:6px solid var(--black);
+  padding:clamp(30px,4vh,64px) 6vw calc(clamp(30px,4vh,64px));
+  display:none;text-align:center;
+}
+#verdict.show{display:block;animation:cutIn .18s steps(2,end) both;}
+#verdict .v-title{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(44px,4.6vw,110px);line-height:1;min-height:1.1em;
+}
+#verdict .v-title .w{visibility:hidden;display:inline-block;margin-right:.28em;}
+#verdict .v-title .w.showw{visibility:visible;}
+#verdict .v-sub{font-size:clamp(20px,1.5vw,36px);margin-top:.6em;}
+#verdict .v-coin{
+  display:none;align-items:center;justify-content:center;gap:.6em;
+  font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;
+  font-size:clamp(16px,1.15vw,26px);margin-top:1em;
+}
+#verdict .v-coin::before{
+  content:'';width:1.4em;height:1.4em;border-radius:50%;
+  background:var(--beige);border:3px solid var(--black);
+}
+#verdict .v-actions{display:flex;gap:clamp(16px,1.6vw,36px);justify-content:center;margin-top:clamp(24px,3vh,48px);}
+
+/* ============================================================
+   ГОТОВЫЕ БАНДЛЫ (ветка B)
+   ============================================================ */
+#bundle-list{display:flex;flex-direction:column;gap:clamp(18px,2.2vh,36px);width:min(1100px,88vw);}
+#bundle-list .detail{border-radius:16px 16px 56px 16px;min-height:0;}
+#bundle-list .chain-txt{
+  font-family:var(--font-mono);font-size:clamp(18px,1.4vw,34px);
+  letter-spacing:.04em;text-transform:uppercase;
+}
+#bundle-list p{margin-top:.5em;}
+
+@media (prefers-reduced-motion: reduce){
+  .shp,#tap-cta{animation:none;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Yandex Cloud · Платформа данных</div>
+  <div class="proto-tag">Прототип · контент-заглушки</div>
+</header>
+
+<!-- ЭКРАН 1: ATTRACT -->
+<section class="screen active on-blue" id="s-attract">
+  <div id="scatter"></div>
+  <div id="attract-inner">
+    <div class="eyebrow cut">Scale 2026 · Интерактив</div>
+    <h1 class="cut">Собери свой<br>идеальный бандл</h1>
+    <p class="sub cut">Реальные задачи бизнеса решаются связками сервисов.<br>Проверь, соберёшь ли ты рабочую схему.</p>
+    <div id="tap-cta">Коснитесь экрана</div>
+  </div>
+</section>
+
+<!-- ЭКРАН 2: ВЫБОР РЕЖИМА -->
+<section class="screen inner" id="s-mode">
+  <h2 class="cut">Как будем собирать?</h2>
+  <p class="hint cut">Выберите режим</p>
+  <div class="card-row cut">
+    <div class="detail primary" data-mode="self">
+      <span class="hole h1"></span><span class="hole h2"></span><span class="hole h3"></span>
+      <h3>Собрать самому</h3>
+      <p>Перетащите сервисы в схему и запустите проверку. Для тех, кто в теме.</p>
+      <span class="tag">Drag &amp; drop</span>
+    </div>
+    <div class="detail" data-mode="ready">
+      <span class="hole h1"></span><span class="hole h2"></span><span class="hole h3"></span>
+      <h3>Выбрать готовый бандл</h3>
+      <p>Три готовых варианта решения — выберите тот, что сработает лучше всего.</p>
+      <span class="tag">Быстрый режим · монета</span>
+    </div>
+  </div>
+</section>
+
+<!-- ЭКРАН 3: ВЫБОР ЗАДАЧИ -->
+<section class="screen inner" id="s-tasks">
+  <h2 class="cut">Выберите задачу</h2>
+  <p class="hint cut">Тексты задач — заглушки, заменим после ревью архитекторов</p>
+  <div class="card-row cut" id="task-cards"></div>
+  <button class="btn secondary back" data-go="s-mode">← Назад</button>
+</section>
+
+<!-- ЭКРАН 4: СБОРКА -->
+<section class="screen inner" id="s-build">
+  <div id="task-strip" class="cut">
+    <div class="t-name"></div>
+    <div class="t-desc"></div>
+  </div>
+  <div id="chain" class="cut"></div>
+  <div id="palette" class="cut"></div>
+  <div id="build-actions">
+    <button class="btn" id="check-btn" disabled>Проверить</button>
+  </div>
+  <button class="btn secondary back" data-go="s-tasks">← Назад</button>
+</section>
+
+<!-- ЭКРАН 5: ГОТОВЫЕ БАНДЛЫ -->
+<section class="screen inner" id="s-bundles">
+  <h2 class="cut">Какая связка решит задачу лучше?</h2>
+  <p class="hint cut" id="bundle-task-name"></p>
+  <div id="bundle-list" class="cut"></div>
+  <button class="btn secondary back" data-go="s-tasks">← Назад</button>
+</section>
+
+<!-- ВЕРДИКТ -->
+<div id="verdict">
+  <div class="v-title"></div>
+  <div class="v-sub"></div>
+  <div class="v-coin">Покажите этот экран на стойке — заберите монету</div>
+  <div class="v-actions">
+    <button class="btn secondary" id="v-again">Ещё задачу</button>
+    <button class="btn" id="v-home">В начало</button>
+  </div>
+</div>
+
+<div id="drag-ghost"></div>
+
+<script>
+/* ============================================================
+   ДАННЫЕ — TODO: заменить на финальный контент от Яндекса
+   ============================================================ */
+const SERVICES = [
+  {id:'pg',   name:'PostgreSQL'},
+  {id:'my',   name:'MySQL'},
+  {id:'ch',   name:'ClickHouse'},
+  {id:'sd',   name:'StoreDoc'},
+  {id:'vk',   name:'Valkey'},
+  {id:'kafka',name:'Kafka'},
+  {id:'gp',   name:'Greenplum'},
+  {id:'os',   name:'OpenSearch'},
+  {id:'af',   name:'Airflow'},
+  {id:'sp',   name:'Spark'},
+  {id:'yt',   name:'YTsaurus'},
+  {id:'ydb',  name:'YDB'},
+  {id:'dl',   name:'DataLens'}
+];
+const S = Object.fromEntries(SERVICES.map(s=>[s.id,s]));
+
+const TASKS = [
+  {
+    id:'t1',
+    name:'Продажи в реальном времени',
+    desc:'Интернет-магазин хочет видеть выручку на дашборде с задержкой в секунды.',
+    roles:['Поток','Аналитика','Дашборд'],
+    ref:['kafka','ch','dl'],
+    bundles:[
+      {chain:['kafka','ch','dl'], grade:'best', note:'Классика реалтайм-аналитики.'},
+      {chain:['kafka','ydb','dl'], grade:'ok',   note:'Заработает, но агрегаты считать будет тяжело.'},
+      {chain:['pg','sp','os'],     grade:'miss', note:'Поиск тут ни при чём, а реалтайма не выйдет.'}
+    ]
+  },
+  {
+    id:'t2',
+    name:'Ночная отчётность',
+    desc:'Раз в сутки собрать данные из боевой базы и пересчитать витрины для отчётов.',
+    roles:['База','Оркестратор','DWH','Дашборд'],
+    ref:['pg','af','gp','dl'],
+    bundles:[
+      {chain:['pg','af','gp','dl'], grade:'best', note:'Оркестратор по расписанию гоняет данные в хранилище.'},
+      {chain:['pg','sp','ch','dl'], grade:'ok',   note:'Рабочий вариант, но без планировщика придётся туго.'},
+      {chain:['kafka','vk','dl'],   grade:'miss', note:'Кэш — не хранилище отчётов.'}
+    ]
+  },
+  {
+    id:'t3',
+    name:'Поиск и логи маркетплейса',
+    desc:'Полнотекстовый поиск по товарам и анализ логов приложений в одном контуре.',
+    roles:['Поток','Поиск','Дашборд'],
+    ref:['kafka','os','dl'],
+    bundles:[
+      {chain:['kafka','os','dl'],      grade:'best', note:'Логи текут потоком прямо в поисковый индекс.'},
+      {chain:['kafka','sp','os','dl'], grade:'ok',   note:'Сработает, но Spark здесь лишнее звено.'},
+      {chain:['my','gp','dl'],         grade:'miss', note:'Полнотекстового поиска здесь не будет.'}
+    ]
+  }
+];
+
+/* ============================================================
+   НАВИГАЦИЯ
+   ============================================================ */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => [...document.querySelectorAll(sel)];
+let state = {mode:null, task:null, slots:[], locked:false};
+
+function go(id){
+  hideVerdict();
+  $$('.screen').forEach(s=>s.classList.remove('active'));
+  $('#'+id).classList.add('active');
+  document.body.classList.toggle('is-blue', id==='s-attract');
+  // перезапуск катов
+  $$('#'+id+' .cut').forEach(el=>{el.style.animation='none';void el.offsetWidth;el.style.animation='';});
+}
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+
+/* ============================================================
+   ATTRACT: россыпь деталей (3-й уровень графики)
+   ============================================================ */
+(function scatter(){
+  const box = $('#scatter');
+  const colors = ['var(--black)','var(--white)','var(--beige)'];
+  const N = 46;
+  for(let i=0;i<N;i++){
+    const el=document.createElement('div');
+    el.className='shp';
+    const t=Math.random();
+    const c=colors[Math.floor(Math.random()*colors.length)];
+    const sz=18+Math.random()*46;
+    if(t<0.4){el.classList.add('dot');el.style.width=el.style.height=sz+'px';el.style.background=c;}
+    else if(t<0.65){el.classList.add('bar');el.style.width=(sz*2.6)+'px';el.style.height=(sz*0.5)+'px';el.style.background=c;}
+    else if(t<0.85){el.classList.add('capsule');el.style.width=(sz*2)+'px';el.style.height=sz+'px';el.style.background=c;}
+    else{el.classList.add('checker');el.style.width=el.style.height=(sz*1.4)+'px';}
+    el.style.left=(Math.random()*96)+'vw';
+    el.style.top=(Math.random()*96)+'vh';
+    const step=8+Math.random()*10;
+    el.style.setProperty('--dx',(Math.random()<.5?-1:1)*step+'px');
+    el.style.setProperty('--dy',(Math.random()<.5?-1:1)*step+'px');
+    el.style.setProperty('--spd',(1+Math.random()*1.6)+'s');
+    box.appendChild(el);
+  }
+})();
+$('#s-attract').addEventListener('click',()=>go('s-mode'));
+
+/* ============================================================
+   ВЫБОР РЕЖИМА И ЗАДАЧИ
+   ============================================================ */
+$$('#s-mode .detail').forEach(card=>{
+  card.addEventListener('click',()=>{
+    state.mode = card.dataset.mode;
+    renderTasks();
+    go('s-tasks');
+  });
+});
+
+function renderTasks(){
+  const box=$('#task-cards'); box.innerHTML='';
+  TASKS.forEach(t=>{
+    const d=document.createElement('div');
+    d.className='detail';
+    d.innerHTML=`<span class="hole h1"></span><span class="hole h2"></span><span class="hole h3"></span>
+      <h3>${t.name}</h3><p>${t.desc}</p>
+      <span class="tag">${t.ref.length} сервиса в связке</span>`;
+    d.addEventListener('click',()=>{
+      state.task=t;
+      if(state.mode==='ready'){renderBundles();go('s-bundles');}
+      else{renderBuild();go('s-build');}
+    });
+    box.appendChild(d);
+  });
+}
+
+/* ============================================================
+   ЭКРАН СБОРКИ
+   ============================================================ */
+function renderBuild(){
+  const t=state.task;
+  state.slots=new Array(t.ref.length).fill(null);
+  state.locked=false;
+  $('#s-build .t-name').textContent=t.name;
+  $('#s-build .t-desc').textContent=t.desc;
+
+  const chain=$('#chain'); chain.innerHTML='';
+  t.ref.forEach((_,i)=>{
+    const slot=document.createElement('div');
+    slot.className='slot'; slot.dataset.idx=i;
+    slot.innerHTML=`<span class="corner c1"></span><span class="corner c2"></span>
+      <span class="corner c3"></span><span class="corner c4"></span>
+      <span class="role">${t.roles[i]||''}</span>`;
+    slot.addEventListener('click',()=>{ if(!state.locked) unplace(i); });
+    chain.appendChild(slot);
+    const link=document.createElement('div'); link.className='link'; chain.appendChild(link);
+  });
+  const lamp=document.createElement('div'); lamp.className='lamp'; lamp.id='lamp'; chain.appendChild(lamp);
+  const pulse=document.createElement('div'); pulse.id='pulse'; chain.appendChild(pulse);
+
+  const pal=$('#palette'); pal.innerHTML='';
+  SERVICES.forEach(s=>{
+    const tile=document.createElement('div');
+    tile.className='tile'; tile.dataset.sid=s.id;
+    tile.innerHTML=`<span class="dot"></span>${s.name}`;
+    attachTile(tile);
+    pal.appendChild(tile);
+  });
+  updateCheck();
+}
+
+function place(sid, idx){
+  if(state.slots[idx]) unplace(idx);
+  state.slots[idx]=sid;
+  const slot=$$('#chain .slot')[idx];
+  slot.classList.add('filled');
+  const chip=document.createElement('div');
+  chip.className='chip'; chip.innerHTML=`<span class="dot"></span>${S[sid].name}`;
+  slot.appendChild(chip);
+  const tile=$(`.tile[data-sid="${sid}"]`); if(tile) tile.classList.add('used');
+  updateCheck();
+}
+function unplace(idx){
+  const sid=state.slots[idx]; if(!sid) return;
+  state.slots[idx]=null;
+  const slot=$$('#chain .slot')[idx];
+  slot.classList.remove('filled','bad');
+  const chip=slot.querySelector('.chip'); if(chip) chip.remove();
+  const tile=$(`.tile[data-sid="${sid}"]`); if(tile) tile.classList.remove('used');
+  updateCheck();
+}
+function firstEmpty(){ return state.slots.findIndex(v=>!v); }
+function updateCheck(){ $('#check-btn').disabled = state.slots.some(v=>!v) || state.locked; }
+
+/* тап = в первый свободный слот; драг = в конкретный слот */
+function attachTile(tile){
+  let startX=0,startY=0,dragging=false,pid=null;
+  const ghost=$('#drag-ghost');
+
+  tile.addEventListener('pointerdown',e=>{
+    if(state.locked||tile.classList.contains('used'))return;
+    pid=e.pointerId; startX=e.clientX; startY=e.clientY; dragging=false;
+    tile.setPointerCapture(pid);
+  });
+  tile.addEventListener('pointermove',e=>{
+    if(pid===null)return;
+    if(!dragging && Math.hypot(e.clientX-startX,e.clientY-startY)>10){
+      dragging=true;
+      tile.classList.add('dragging');
+      ghost.textContent=S[tile.dataset.sid].name;
+      ghost.style.display='block';
+    }
+    if(dragging){
+      ghost.style.left=e.clientX+'px';
+      ghost.style.top=e.clientY+'px';
+      ghost.style.transform='translate(-50%,-50%)';
+    }
+  });
+  tile.addEventListener('pointerup',e=>{
+    if(pid===null)return;
+    const sid=tile.dataset.sid;
+    if(dragging){
+      ghost.style.display='none';
+      tile.classList.remove('dragging');
+      const target=document.elementFromPoint(e.clientX,e.clientY);
+      const slot=target && target.closest('.slot');
+      if(slot) place(sid, +slot.dataset.idx);
+    }else{
+      const idx=firstEmpty();
+      if(idx>-1) place(sid, idx);
+    }
+    pid=null; dragging=false;
+  });
+  tile.addEventListener('pointercancel',()=>{
+    ghost.style.display='none'; tile.classList.remove('dragging'); pid=null; dragging=false;
+  });
+}
+
+/* ============================================================
+   ПРОВЕРКА: сигнал бежит по цепочке (лоу-фпс, дискретные шаги)
+   TODO: проверяем НАБОР без порядка — уточнить у Яндекса
+   ============================================================ */
+$('#check-btn').addEventListener('click',()=>{
+  if(state.locked)return;
+  state.locked=true; updateCheck();
+  const refSet=new Set(state.task.ref);
+  const wrongIdx=state.slots.map((sid,i)=>refSet.has(sid)?-1:i).filter(i=>i>-1);
+  runSignal(wrongIdx);
+});
+
+function centerX(el, within){
+  const a=el.getBoundingClientRect(), b=within.getBoundingClientRect();
+  return a.left - b.left + a.width/2;
+}
+function runSignal(wrongIdx){
+  const chain=$('#chain'), pulse=$('#pulse'), lamp=$('#lamp');
+  const slots=$$('#chain .slot');
+  const startX=centerX(slots[0],chain);
+  const okEnd=centerX(lamp,chain);
+  const failEnd=wrongIdx.length?centerX(slots[Math.min(...wrongIdx)],chain):okEnd;
+  const endX=wrongIdx.length?failEnd:okEnd;
+  let x=startX;
+  pulse.style.display='block';
+  pulse.style.left=x+'px';
+  const stepPx=Math.max(18,(okEnd-startX)/26);
+  const iv=setInterval(()=>{
+    x+=stepPx;                       /* ~12 fps, рублеными шагами */
+    if(x>=endX){
+      x=endX; pulse.style.left=x+'px';
+      clearInterval(iv);
+      finishSignal(wrongIdx);
+      return;
+    }
+    pulse.style.left=x+'px';
+  },1000/12);
+}
+function finishSignal(wrongIdx){
+  const pulse=$('#pulse'), lamp=$('#lamp');
+  if(wrongIdx.length){
+    wrongIdx.forEach(i=>$$('#chain .slot')[i].classList.add('bad'));
+    showVerdict({
+      title:'Почти!',
+      sub:'Сигнал застрял: лишние детали подсвечены. Попробуйте заменить их.',
+      coin:false, retry:true
+    });
+  }else{
+    setTimeout(()=>{
+      pulse.style.display='none';
+      lamp.classList.add('on');       /* лампочка #BFFF00 — один раз */
+      showVerdict({
+        title:'В точку!',
+        sub:'Схема заработала. Именно так эта задача решается в Yandex Cloud.',
+        coin:true, retry:false
+      });
+    },120);
+  }
+}
+
+/* ============================================================
+   ВЕТКА B: ГОТОВЫЕ БАНДЛЫ
+   ============================================================ */
+function renderBundles(){
+  const t=state.task;
+  $('#bundle-task-name').textContent=t.name+' — '+t.desc;
+  const box=$('#bundle-list'); box.innerHTML='';
+  t.bundles.forEach(b=>{
+    const d=document.createElement('div');
+    d.className='detail';
+    d.innerHTML=`<span class="hole h1"></span><span class="hole h2"></span>
+      <div class="chain-txt">${b.chain.map(id=>S[id].name).join(' → ')}</div>
+      <p>${b.note}</p>`;
+    d.addEventListener('click',()=>{
+      const map={
+        best:{title:'В точку!', sub:'Это эталонная связка для задачи.', coin:true},
+        ok:  {title:'Сойдёт',   sub:'Рабочий вариант — но есть связка точнее. '+refText(), coin:true},
+        miss:{title:'Мимо',     sub:'Эта связка задачу не решит. Эталон: '+refText(), coin:true}
+      };
+      showVerdict({...map[b.grade], retry:false});
+    });
+    box.appendChild(d);
+  });
+}
+function refText(){ return state.task.ref.map(id=>S[id].name).join(' → ')+'.'; }
+
+/* ============================================================
+   ВЕРДИКТ (заголовок появляется пословно, катами)
+   ============================================================ */
+function showVerdict({title,sub,coin,retry}){
+  const v=$('#verdict');
+  const tEl=v.querySelector('.v-title');
+  tEl.innerHTML=title.split(' ').map(w=>`<span class="w">${w}</span>`).join('');
+  v.querySelector('.v-sub').textContent=sub;
+  v.querySelector('.v-coin').style.display=coin?'flex':'none';
+  $('#v-again').textContent = retry ? 'Исправить' : 'Ещё задачу';
+  $('#v-again').onclick = ()=>{
+    if(retry){ state.locked=false; resetSignal(); hideVerdict(); updateCheck(); }
+    else { hideVerdict(); renderTasks(); go('s-tasks'); }
+  };
+  v.classList.add('show');
+  tEl.querySelectorAll('.w').forEach((w,i)=>{
+    setTimeout(()=>w.classList.add('showw'), 140+i*160);
+  });
+}
+function resetSignal(){
+  const p=$('#pulse'); if(p) p.style.display='none';
+  $$('#chain .slot.bad').forEach(s=>s.classList.remove('bad'));
+}
+function hideVerdict(){ $('#verdict').classList.remove('show'); }
+$('#v-home').addEventListener('click',()=>{ hideVerdict(); go('s-attract'); });
+
+/* киоск-режим: ?kiosk скрывает курсор */
+if(location.search.includes('kiosk')) document.body.classList.add('kiosk');
+</script>
+</body>
+</html>
