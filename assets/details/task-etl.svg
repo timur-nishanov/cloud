@@ -1,0 +1,21 @@
+<svg width="520" height="480" viewBox="0 0 520 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M460 40L0 40.0003L4.8707e-06 160L520 160L520 100C520 66.8629 493.137 40 460 40Z" fill="black"/>
+<path d="M60.0001 480L520 479.999L520 160L4.95396e-06 160L9.28868e-07 420C-1.17422e-06 453.137 26.863 480 60.0001 480Z" fill="#2A9FFF"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 80 120)" fill="#A5F898"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 400 120)" fill="#A5F898"/>
+<rect x="80" width="40" height="100" fill="#A5F898"/>
+<rect x="400" width="40" height="100" fill="#A5F898"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 160 260)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 240 260)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 320 260)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 400 260)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 80 340)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 160 340)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 240 340)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 320 340)" fill="#FFB3ED"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 400 340)" fill="#FFB3ED"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 80 420)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 160 420)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 240 420)" fill="white"/>
+<rect width="40" height="40" rx="20" transform="matrix(1 0 0 -1 320 420)" fill="white"/>
+</svg>
