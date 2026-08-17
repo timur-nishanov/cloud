@@ -1,0 +1,8 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 400V222.222L220.833 0H400V360C400 382.091 382.091 400 360 400H0Z" fill="#2A9FFF"/>
+<rect x="360" y="360" width="20" height="20" rx="10" transform="rotate(180 360 360)" fill="white"/>
+<rect x="60" y="360" width="20" height="20" rx="10" transform="rotate(180 60 360)" fill="white"/>
+<rect x="360" y="240" width="20" height="20" rx="10" transform="rotate(180 360 240)" fill="white"/>
+<rect x="360" y="80" width="40" height="40" rx="20" transform="rotate(180 360 80)" fill="white"/>
+<rect x="360" y="300" width="20" height="20" rx="10" transform="rotate(180 360 300)" fill="white"/>
+</svg>

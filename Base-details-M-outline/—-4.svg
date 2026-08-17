@@ -1,0 +1,6 @@
+<svg width="440" height="400" viewBox="0 0 440 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 400H360C382.091 400 400 382.091 400 360V200H440V180C440 80.5887 359.411 0 260 0H0V400Z" fill="#2A9FFF"/>
+<rect x="50" y="350" width="20" height="20" rx="10" transform="rotate(90 50 350)" fill="white"/>
+<rect x="50" y="30" width="20" height="20" rx="10" transform="rotate(90 50 30)" fill="white"/>
+<path d="M80 370C74.4772 370 70 365.523 70 360C70 354.477 74.4772 350 80 350L350 350C355.523 350 360 354.477 360 360C360 365.523 355.523 370 350 370L80 370Z" fill="white"/>
+</svg>
